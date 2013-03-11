@@ -13,11 +13,17 @@ Compiling
 
 I use ant as the build system.
 Just do
+
     ant
+
 to compile the source.
+
     ant jar
+
 Will package it all up, and
+
     ant run
+
 whould compile, package, and run the thing.
 
 

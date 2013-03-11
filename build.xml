@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!-- Game Build Script -->
 
-<project name="skgl" default="build" basedir=".">
+<project name="cabbagegl" default="build" basedir=".">
    <property name="srcdir" value="src"/>
    <property name="bindir" value="bin"/>
    <property name="distdir" value="jar"/>
-   <property name="distname" value="skgl"/>
+   <property name="distname" value="cabbagegl"/>
 
    <property name="main-class" value="Test"/>
 
