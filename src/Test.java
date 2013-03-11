@@ -9,21 +9,44 @@ public class Test {
         myScene.ambient = sceneAmb;
 
         Vector3 colora = new Vector3(1.0, 0, 0);
-        Material mata = new Material(colora, colora, colora);
+        Vector3 speca = new Vector3(.75, .75, .75);
+        Material mata = new Material(colora, speca, colora);
 
-        Vector3 colorb = new Vector3(0, 0, 1.0);
+        Vector3 colorb = new Vector3(0.0, 1.0, 0.0);
         Material matb = new Material(colorb, colorb, colorb);
 
-        Vector3 colorc = new Vector3(0, 1.0, 0);
-        Material matc = new Material(colorc, colorc, colorc);
+        Vector3 colorc = new Vector3(0, 0, .7);
+        Vector3 specc = new Vector3(.75,.75,.75);
+        Vector3 diffc = new Vector3(.9,.9,.9);
+        Material matc = new Material(colorc, Vector3.ZERO, diffc);
 
-        Sphere a = new Sphere(new Vector3(0,0,-5), 2, mata);
+        Sphere a = new Sphere(new Vector3(-3,1.5,-7), 2, mata);
         myScene.renderables.add(a);
 
-        Plane b = new Plane(new Vector3(0,-.5,-5), new Vector3(0,1,.2), matc);
+        Material mats2 = new Material(colora, speca, diffc, 6);
+        Sphere s2 = new Sphere(new Vector3(1.1,.7,-6), 1.5, mats2);
+        myScene.renderables.add(s2);
+
+        Plane b = new Plane(new Vector3(0,-2,-5), new Vector3(0,1,.2), matc);
         myScene.renderables.add(b);
 
-        Light lighta = new Light(new Vector3(4,4,4), new Vector3(-2, 3, -3.3));
+        Material p2Mat = new Material(colorb, Vector3.ZERO, diffc);
+        Material p3Mat = new Material(new Vector3(.3,.3,.3), Vector3.ZERO, diffc);
+
+        Plane p2 = new Plane(new Vector3(-8,0,-5), new Vector3(1,0,.2),p2Mat);
+        myScene.renderables.add(p2);
+
+        Plane p3 = new Plane(new Vector3(0,0,-10), new Vector3(0,0,1),p3Mat);
+        myScene.renderables.add(p3);
+
+
+        Material p4Mat = new Material(new Vector3(.7,.7,0), Vector3.ZERO, diffc);
+        Plane p4 = new Plane(new Vector3(0,0,10), new Vector3(0,0,-1), p4Mat);
+        myScene.renderables.add(p4);
+
+        Light lighta = new Light(new Vector3(6,6,6), new Vector3(1,1,1),
+            new Vector3(4, 4, 0));
+        //   new Vector3(-2, 3, -3.3));
         myScene.lights.add(lighta);
 
         // Setup the view volume
@@ -42,9 +65,10 @@ public class Test {
 
        // Test render
        RenderOptions options = new RenderOptions();
-       options.AA_samples = 1;
+       options.AA_samples = 8;
        options.width = 1920;
        options.height = 1080;
+       options.max_recurse = 10;
        BufferedImage rscene = myCam.renderScene(myScene, options);
 
        // output the image

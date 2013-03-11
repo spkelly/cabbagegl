@@ -36,11 +36,24 @@ public class Vector3 {
 
     public Vector3 normalize() {
         if (!n_calc) {
-            double l = len();
-            normalized = new Vector3(x/l, y/l, z/l);
+            double denom = invSqrt(x*x + y*y + z*z);
+            normalized = scale(denom);
             n_calc = true;
+            normalized.normalized = normalized;
+            normalized.n_calc = true;
+            normalized.l = 1.0;
+            normalized.l_calc = true;
         }
         return normalized;
+    }
+
+    private static double invSqrt(double x) {
+       double xhalf = 0.5d*x;
+       long i = Double.doubleToLongBits(x);
+       i = 0x5fe6ec85e7de30daL - (i>>1);
+       x = Double.longBitsToDouble(i);
+       x = x*(1.5d - xhalf*x*x);
+       return x;
     }
 
     public Vector3 sum(Vector3 b) {
@@ -77,6 +90,14 @@ public class Vector3 {
        return new Vector3(nx, ny, nz);
     }
 
+    public Vector3 reflect(Vector3 normal) {
+       // u - 2 udotn * n
+       // u is incoming vec (this)
+       double twoudotn = 2 * dot(normal);
+       Vector3 nscaled = normal.scale(twoudotn);
+       return diff(nscaled);
+    }
+
     public String toString() {
         return "{" + x + ", " + y + ", " + z + "}";
     }
@@ -92,4 +113,10 @@ public class Vector3 {
     public double Z() {
        return z;
     }
+
+    public boolean equals(Vector3 o) {
+       return x == o.x && y == o.y && z == o.z;
+    }
+
+
 }

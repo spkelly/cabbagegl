@@ -147,7 +147,7 @@ public class Camera {
         // trace our new ray through the scene to get the color of this pixel
         if (roptions.AA_samples == 1) {
            Ray toTrace = new Ray(eye, pixelDir);
-           toUse = toTrace.trace(s, mindist, maxdist);
+           toUse = toTrace.trace(s, mindist, maxdist, roptions.max_recurse);
         } else {
            for(int itr = 0; itr < roptions.AA_samples; itr++) {
               // Jitter the viewpoint
@@ -158,7 +158,8 @@ public class Camera {
                   .sum(view);
               Vector3 pixDir = nP.diff(eye).normalize();
               Ray toTrace = new Ray(eye, pixDir);
-              toUse = toUse.sum(toTrace.trace(s, mindist, maxdist));
+              toUse = toUse.sum(toTrace.trace(s, mindist, maxdist,
+                 roptions.max_recurse));
            }
            toUse = toUse.scale(1.0/roptions.AA_samples);
         }

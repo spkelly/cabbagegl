@@ -24,7 +24,7 @@ Will package it all up, and
 
     ant run
 
-whould compile, package, and run the thing.
+would compile, package, and run the thing.
 
 
 Notes

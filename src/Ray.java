@@ -18,19 +18,23 @@ public class Ray {
         return dir;
     }
 
-    public Vector3 trace(Scene s, double mindist, double maxdist) {
-       return trace(s, mindist, maxdist, 0);
+    public Vector3 trace(Scene s, double mindist, double maxdist, int mxdpth) {
+       return trace(s, mindist, maxdist, 0, 0, mxdpth, null);
     }
 
     // Compute color of ray fired through scene. ignore objects that are hit
     // that are closer to the viewer than mindist or further than maxdist
-    private Vector3 trace(Scene s, double mindist, double maxdist, double sofar) {
+    private Vector3 trace(Scene s, double mindist, double maxdist, double sofar,
+         int depth, int maxdepth, Shape ignore) {
        Vector3 retColor = Vector3.ZERO;
 
        // Find the closest hitpoint
        HitData allHitpoints = getAllHitpoints(s, mindist, maxdist);
+       HitPoint closest = null;
        if (!allHitpoints.isEmpty()) {
-         HitPoint closest = findClosestHitpoint(allHitpoints);
+         closest = findClosestHPointsExclude(allHitpoints, ignore);
+       }
+       if (closest != null) {
          sofar += closest.getDistTo();
 
          Vector3 hitPos = closest.getHitpoint();
@@ -45,11 +49,29 @@ public class Ray {
          retColor = matC.cmul(ambient);
 
          // Compute diffuse contribution
-         Vector3 diff = diffuseLighting(s, closest);
-         retColor = retColor.sum(diff);
+         Vector3 illum = computeIllumination(s, closest);
+         retColor = retColor.sum(illum);
 
          // Scale the resulting color using the dist travelled so far
          retColor = retColor.scale(1.0/sofar);
+         
+         Vector3 matSpec = mat.getSpecular();
+         if (!(matSpec.equals(Vector3.ZERO)) && depth < maxdepth) {
+            depth++;
+
+            // Calculate reflection vector
+            Vector3 u = dir.normalize();
+            Vector3 n = closest.getNormal().normalize();
+            Vector3 refdir = u.reflect(n);
+
+            // Get the color of reflected objects
+            Ray refRay = new Ray(hitPos, refdir);
+            Vector3 refColor = refRay.trace(s, 0, maxdist, sofar, depth,
+               maxdepth, hitShape);
+            
+            Vector3 specular = matSpec.cmul(refColor);
+            retColor = retColor.sum(specular);
+         }
        }
 
 
@@ -94,11 +116,10 @@ public class Ray {
        return ret;
     }
 
-    private Vector3 diffuseLighting(Scene s, HitPoint hp) {
-       Vector3 diffuseAdded = Vector3.ZERO;
+    private Vector3 computeIllumination(Scene s, HitPoint hp) {
+       Vector3 illumAdded = Vector3.ZERO;
        for (Light l : s.lights)
-          diffuseAdded = diffuseAdded.sum(l.computeDiffuse(s, hp));
-       return diffuseAdded;
+          illumAdded = illumAdded.sum(l.computeIllumination(s, hp));
+       return illumAdded;
     }
-
 }
