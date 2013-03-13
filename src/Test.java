@@ -5,33 +5,35 @@ import javax.imageio.ImageIO;
 public class Test {
     public static void main(String[] args) {
         Scene myScene = new Scene();
-        Vector3 sceneAmb = new Vector3(2, 2, 2);
+        Vector3 sceneAmb = new Vector3(3, 3, 3);
         myScene.ambient = sceneAmb;
 
         Vector3 colora = new Vector3(1.0, 0, 0);
         Vector3 speca = new Vector3(.75, .75, .75);
-        Material mata = new Material(colora, speca, colora);
-
+        Vector3 diffc = new Vector3(.9,.9,.9);
+        Material mata = new Material(colora, speca, colora, 8);
         Vector3 colorb = new Vector3(0.0, 1.0, 0.0);
         Material matb = new Material(colorb, colorb, colorb);
 
         Vector3 colorc = new Vector3(0, 0, .7);
         Vector3 specc = new Vector3(.75,.75,.75);
-        Vector3 diffc = new Vector3(.9,.9,.9);
         Material matc = new Material(colorc, Vector3.ZERO, diffc);
 
         Sphere a = new Sphere(new Vector3(-3,1.5,-7), 2, mata);
         myScene.renderables.add(a);
 
-        Material mats2 = new Material(colora, speca, diffc, 6);
+        Vector3 mats2Col = new Vector3(0,0, .75);
+        Material mats2 = new Material(mats2Col, speca, diffc,4);
+
         Sphere s2 = new Sphere(new Vector3(1.1,.7,-6), 1.5, mats2);
         myScene.renderables.add(s2);
+
 
         Plane b = new Plane(new Vector3(0,-2,-5), new Vector3(0,1,.2), matc);
         myScene.renderables.add(b);
 
-        Material p2Mat = new Material(colorb, Vector3.ZERO, diffc);
-        Material p3Mat = new Material(new Vector3(.3,.3,.3), Vector3.ZERO, diffc);
+        Material p2Mat = new Material(colorb, Vector3.ZERO, colorb);
+        Material p3Mat = new Material(new Vector3(.3,.3,.3), Vector3.ZERO, new Vector3(.3,.3,.3));
 
         Plane p2 = new Plane(new Vector3(-8,0,-5), new Vector3(1,0,.2),p2Mat);
         myScene.renderables.add(p2);
@@ -40,14 +42,21 @@ public class Test {
         myScene.renderables.add(p3);
 
 
-        Material p4Mat = new Material(new Vector3(.7,.7,0), Vector3.ZERO, diffc);
+        Material p4Mat = new Material(new Vector3(.7,.7,0), Vector3.ZERO, new Vector3(.7,.7,0));
         Plane p4 = new Plane(new Vector3(0,0,10), new Vector3(0,0,-1), p4Mat);
         myScene.renderables.add(p4);
 
-        Light lighta = new Light(new Vector3(6,6,6), new Vector3(1,1,1),
-            new Vector3(4, 4, 0));
-        //   new Vector3(-2, 3, -3.3));
+
+        double c_a = 1.0;
+        double l_a = .045;
+        double q_a = .0075;
+        Light lighta = new Light(new Vector3(5,5,5), new Vector3(1,1,1),
+            new Vector3(3, 2, 2), new Vector3(c_a, l_a, q_a));
         myScene.lights.add(lighta);
+        Light lightb = new Light(new Vector3(5,5,5), new Vector3(1,1,1),
+            new Vector3(-2, 3, 3), new Vector3(c_a, l_a, q_a));
+        myScene.lights.add(lightb);
+
 
         // Setup the view volume
         Camera myCam = new Camera();
@@ -61,15 +70,34 @@ public class Test {
        double znear  = 5.0;
        double zfar   = 100.0;
        myCam.perspective(fov, aspect, znear, zfar);
+       myCam.cel_shaded = false;
 
 
        // Test render
        RenderOptions options = new RenderOptions();
-       options.AA_samples = 8;
+       options.AA_samples = 4;
        options.width = 1920;
        options.height = 1080;
        options.max_recurse = 10;
+
+       long startTime = System.currentTimeMillis();
+
        BufferedImage rscene = myCam.renderScene(myScene, options);
+       long endTime = System.currentTimeMillis();
+
+       long millis = endTime - startTime;
+       long seconds = millis / 1000;
+       millis = millis % 1000;
+       long minutes = seconds / 60;
+       seconds = seconds % 60;
+       System.out.println("Render completed.");
+       System.out.println("Render time: " + minutes + " min " + seconds + " sec " +
+          millis + " millis");
+       System.out.println("Resolution: " + options.width + " by " + options.height);
+       System.out.println(options.AA_samples + "x Antialiasing.");
+
+
+
 
        // output the image
        try {

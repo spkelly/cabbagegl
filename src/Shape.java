@@ -7,7 +7,7 @@ public abstract class Shape {
     }
 
     public abstract HitData hitBy(Ray r);
-    public abstract Material materialPropsAt(Vector3 ray);
+    public abstract Material materialPropsAt(Vector3 ray, FaceSide fs);
 
     public Material getMaterial() {
        return mat;

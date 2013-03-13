@@ -5,6 +5,8 @@ public class Scene {
     public List<Light> lights;
     public Vector3 ambient;
 
+    public boolean cel_shaded;
+
     public Scene() {
         renderables = new LinkedList<Shape>();
         lights = new LinkedList<Light>();

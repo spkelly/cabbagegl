@@ -54,6 +54,7 @@ public class Ray {
 
          // Scale the resulting color using the dist travelled so far
          retColor = retColor.scale(1.0/sofar);
+
          
          Vector3 matSpec = mat.getSpecular();
          if (!(matSpec.equals(Vector3.ZERO)) && depth < maxdepth) {
@@ -73,7 +74,6 @@ public class Ray {
             retColor = retColor.sum(specular);
          }
        }
-
 
        retColor = retColor.clamp(0.0, 1.0);
        return retColor;
@@ -121,5 +121,72 @@ public class Ray {
        for (Light l : s.lights)
           illumAdded = illumAdded.sum(l.computeIllumination(s, hp));
        return illumAdded;
+    }
+
+
+    public Vector3 cellShadedTrace(Scene s, double mindist, double maxdist) {
+       return ctrace(s, mindist, maxdist, 0);
+    }
+
+    // Compute color of ray fired through scene. ignore objects that are hit
+    // that are closer to the viewer than mindist or further than maxdist
+    private Vector3 ctrace(Scene s, double mindist, double maxdist, double sofar) {
+       Vector3 retColor = Vector3.ZERO;
+
+       // Find the closest hitpoint
+       HitData allHitpoints = getAllHitpoints(s, mindist, maxdist);
+       HitPoint closest = null;
+       if (!allHitpoints.isEmpty()) {
+         closest = findClosestHPointsExclude(allHitpoints, null);
+       }
+       if (closest != null) {
+         sofar += closest.getDistTo();
+
+         Vector3 hitPos = closest.getHitpoint();
+         Shape hitShape = closest.getHitShape();
+
+         Material mat = hitShape.getMaterial();
+
+         Vector3 matC = mat.getColor();
+         Vector3 ambient = s.ambient;
+
+         // Compute ambient contribution
+         retColor = matC.cmul(ambient);
+
+         // Compute diffuse contribution
+         // Lighting is weird in this case
+         Vector3 totalDiff = Vector3.ZERO;
+         double diffFracs = 0;
+         Vector3 totalSpec = Vector3.ZERO;
+         Double distToLight;
+         double attenuation;
+         for (Light i : s.lights) {
+            if ((distToLight = i.distFromLight(s, closest)) != null) {
+               attenuation = i.computeAttenuation(s, closest);
+               diffFracs += i.diffScaleAtPoint(closest) * attenuation;
+               Vector3 ls = i.computeSpecular(s, closest).scale(attenuation);
+               totalSpec = totalSpec.sum(ls);
+            }
+         }
+
+         if (diffFracs < 0) diffFracs = 0;
+         if (diffFracs > 1) diffFracs = 1;
+
+         double grayVals[] = {0, .5, 1.0};
+
+         int g_ndx = (int) (grayVals.length * diffFracs);
+         if (g_ndx == grayVals.length) g_ndx--;
+         double g_val = grayVals[g_ndx];
+         Vector3 gray = new Vector3(g_val, g_val, g_val);
+
+         Vector3 diffIllum = mat.getDiffuse().cmul(gray);
+         retColor = retColor.sum(diffIllum);
+
+         // Scale the resulting color using the dist travelled so far
+         retColor = retColor.scale(1.0/sofar);
+       }
+
+       retColor = retColor.clamp(0.0, 1.0);
+       return retColor;
     }
 }

@@ -21,15 +21,27 @@ class Plane extends Shape {
            double t = (normal.dot(point) - normal.dot(base)) / normal.dot(dir);
            if (t > 0) {
               Vector3 hitpoint = dir.scale(t).sum(base);
+              Vector3 retNorm = normal;
               hd = new HitData();
-              hd.addHitpoint(new HitPoint(hitpoint, normal, t, this));
+
+
+              // Determine if hitpoint is on front or back of plane
+              Vector3 negDir = dir.scale(-1);
+              FaceSide side = FaceSide.FRONT;
+              if (negDir.dot(normal) < 0) {
+                 side = FaceSide.BACK;
+                 retNorm = normal.scale(-1.0);
+              }
+
+              retNorm = retNorm.normalize();
+              hd.addHitpoint(new HitPoint(hitpoint, retNorm, t, this, side));
            }
         }
 
         return hd;
     }
 
-    public Material materialPropsAt(Vector3 ray) {
+    public Material materialPropsAt(Vector3 ray, FaceSide fs) {
         return mat;
     }
 }

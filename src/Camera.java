@@ -24,9 +24,12 @@ public class Camera {
     private static final double DEFAULT_ZNEAR = 0.1;
     private static final double DEFAULT_ZFAR = 20.0;
 
+    public boolean cel_shaded; // wat
+
     public Camera() {
         lookAt(DEFAULT_EYE, DEFAULT_VIEW, DEFAULT_UP);
         perspective(DEFAULT_FOV, DEFAULT_ASPECT, DEFAULT_ZNEAR, DEFAULT_ZFAR);
+        cel_shaded = false;
     }
 
 
@@ -147,7 +150,10 @@ public class Camera {
         // trace our new ray through the scene to get the color of this pixel
         if (roptions.AA_samples == 1) {
            Ray toTrace = new Ray(eye, pixelDir);
+           if (!cel_shaded)
            toUse = toTrace.trace(s, mindist, maxdist, roptions.max_recurse);
+           else
+           toUse = toTrace.cellShadedTrace(s, mindist, maxdist);
         } else {
            for(int itr = 0; itr < roptions.AA_samples; itr++) {
               // Jitter the viewpoint
@@ -158,8 +164,11 @@ public class Camera {
                   .sum(view);
               Vector3 pixDir = nP.diff(eye).normalize();
               Ray toTrace = new Ray(eye, pixDir);
+              if(!cel_shaded)
               toUse = toUse.sum(toTrace.trace(s, mindist, maxdist,
                  roptions.max_recurse));
+              else
+              toUse = toUse.sum(toTrace.cellShadedTrace(s, mindist, maxdist));
            }
            toUse = toUse.scale(1.0/roptions.AA_samples);
         }

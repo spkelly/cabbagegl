@@ -29,18 +29,18 @@ public class Sphere extends Shape {
           double t2 = (-b - Math.sqrt(disc)) / (2*a);
 
           Vector3 hit1 = base.sum(dir.scale(t1));
-          Vector3 norm1 = hit1.diff(center);
+          Vector3 norm1 = hit1.diff(center).scale(-1).normalize();
           Vector3 hit2 = base.sum(dir.scale(t2));
-          Vector3 norm2 = hit2.diff(center);
-
-          hd.addHitpoint(new HitPoint(hit1, norm1, t1, this));
-          hd.addHitpoint(new HitPoint(hit2, norm2, t2, this));
+          Vector3 norm2 = hit2.diff(center).normalize();
+          
+          hd.addHitpoint(new HitPoint(hit1, norm1, t1, this, FaceSide.BACK));
+          hd.addHitpoint(new HitPoint(hit2, norm2, t2, this, FaceSide.FRONT));
        }
 
        return hd;
     }
 
-    public Material materialPropsAt(Vector3 ray) {
+    public Material materialPropsAt(Vector3 ray, FaceSide fs) {
         return mat;
     }
 }

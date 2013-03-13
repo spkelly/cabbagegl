@@ -3,8 +3,10 @@ public class HitPoint implements Comparable<HitPoint> {
    private Vector3 normal;
    private double distTo;
    private Shape hitShape;
+   private FaceSide face;
 
-   public HitPoint(Vector3 ih, Vector3 in, double dist, Shape iHS) {
+   public HitPoint(Vector3 ih, Vector3 in, double dist, Shape iHS,
+         FaceSide sideHit) {
       hitpoint = ih;
       normal = in;
       distTo = dist;
@@ -31,5 +33,9 @@ public class HitPoint implements Comparable<HitPoint> {
 
    public Shape getHitShape() {
       return hitShape;
+   }
+
+   public FaceSide getSideHit() {
+      return face;
    }
 }
