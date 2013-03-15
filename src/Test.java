@@ -5,13 +5,14 @@ import javax.imageio.ImageIO;
 public class Test {
     public static void main(String[] args) {
         Scene myScene = new Scene();
-        Vector3 sceneAmb = new Vector3(3, 3, 3);
+        Vector3 sceneAmb = new Vector3(2, 2, 2);
         myScene.ambient = sceneAmb;
 
-        Vector3 colora = new Vector3(1.0, 0, 0);
-        Vector3 speca = new Vector3(.75, .75, .75);
+        Vector3 colora = new Vector3(0, 0, .8);
+        Vector3 diffa = new Vector3(.7,.7,.7);
+        Vector3 speca = new Vector3(.2, .2, .2);
         Vector3 diffc = new Vector3(.9,.9,.9);
-        Material mata = new Material(colora, speca, colora, 8);
+        Material mata = new Material(colora, speca, diffa, 8, .7, 1.333);
         Vector3 colorb = new Vector3(0.0, 1.0, 0.0);
         Material matb = new Material(colorb, colorb, colorb);
 
@@ -19,13 +20,14 @@ public class Test {
         Vector3 specc = new Vector3(.75,.75,.75);
         Material matc = new Material(colorc, Vector3.ZERO, diffc);
 
-        Sphere a = new Sphere(new Vector3(-3,1.5,-7), 2, mata);
+        Sphere a = new Sphere(new Vector3(-7,1.5,-7), 2, mata);
         myScene.renderables.add(a);
 
-        Vector3 mats2Col = new Vector3(0,0, .75);
-        Material mats2 = new Material(mats2Col, speca, diffc,4);
+        Vector3 mats2Spec = new Vector3(.5, .5, .5);
+        Vector3 mats2Col = new Vector3(.882, .929, .812);
+        Material mats2 = new Material(mats2Col, mats2Spec, diffc, 2, .4, 1.00045);
 
-        Sphere s2 = new Sphere(new Vector3(1.1,.7,-6), 1.5, mats2);
+        Sphere s2 = new Sphere(new Vector3(1.1,-1.5,-6), 1.5, mats2);
         myScene.renderables.add(s2);
 
 
@@ -33,7 +35,7 @@ public class Test {
         myScene.renderables.add(b);
 
         Material p2Mat = new Material(colorb, Vector3.ZERO, colorb);
-        Material p3Mat = new Material(new Vector3(.3,.3,.3), Vector3.ZERO, new Vector3(.3,.3,.3));
+        Material p3Mat = new Material(new Vector3(1,1,.6), Vector3.ZERO, new Vector3(1,1,.6));
 
         Plane p2 = new Plane(new Vector3(-8,0,-5), new Vector3(1,0,.2),p2Mat);
         myScene.renderables.add(p2);
@@ -45,7 +47,6 @@ public class Test {
         Material p4Mat = new Material(new Vector3(.7,.7,0), Vector3.ZERO, new Vector3(.7,.7,0));
         Plane p4 = new Plane(new Vector3(0,0,10), new Vector3(0,0,-1), p4Mat);
         myScene.renderables.add(p4);
-
 
         double c_a = 1.0;
         double l_a = .045;

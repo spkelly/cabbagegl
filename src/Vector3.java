@@ -98,6 +98,41 @@ public class Vector3 {
        return diff(nscaled);
     }
 
+    public Vector3 refract(Vector3 normal, double from_ior, double  to_ior) {
+       // Refract incident with normal using Snell's law
+       
+       double iorrat = from_ior / to_ior;
+       double iorrat_sq = iorrat * iorrat;
+
+       double cosOne = normal.dot(scale(-1));
+       double inside = 1 - iorrat_sq*(1-cosOne*cosOne);
+       double cosTwo = Math.sqrt(inside);
+
+
+       Vector3 rVec;
+       // Determine whether we refracted or got Total Internal Reflection
+       if (inside < 0) {
+          // Total Internal Reflectiono
+          rVec = reflect(normal);
+       } else {
+          if (cosOne >= 0) {
+             rVec = scale(iorrat).sum(normal.scale(iorrat*cosOne - cosTwo));
+          } else {
+             rVec = scale(iorrat).diff(normal.scale(iorrat*cosOne - cosTwo));
+          }
+       }
+       return rVec;
+    }
+
+    public boolean totalInternalReflection(Vector3 normal, double from_ior,
+          double to_ior) {
+       double iorrat = from_ior / to_ior;
+       double iorrat_sq = iorrat * iorrat;
+       double cosOne = normal.dot(scale(-1));
+       double inside = 1 - iorrat_sq*(1-cosOne*cosOne);
+       return inside < 0;
+    }
+
     public String toString() {
         return "{" + x + ", " + y + ", " + z + "}";
     }
