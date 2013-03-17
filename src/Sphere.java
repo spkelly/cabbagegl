@@ -43,4 +43,13 @@ public class Sphere extends Shape {
     public Material materialPropsAt(Vector3 ray, FaceSide fs) {
         return mat;
     }
+
+
+    public void translate(Vector3 trans) {
+       center = center.sum(trans);
+    }
+
+    public void rotate(Vector3 rotation, double angle) {
+       // STUBBED
+    }
 }

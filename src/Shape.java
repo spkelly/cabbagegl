@@ -9,6 +9,9 @@ public abstract class Shape {
     public abstract HitData hitBy(Ray r);
     public abstract Material materialPropsAt(Vector3 ray, FaceSide fs);
 
+    public abstract void translate(Vector3 trans);
+    public abstract void rotate(Vector3 rotation, double angle);
+
     public Material getMaterial() {
        return mat;
     }

@@ -63,4 +63,16 @@ public class Triangle extends Plane {
         return mat;
     }
 
+
+    public void translate(Vector3 trans) {
+       super.translate(trans);
+       for (int i = 0; i < verts.length; i++)
+          verts[i] = verts[i].sum(trans);
+    }
+
+    public void rotate(Vector3 rotation, double angle) {
+       super.rotate(rotation, angle);
+       // STUBBED
+    }
+
 }

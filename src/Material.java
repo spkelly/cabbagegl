@@ -1,19 +1,19 @@
 
 // Defines the various material properties of an object
 public class Material {
-   public Material(Vector3 icol, Vector3 ispec, Vector3 idiff) {
-      this(icol, ispec, idiff, 2.0);
+   public Material(Vector3 icol, Vector3 idiff, Vector3 ispec) {
+      this(icol, idiff, ispec, 2.0);
    }
 
-   public Material(Vector3 icol, Vector3 ispec, Vector3 idiff, double ish) {
-      this(icol, ispec, idiff, ish, 0.0, 1.5);
+   public Material(Vector3 icol, Vector3 idiff, Vector3 ispec, double ish) {
+      this(icol, idiff, ispec, ish, 0.0, 1.5);
    }
 
-   public Material(Vector3 icol, Vector3 ispec, Vector3 idiff, double ish,
+   public Material(Vector3 icol, Vector3 idiff, Vector3 ispec, double ish,
          double ialph, double iior) {
       color = icol;
-      specular = ispec;
       diffuse = idiff;
+      specular = ispec;
       shininess = ish;
 
       alpha = ialph;

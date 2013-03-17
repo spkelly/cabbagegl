@@ -1,3 +1,6 @@
+import java.util.concurrent.atomic.AtomicInteger;
+
+
 public class Vector3 {
     private double x, y, z;
 
@@ -20,6 +23,10 @@ public class Vector3 {
 
         l_calc = false;
         n_calc = false;
+    }
+
+    public static Vector3 ColorVector(int R, int G, int B) {
+       return new Vector3(R / 256.0, G / 256.0, B / 256.0);
     }
 
     public double len() {

@@ -1,7 +1,10 @@
 import java.awt.Color;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Ray {
+   public static AtomicInteger nrays = new AtomicInteger();
+
     private Vector3 base;
     private Vector3 dir;
 
@@ -12,6 +15,7 @@ public class Ray {
     private Stack<HitPoint> media;
 
     public Ray(Vector3 ibase, Vector3 idir) {
+        nrays.incrementAndGet();
         base = ibase;
         dir = idir;
 
@@ -19,6 +23,7 @@ public class Ray {
     }
 
     private Ray(Vector3 ibase, Vector3 idir, Stack<HitPoint> imedia) {
+       nrays.incrementAndGet();
        base = ibase;
        dir = idir;
        media = imedia;

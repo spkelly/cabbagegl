@@ -1,6 +1,7 @@
 import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.imageio.ImageIO;
+import java.util.*;
 
 public class Test {
     public static void main(String[] args) {
@@ -8,54 +9,96 @@ public class Test {
         Vector3 sceneAmb = new Vector3(2, 2, 2);
         myScene.ambient = sceneAmb;
 
-        Vector3 colora = new Vector3(0, 0, .8);
-        Vector3 diffa = new Vector3(.7,.7,.7);
-        Vector3 speca = new Vector3(.2, .2, .2);
-        Vector3 diffc = new Vector3(.9,.9,.9);
-        Material mata = new Material(colora, speca, diffa, 8, .7, 1.333);
-        Vector3 colorb = new Vector3(0.0, 1.0, 0.0);
-        Material matb = new Material(colorb, colorb, colorb);
+        // Setup floor/wall materials
+        // Floor
+        Vector3 floorcol = Vector3.ColorVector(200, 205, 58);
+        Vector3 floordif = new Vector3(.8,.8,.8);
+        Vector3 floorspc = Vector3.ZERO;
+        Material floorMat = new Material(floorcol, floordif, floorspc);
 
-        Vector3 colorc = new Vector3(0, 0, .7);
-        Vector3 specc = new Vector3(.75,.75,.75);
-        Material matc = new Material(colorc, Vector3.ZERO, diffc);
+        // walls
+        Vector3 wallcol = Vector3.ColorVector(37,103,179);
+        Vector3 walldif = new Vector3(.8,.8,.8);
+        Vector3 wallspc = new Vector3(.2,.2,.2);
+        Material wallMat = new Material(wallcol, walldif, wallspc); 
 
-        Sphere a = new Sphere(new Vector3(-7,1.5,-7), 2, mata);
-        myScene.renderables.add(a);
+        // ceiling
+        Vector3 ceilcol = Vector3.ColorVector(230,230,230);
+        Vector3 ceildif = new Vector3(.8,.8,.8);
+        Vector3 ceilspc = new Vector3(.5,.5,.5);
+        Material ceilMat = new Material(ceilcol, ceildif, ceilspc);
 
-        Vector3 mats2Spec = new Vector3(.5, .5, .5);
-        Vector3 mats2Col = new Vector3(.882, .929, .812);
-        Material mats2 = new Material(mats2Col, mats2Spec, diffc, 2, .4, 1.00045);
+        // Setup floor/walls
+        Vector3 floorPt = new Vector3(0,-3,-7);
+        Vector3 floorNrm = new Vector3(0,1,0);
+        Plane floor = new Plane(floorPt, floorNrm, floorMat);
+        myScene.renderables.add(floor);
 
-        Sphere s2 = new Sphere(new Vector3(1.1,-1.5,-6), 1.5, mats2);
-        myScene.renderables.add(s2);
+        Vector3 lwallPt = new Vector3(-7,0,-7);
+        Vector3 lwallNrm = new Vector3(1,0,.1);
+        Plane lwall = new Plane(lwallPt, lwallNrm, wallMat);
+        myScene.renderables.add(lwall);
 
-        
-        Material t1Mat = new Material(colorb, Vector3.ZERO, diffc, 6);
-        Vector3 t1v1 = new Vector3(-1, 2, -7);
-        Vector3 t1v2 = new Vector3(3, 2, -7);
-        Vector3 t1v3 = new Vector3(0, 4, -5);
-        Triangle t1 = new Triangle(t1v1, t1v2, t1v3, t1Mat);
+        Vector3 rwallPt = new Vector3(7,0,-7);
+        Vector3 rwallNrm = new Vector3(-1,0,-.1);
+        Plane rwall = new Plane(rwallPt, rwallNrm, wallMat);
+        myScene.renderables.add(rwall);
+
+        Vector3 bwallPt = new Vector3(0,4,-15);
+        Vector3 bwallNrm = new Vector3(0,0,1);
+        Plane bwall = new Plane(bwallPt, bwallNrm, wallMat);
+        myScene.renderables.add(bwall);
+
+        Vector3 behWallPt = new Vector3(0,4,5);
+        Vector3 behWallNrm = new Vector3(0,0,-1);
+        Plane behWall = new Plane(behWallPt, behWallNrm, wallMat);
+        myScene.renderables.add(behWall);
+
+        Vector3 ceilPt = new Vector3(0,5,-7);
+        Vector3 ceilNrm = new Vector3(0,-1,0);
+        Plane ceil = new Plane(ceilPt, ceilNrm, ceilMat);
+        myScene.renderables.add(ceil);
+
+        // Chrome ball
+        // Material
+        Vector3 cbCol = Vector3.ColorVector(198,199,177);
+        Vector3 cbDif = new Vector3(.8,.8,.8);
+        Vector3 cbSpc = new Vector3(.8,.8,.8);
+        Material cbMat = new Material(cbCol, cbDif, cbSpc);
+
+        // Physical
+        Vector3 cbCen = new Vector3(0,0,-7);
+        double cbRad = 1;
+        Sphere cb = new Sphere(cbCen, cbRad, cbMat);
+        myScene.renderables.add(cb);
+
+        // Pyramid
+        // Material
+        Vector3 pyCol = Vector3.ColorVector(192,6,19);
+        Vector3 pyDif = new Vector3(.8,.8,.8);
+        Vector3 pySpc = new Vector3(.3,.3,.3);
+        Material pyMat = new Material(pyCol, pyDif, pySpc);
+
+        // Physical
+        Vector3 low = new Vector3(0,-3,-6);
+        Vector3 right = new Vector3(1,-3,-7);
+        Vector3 left = new Vector3(-1,-3,-7);
+        Vector3 top = new Vector3(0,-3,-8);
+        Vector3 tip = new Vector3(0,-1,-7);
+        Triangle t1 = new Triangle(low,right,tip,pyMat);
+        Triangle t2 = new Triangle(right,top,tip,pyMat);
+        Triangle t3 = new Triangle(top,left,tip,pyMat);
+        Triangle t4 = new Triangle(left,low,tip,pyMat);
         myScene.renderables.add(t1);
+        myScene.renderables.add(t2);
+        myScene.renderables.add(t3);
+        myScene.renderables.add(t4);
 
 
-        Plane b = new Plane(new Vector3(0,-2,-5), new Vector3(0,1,.2), matc);
-        myScene.renderables.add(b);
-
-        Material p2Mat = new Material(colorb, Vector3.ZERO, colorb);
-        Material p3Mat = new Material(new Vector3(1,1,.6), Vector3.ZERO, new Vector3(1,1,.6));
-
-        Plane p2 = new Plane(new Vector3(-8,0,-5), new Vector3(1,0,.2),p2Mat);
-        myScene.renderables.add(p2);
-
-        Plane p3 = new Plane(new Vector3(0,0,-10), new Vector3(0,0,1),p3Mat);
-        myScene.renderables.add(p3);
 
 
-        Material p4Mat = new Material(new Vector3(.7,.7,0), Vector3.ZERO, new Vector3(.7,.7,0));
-        Plane p4 = new Plane(new Vector3(0,0,10), new Vector3(0,0,-1), p4Mat);
-        myScene.renderables.add(p4);
 
+        // setup lights
         double c_a = 1.0;
         double l_a = .045;
         double q_a = .0075;
@@ -65,6 +108,9 @@ public class Test {
         Light lightb = new Light(new Vector3(5,5,5), new Vector3(1,1,1),
             new Vector3(-2, 3, 3), new Vector3(c_a, l_a, q_a));
         myScene.lights.add(lightb);
+        Light lightc = new Light(new Vector3(5,5,5), new Vector3(1,1,1),
+            new Vector3(5,4,-9), new Vector3(c_a, l_a, q_a));
+        myScene.lights.add(lightc);
 
 
         // Setup the view volume
@@ -104,6 +150,9 @@ public class Test {
           millis + " millis");
        System.out.println("Resolution: " + options.width + " by " + options.height);
        System.out.println(options.AA_samples + "x Antialiasing.");
+
+       int rays = Ray.nrays.get();
+       System.out.println("Rays Fired: " + rays);
 
 
 

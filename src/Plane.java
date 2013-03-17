@@ -44,6 +44,15 @@ class Plane extends Shape {
     public Material materialPropsAt(Vector3 ray, FaceSide fs) {
         return mat;
     }
+
+
+    public void translate(Vector3 trans) {
+       point = point.sum(trans);
+    }
+
+    public void rotate(Vector3 rotation, double angle) {
+       // STUBBED
+    }
 }
 
 
