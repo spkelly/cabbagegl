@@ -30,6 +30,14 @@ public class Test {
         Sphere s2 = new Sphere(new Vector3(1.1,-1.5,-6), 1.5, mats2);
         myScene.renderables.add(s2);
 
+        
+        Material t1Mat = new Material(colorb, Vector3.ZERO, diffc, 6);
+        Vector3 t1v1 = new Vector3(-1, 2, -7);
+        Vector3 t1v2 = new Vector3(3, 2, -7);
+        Vector3 t1v3 = new Vector3(0, 4, -5);
+        Triangle t1 = new Triangle(t1v1, t1v2, t1v3, t1Mat);
+        myScene.renderables.add(t1);
+
 
         Plane b = new Plane(new Vector3(0,-2,-5), new Vector3(0,1,.2), matc);
         myScene.renderables.add(b);
