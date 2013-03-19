@@ -10,10 +10,23 @@ public class Triangle extends Plane {
       verts = new Vector3[3];
       edges = new Vector3[3];
       // Store verts, Compute edges
-      verts[0] = v1; edges[0] = v2.diff(v1);
-      verts[1] = v2; edges[1] = v3.diff(v2);
-      verts[2] = v3; edges[2] = v1.diff(v3);
+      verts[0] = v1; 
+      verts[1] = v2; 
+      verts[2] = v3; 
+      computeEdges();
+   }
 
+   public Triangle copy() {
+      return new Triangle(verts[0], verts[1], verts[2], mat);
+   }
+   
+   private void computeEdges() {
+      Vector3 v1 = verts[0];
+      Vector3 v2 = verts[1];
+      Vector3 v3 = verts[2];
+      edges[0] = v2.diff(v1);
+      edges[1] = v3.diff(v2);
+      edges[2] = v1.diff(v3);
    }
 
    public HitData hitBy(Ray r) {
@@ -70,9 +83,11 @@ public class Triangle extends Plane {
           verts[i] = verts[i].sum(trans);
     }
 
-    public void rotate(Vector3 rotation, double angle) {
-       super.rotate(rotation, angle);
-       // STUBBED
+    public void rotate(Axis axis, double angle) {
+       super.rotate(axis, angle);
+       for (int i = 0; i < verts.length; i++)
+          verts[i] = verts[i].rotateAbout(axis, angle);
+       computeEdges();
     }
 
 }

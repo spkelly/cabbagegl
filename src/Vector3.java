@@ -131,6 +131,11 @@ public class Vector3 {
        return rVec;
     }
 
+    public Vector3 rotateAbout(Axis axis, double angle) {
+       Matrix33 rotMatrix = Matrix33.generateRotationMatrix(axis, angle);
+       return rotMatrix.mul(this);
+    }
+
     public boolean totalInternalReflection(Vector3 normal, double from_ior,
           double to_ior) {
        double iorrat = from_ior / to_ior;
@@ -159,6 +164,4 @@ public class Vector3 {
     public boolean equals(Vector3 o) {
        return x == o.x && y == o.y && z == o.z;
     }
-
-
 }

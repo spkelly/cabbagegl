@@ -5,6 +5,28 @@ import java.util.*;
 
 public class Test {
     public static void main(String[] args) {
+       // Setup the view volume
+       Camera myCam = new Camera();
+       Vector3 eye = new Vector3(0,0, 5);
+       Vector3 view = new Vector3(0,0,0);
+       Vector3 up = new Vector3(0,1,0);
+       myCam.lookAt(eye, view, up);
+
+       double fov    = 45.0;
+       double aspect = 16.0/9.0;
+       double znear  = 5.0;
+       double zfar   = 100.0;
+       myCam.perspective(fov, aspect, znear, zfar);
+       myCam.cel_shaded = false;
+
+       // Render options
+       RenderOptions options = new RenderOptions();
+       options.AA_samples = 4;
+       options.width = 1024;
+       options.height = 576;
+       options.max_recurse = 10;
+
+        // Construct the scene
         Scene myScene = new Scene();
         Vector3 sceneAmb = new Vector3(2, 2, 2);
         myScene.ambient = sceneAmb;
@@ -59,7 +81,7 @@ public class Test {
         Plane ceil = new Plane(ceilPt, ceilNrm, ceilMat);
         myScene.renderables.add(ceil);
 
-        // Chrome ball
+        // Chrome balls
         // Material
         Vector3 cbCol = Vector3.ColorVector(198,199,177);
         Vector3 cbDif = new Vector3(.8,.8,.8);
@@ -72,12 +94,25 @@ public class Test {
         Sphere cb = new Sphere(cbCen, cbRad, cbMat);
         myScene.renderables.add(cb);
 
+        Sphere cb2 = cb.copy();
+        cb2.translate(new Vector3(-2.25,0,0));
+        myScene.renderables.add(cb2);
+
+        Sphere cb3 = cb.copy();
+        cb3.translate(new Vector3(2.25,0,0));
+        myScene.renderables.add(cb3);
+
+
+        
+
         // Pyramid
         // Material
         Vector3 pyCol = Vector3.ColorVector(192,6,19);
         Vector3 pyDif = new Vector3(.8,.8,.8);
         Vector3 pySpc = new Vector3(.3,.3,.3);
-        Material pyMat = new Material(pyCol, pyDif, pySpc);
+        double pyalpha = .5;
+        double pyior = 2.33;
+        Material pyMat = new Material(pyCol, pyDif, pySpc, 2, pyalpha, pyior);
 
         // Physical
         Vector3 low = new Vector3(0,-3,-6);
@@ -94,10 +129,6 @@ public class Test {
         myScene.renderables.add(t3);
         myScene.renderables.add(t4);
 
-
-
-
-
         // setup lights
         double c_a = 1.0;
         double l_a = .045;
@@ -113,33 +144,45 @@ public class Test {
         myScene.lights.add(lightc);
 
 
-        // Setup the view volume
-        Camera myCam = new Camera();
-        Vector3 eye = new Vector3(0,0, 5);
-        Vector3 view = new Vector3(0,0,0);
-        Vector3 up = new Vector3(0,1,0);
-        myCam.lookAt(eye, view, up);
-
-       double fov    = 45.0;
-       double aspect = 16.0/9.0;
-       double znear  = 5.0;
-       double zfar   = 100.0;
-       myCam.perspective(fov, aspect, znear, zfar);
-       myCam.cel_shaded = false;
 
 
-       // Test render
-       RenderOptions options = new RenderOptions();
-       options.AA_samples = 4;
-       options.width = 1920;
-       options.height = 1080;
-       options.max_recurse = 10;
-
+       // Render the scene
        long startTime = System.currentTimeMillis();
 
-       BufferedImage rscene = myCam.renderScene(myScene, options);
-       long endTime = System.currentTimeMillis();
+       for (int i = 0; i < 10; i++) {
+          BufferedImage rscene = myCam.renderScene(myScene, options);
+          // output the image
+          try {
+             File output = new File("./anim/output" + i + ".png");
+             ImageIO.write(rscene, "png", output);
+          } catch (Exception e) {
+             System.err.println("An error occurred while outputting the image.");
+          }
+          System.out.println("Frame " + i + " completed.");
 
+          // Move to origin for rotations
+          cb2.translate(new Vector3(0,0,7));
+          cb3.translate(new Vector3(0,0,7));
+
+          // Y rotations
+          cb2.rotate(Axis.YAXIS, 18);
+          cb3.rotate(Axis.YAXIS, 18);
+
+          // Vertical movements
+          double pi = Math.PI;
+          double cb2mov = Math.sin((i+1)*2*pi/20.0) - Math.sin(i*2*pi/20.0);
+          double cb3mov = -cb2mov;
+          cb2.translate(new Vector3(0,cb2mov,0));
+          cb3.translate(new Vector3(0,cb3mov,0));
+
+          // move back to original space
+          cb2.translate(new Vector3(0,0,-7));
+          cb3.translate(new Vector3(0,0,-7));
+       }
+
+
+       // Render statistics
+       long endTime = System.currentTimeMillis();
        long millis = endTime - startTime;
        long seconds = millis / 1000;
        millis = millis % 1000;
@@ -157,12 +200,6 @@ public class Test {
 
 
 
-       // output the image
-       try {
-           File output = new File("output.png");
-           ImageIO.write(rscene, "png", output);
-       } catch (Exception e) {
-           System.err.println("An error occurred while outputting the image.");
-       }
+       
     }
 }

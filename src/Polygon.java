@@ -55,9 +55,9 @@ public class Polygon extends Shape {
          tris[i].translate(trans);
    }
 
-   public void rotate(Vector3 rotation, double angle) {
+   public void rotate(Axis axis, double angle) {
       for (int i = 0; i < tris.length; i++)
-         tris[i].rotate(rotation, angle);
+         tris[i].rotate(axis, angle);
    }
 
 }

@@ -10,7 +10,7 @@ public abstract class Shape {
     public abstract Material materialPropsAt(Vector3 ray, FaceSide fs);
 
     public abstract void translate(Vector3 trans);
-    public abstract void rotate(Vector3 rotation, double angle);
+    public abstract void rotate(Axis axis, double angle);
 
     public Material getMaterial() {
        return mat;

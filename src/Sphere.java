@@ -8,6 +8,10 @@ public class Sphere extends Shape {
         radius = rad;
     }
 
+    public Sphere copy() {
+       return new Sphere(center, radius, mat);
+    }
+
     public HitData hitBy(Ray r) {
        HitData hd = null;
        Vector3 dir = r.getDir();
@@ -49,7 +53,7 @@ public class Sphere extends Shape {
        center = center.sum(trans);
     }
 
-    public void rotate(Vector3 rotation, double angle) {
-       // STUBBED
+    public void rotate(Axis axis, double angle) {
+       center = center.rotateAbout(axis, angle);
     }
 }

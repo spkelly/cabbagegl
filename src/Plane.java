@@ -50,8 +50,9 @@ class Plane extends Shape {
        point = point.sum(trans);
     }
 
-    public void rotate(Vector3 rotation, double angle) {
-       // STUBBED
+    public void rotate(Axis axis, double angle) {
+       point = point.rotateAbout(axis, angle);
+       normal = normal.rotateAbout(axis, angle);
     }
 }
 
