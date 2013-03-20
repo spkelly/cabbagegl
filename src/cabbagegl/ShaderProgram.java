@@ -1,3 +1,4 @@
+package cabbagegl;
 // This class controls shader programs
 
 public class ShaderProgram {

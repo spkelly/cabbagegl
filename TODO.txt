@@ -1,0 +1,29 @@
+TODO:
+
+Power of reflection and transmission rays should be computed with Fresnel
+   equations
+
+Textures of some sort!
+
+Bidirectional raytracing (photon mapping)
+
+Working KD Tree
+
+More Primitives
+Added so far:
+   Spheres
+   Planes
+   Triangles
+
+Working fragment shaders in Python (YES PLS PLS DO THIS)
+
+Bug in Camera where view volume is stuck centered at 0,0,0
+
+Add more flexibility for FRONT/BACK materials for primitives
+
+FINISH ROTATIONS YOU LAZY IDIOT
+
+
+MORE DISTRIBUTION RAYTRACING
+   Depth of Field
+   Soft Shadows

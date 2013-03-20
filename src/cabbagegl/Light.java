@@ -1,3 +1,4 @@
+package cabbagegl;
 
 public class Light {
    private Vector3 intensity;

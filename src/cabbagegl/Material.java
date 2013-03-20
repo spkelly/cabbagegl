@@ -1,3 +1,4 @@
+package cabbagegl;
 
 // Defines the various material properties of an object
 public class Material {

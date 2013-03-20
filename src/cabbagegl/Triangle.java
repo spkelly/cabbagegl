@@ -1,3 +1,4 @@
+package cabbagegl;
 
 
 public class Triangle extends Plane {

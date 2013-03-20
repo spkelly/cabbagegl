@@ -1,3 +1,4 @@
+package cabbagegl;
 public class HitPoint implements Comparable<HitPoint> {
    private Vector3 hitpoint;
    private Vector3 normal;

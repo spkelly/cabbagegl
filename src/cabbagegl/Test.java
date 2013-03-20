@@ -1,3 +1,4 @@
+package cabbagegl;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.imageio.ImageIO;
@@ -21,7 +22,7 @@ public class Test {
 
        // Render options
        RenderOptions options = new RenderOptions();
-       options.AA_samples = 4;
+       options.AA_samples = 2;
        options.width = 1024;
        options.height = 576;
        options.max_recurse = 10;
@@ -66,11 +67,6 @@ public class Test {
         Plane rwall = new Plane(rwallPt, rwallNrm, wallMat);
         myScene.renderables.add(rwall);
 
-        Vector3 bwallPt = new Vector3(0,4,-15);
-        Vector3 bwallNrm = new Vector3(0,0,1);
-        Plane bwall = new Plane(bwallPt, bwallNrm, wallMat);
-        myScene.renderables.add(bwall);
-
         Vector3 behWallPt = new Vector3(0,4,5);
         Vector3 behWallNrm = new Vector3(0,0,-1);
         Plane behWall = new Plane(behWallPt, behWallNrm, wallMat);
@@ -89,21 +85,17 @@ public class Test {
         Material cbMat = new Material(cbCol, cbDif, cbSpc);
 
         // Physical
-        Vector3 cbCen = new Vector3(0,0,-7);
+        Vector3 cbCen = new Vector3(0,5,-8);
         double cbRad = 1;
         Sphere cb = new Sphere(cbCen, cbRad, cbMat);
         myScene.renderables.add(cb);
 
         Sphere cb2 = cb.copy();
-        cb2.translate(new Vector3(-2.25,0,0));
+        cb2.translate(new Vector3(2.25,0,2));
         myScene.renderables.add(cb2);
-
         Sphere cb3 = cb.copy();
-        cb3.translate(new Vector3(2.25,0,0));
+        cb3.translate(new Vector3(-2.25,0,-2));
         myScene.renderables.add(cb3);
-
-
-        
 
         // Pyramid
         // Material
@@ -149,36 +141,15 @@ public class Test {
        // Render the scene
        long startTime = System.currentTimeMillis();
 
-       for (int i = 0; i < 10; i++) {
-          BufferedImage rscene = myCam.renderScene(myScene, options);
-          // output the image
-          try {
-             File output = new File("./anim/output" + i + ".png");
-             ImageIO.write(rscene, "png", output);
-          } catch (Exception e) {
-             System.err.println("An error occurred while outputting the image.");
-          }
-          System.out.println("Frame " + i + " completed.");
-
-          // Move to origin for rotations
-          cb2.translate(new Vector3(0,0,7));
-          cb3.translate(new Vector3(0,0,7));
-
-          // Y rotations
-          cb2.rotate(Axis.YAXIS, 18);
-          cb3.rotate(Axis.YAXIS, 18);
-
-          // Vertical movements
-          double pi = Math.PI;
-          double cb2mov = Math.sin((i+1)*2*pi/20.0) - Math.sin(i*2*pi/20.0);
-          double cb3mov = -cb2mov;
-          cb2.translate(new Vector3(0,cb2mov,0));
-          cb3.translate(new Vector3(0,cb3mov,0));
-
-          // move back to original space
-          cb2.translate(new Vector3(0,0,-7));
-          cb3.translate(new Vector3(0,0,-7));
+       BufferedImage rscene = myCam.renderScene(myScene, options);
+       // output the image
+       try {
+          File output = new File("output.png");
+          ImageIO.write(rscene, "png", output);
+       } catch (Exception e) {
+          System.err.println("An error occurred while outputting the image.");
        }
+
 
 
        // Render statistics

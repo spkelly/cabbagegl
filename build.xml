@@ -8,7 +8,7 @@
    <property name="distdir" value="jar"/>
    <property name="distname" value="cabbagegl"/>
 
-   <property name="main-class" value="Test"/>
+   <property name="main-class" value="cabbagegl.Test"/>
 
    <target name="init">
       <mkdir dir="${bindir}"/>

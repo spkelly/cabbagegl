@@ -1,3 +1,4 @@
+package cabbagegl;
 
 public abstract class Shape {
     protected Material mat;
