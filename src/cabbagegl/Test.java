@@ -22,9 +22,9 @@ public class Test {
 
        // Render options
        RenderOptions options = new RenderOptions();
-       options.AA_samples = 2;
-       options.width = 1024;
-       options.height = 576;
+       options.AA_samples = 4;
+       options.width = 1920;
+       options.height = 1080;
        options.max_recurse = 10;
 
         // Construct the scene
@@ -67,6 +67,11 @@ public class Test {
         Plane rwall = new Plane(rwallPt, rwallNrm, wallMat);
         myScene.renderables.add(rwall);
 
+        Vector3 bwallPt = new Vector3(0,4,-15);
+        Vector3 bwallNrm = new Vector3(0,0,1);
+        Plane bwall = new Plane(bwallPt, bwallNrm, wallMat);
+        myScene.renderables.add(bwall);
+
         Vector3 behWallPt = new Vector3(0,4,5);
         Vector3 behWallNrm = new Vector3(0,0,-1);
         Plane behWall = new Plane(behWallPt, behWallNrm, wallMat);
@@ -85,17 +90,21 @@ public class Test {
         Material cbMat = new Material(cbCol, cbDif, cbSpc);
 
         // Physical
-        Vector3 cbCen = new Vector3(0,5,-8);
+        Vector3 cbCen = new Vector3(0,0,-7);
         double cbRad = 1;
         Sphere cb = new Sphere(cbCen, cbRad, cbMat);
         myScene.renderables.add(cb);
 
         Sphere cb2 = cb.copy();
-        cb2.translate(new Vector3(2.25,0,2));
+        cb2.translate(new Vector3(-2.25,0,0));
         myScene.renderables.add(cb2);
+
         Sphere cb3 = cb.copy();
-        cb3.translate(new Vector3(-2.25,0,-2));
+        cb3.translate(new Vector3(2.25,0,0));
         myScene.renderables.add(cb3);
+
+
+        
 
         // Pyramid
         // Material
@@ -137,7 +146,7 @@ public class Test {
 
 
 
-
+       System.out.println("Rendering. This will take several minutes.");
        // Render the scene
        long startTime = System.currentTimeMillis();
 

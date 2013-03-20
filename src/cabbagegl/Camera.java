@@ -106,114 +106,77 @@ public class Camera {
     }
 
     private Color renderPixel(int i, int j, Scene s, RenderOptions roptions) {
-     // Convert i,j to ix, jy where projection plane center is 0
-     double ix = (double) i - roptions.width  / 2.0;
-     double jy = (double) -j + roptions.height / 2.0;
+        // Convert i,j to ix, jy where projection plane center is 0
+        double ix = (double) i - roptions.width  / 2.0;
+        double jy = (double) -j + roptions.height / 2.0;
 
-     // Construct a ray from the eye to the proper viewpoint
-     // We need a base vector and a direction vector for a ray to trace
-     Vector3 base = eye;
-     Vector3 dir = view.diff(eye).normalize();
-     Vector3 left = up.normalize().cross(dir).normalize();
-     Vector3 y = dir.cross(left).normalize();
+        // Construct a ray from the eye to the proper viewpoint
+        // We need a base vector and a direction vector for a ray to trace
+        Vector3 base = eye;
+        Vector3 dir = view.diff(eye).normalize();
+        Vector3 left = up.normalize().cross(dir).normalize();
+        Vector3 y = dir.cross(left).normalize();
 
-     double d = near;
-     double phi = field_of_view / 2.0;
+        double d = near;
+        double phi = field_of_view / 2.0;
 
-     // Get the physical dimensions of projection plane
-     double yhgt = 2 * d * Math.tan(Math.toRadians(phi));
-     double xwid = yhgt * aspect_ratio;
-     double theta = Math.toDegrees(Math.atan((xwid/2.0)/d));
+        // Get the physical dimensions of projection plane
+        double yhgt = 2 * d * Math.tan(Math.toRadians(phi));
+        double xwid = yhgt * aspect_ratio;
+        double theta = Math.toDegrees(Math.atan((xwid/2.0)/d));
 
-     // Now we have phi and theta, as well as camera orthonormal coord sys
-     // coord sys is left, y, dir
-     // positions on projection plane are linear combination of u and v
-     Vector3 u = left.scale(d * Math.tan(Math.toRadians(theta)));
-     Vector3 v = y.scale(d * Math.tan(Math.toRadians(phi)));
+        // Now we have phi and theta, as well as camera orthonormal coord sys
+        // coord sys is left, y, dir
+        // positions on projection plane are linear combination of u and v
+        Vector3 u = left.scale(d * Math.tan(Math.toRadians(theta)));
+        Vector3 v = y.scale(d * Math.tan(Math.toRadians(phi)));
 
-     // Alpha and Beta are coefficients
-     double alpha = 2.0*(ix+0.5) / roptions.width;
-     double beta  = 2.0*(jy+0.5) / roptions.height;
+        // Alpha and Beta are coefficients
+        double alpha = 2.0*(ix+0.5) / roptions.width;
+        double beta  = 2.0*(jy+0.5) / roptions.height;
 
-     // Get position of pixel on near plane in world coords
-     Vector3 P = u.scale(alpha).sum(v.scale(beta)).sum(view);
+        // Get position of pixel in world coords
+        Vector3 P = u.scale(alpha).sum(v.scale(beta)).sum(view);
 
-     // Now get a vector pointing to the pixel from the cam
-     Vector3 pixelDir = P.diff(eye);
-     Vector3 pixDirNorm = pixelDir.normalize();
+        // Now get a vector pointing to the pixel from the cam
+        Vector3 pixelDir = P.diff(eye);
+        double mindist = pixelDir.len();
+        double maxdist = mindist * (far / near);
+        pixelDir = pixelDir.normalize();
 
-     double mindist = near;
-     double maxdist = far;
+        double pixWid = yhgt / roptions.height;
+        double pixHgt = xwid / roptions.width;
 
-     // Construct the focal plane
-     Vector3 toNear = view.diff(eye);
-     Vector3 toFocal = toNear.normalize().scale(
-        roptions.dist_to_focal_plane);
-     Vector3 focalCenter = eye.sum(toFocal);
-     Plane focal = new Plane(focalCenter, toFocal.scale(-1).normalize(), null);
-
-     // We want where pixeldir intersects the focal plane to be the new P
-     Ray rtoNear = new Ray(eye, pixelDir);
-     Vector3 focPoint = focal.hitBy(rtoNear).getHitpoints().get(0).getHitpoint();
-     P = focPoint; // Success! P is the view point
-     pixelDir = P.diff(eye);
-     Vector3 pixelDirNorm = pixelDir.normalize();
-
-     double pixWid = yhgt / roptions.height;
-     double pixHgt = xwid / roptions.width;
-
-
-     Vector3 toUse = Vector3.ZERO;
-     Vector3 curr = Vector3.ZERO;
-     Vector3 neye = eye;
-     // trace our new ray through the scene to get the color of this pixel
-     for (int ditr = 0; ditr < roptions.dof_samples; ditr++) {
-        for(int itr = 0; itr < roptions.AA_samples; itr++) {
-           Ray toTrace = new Ray(neye, pixelDirNorm);
-           if(!cel_shaded)
-           curr = curr.sum(toTrace.trace(s, mindist, maxdist,
-              roptions.max_recurse));
+        Vector3 toUse = Vector3.ZERO;
+        // trace our new ray through the scene to get the color of this pixel
+        if (roptions.AA_samples == 1) {
+           Ray toTrace = new Ray(eye, pixelDir);
+           if (!cel_shaded)
+           toUse = toTrace.trace(s, mindist, maxdist, roptions.max_recurse);
            else
-           curr = curr.sum(toTrace.cellShadedTrace(s, mindist, maxdist));
-
-           // Compute new viewpoint
-           // Jitter the viewpoint
-           double xJit = doubleBetween(-pixWid / 4.0, pixWid / 4.0);
-           double yJit = doubleBetween(-pixHgt / 4.0, pixHgt / 4.0);
-
-           // Get position of pixel on near plane in world coords
-           P = u.scale(alpha+xJit).sum(v.scale(beta=yJit)).sum(view);
-
-           // Now get a vector pointing to the pixel from the cam
-           pixelDir = P.diff(eye);
-           pixDirNorm = pixelDir.normalize();
-
-           // We want where pixeldir intersects the focal plane to be the new P
-           rtoNear = new Ray(eye, pixelDir);
-           focPoint = focal.hitBy(rtoNear).getHitpoints().get(0).getHitpoint();
-           P = focPoint; // Success! P is the view point
-           pixelDir = P.diff(eye);
-           pixelDirNorm = pixelDir.normalize();
+           toUse = toTrace.cellShadedTrace(s, mindist, maxdist);
+        } else {
+           for(int itr = 0; itr < roptions.AA_samples; itr++) {
+              // Jitter the viewpoint
+              double xJit = doubleBetween(-pixWid / 4.0, pixWid / 4.0);
+              double yJit = doubleBetween(-pixHgt / 4.0, pixHgt / 4.0);
+              
+              Vector3 nP = u.scale(alpha+xJit).sum(v.scale(beta+yJit))
+                  .sum(view);
+              Vector3 pixDir = nP.diff(eye).normalize();
+              Ray toTrace = new Ray(eye, pixDir);
+              if(!cel_shaded)
+              toUse = toUse.sum(toTrace.trace(s, mindist, maxdist,
+                 roptions.max_recurse));
+              else
+              toUse = toUse.sum(toTrace.cellShadedTrace(s, mindist, maxdist));
+           }
+           toUse = toUse.scale(1.0/roptions.AA_samples);
         }
-        curr = curr.scale(1.0/roptions.AA_samples);
 
-        toUse = toUse.sum(curr);
-        // Jitter the eye point over space
-        // We know u and v cover the horizontal and vertical lines on the proj plane
-        // Generate random points in a circle in this plane, centered around
-        // the eye
-        double jangle = Math.toRadians(doubleBetween(0, 360));
-        double center_dist = doubleBetween(0, roptions.aperture_radius);
-
-        Vector3 jit = u.scale(Math.cos(jangle)).sum(v.scale(Math.sin(jangle)));
-        jit = jit.normalize().scale(center_dist);
-        neye = eye.sum(jit);
-     }
-     toUse = toUse.scale(1.0/roptions.dof_samples);
-
-     toUse = toUse.clamp(0.0, 1.0);
-     return vectorToColor(toUse);
-   }
+        toUse = toUse.clamp(0.0, 1.0);
+        return vectorToColor(toUse);
+    }
 
     private static Random randGen = new Random();
     private double doubleBetween(double low, double high) {
