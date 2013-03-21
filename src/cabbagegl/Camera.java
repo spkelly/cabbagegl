@@ -186,6 +186,8 @@ public class Camera {
            Vector3 vtrans = nv.scale(Math.sin(randAngle));
            Vector3 eyeJit = utrans.sum(vtrans).normalize().scale(lensDist);
            neye = eye.sum(eyeJit);
+
+           nPixelDir = P.diff(neye).normalize();
         }
         toUse = toUse.scale(1.0/roptions.dof_rays);
 

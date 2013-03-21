@@ -14,8 +14,8 @@ public class Test {
        myCam.lookAt(eye, view, up);
 
        double fov    = 45.0;
-       double aspect = 16.0/9.0;
-       double znear  = 5.0;
+       double aspect = 5.3333;
+       double znear  = 8;
        double zfar   = 100.0;
        myCam.perspective(fov, aspect, znear, zfar);
        myCam.cel_shaded = false;
@@ -23,12 +23,13 @@ public class Test {
        // Render options
        RenderOptions options = new RenderOptions();
        options.AA_samples = 1;
-       options.width = 1920;
-       options.height = 1080;
+       options.width = 2560;
+       options.height = 480;
        options.max_recurse = 10;
 
-       options.focal_plane_dist = 12;
-       options.dof_rays = 100;
+       options.focal_plane_dist = 11;
+       options.lens_aperture_radius = .5;
+       options.dof_rays = 10;
 
         // Construct the scene
         Scene myScene = new Scene();
@@ -55,17 +56,17 @@ public class Test {
         Material ceilMat = new Material(ceilcol, ceildif, ceilspc);
 
         // Setup floor/walls
-        Vector3 floorPt = new Vector3(0,-3,-7);
+        Vector3 floorPt = new Vector3(0,-3.5,-7);
         Vector3 floorNrm = new Vector3(0,1,0);
         Plane floor = new Plane(floorPt, floorNrm, floorMat);
         myScene.renderables.add(floor);
 
-        Vector3 lwallPt = new Vector3(-7,0,-7);
+        Vector3 lwallPt = new Vector3(-10,0,-7);
         Vector3 lwallNrm = new Vector3(1,0,.1);
         Plane lwall = new Plane(lwallPt, lwallNrm, wallMat);
         myScene.renderables.add(lwall);
 
-        Vector3 rwallPt = new Vector3(7,0,-7);
+        Vector3 rwallPt = new Vector3(10,0,-7);
         Vector3 rwallNrm = new Vector3(-1,0,-.1);
         Plane rwall = new Plane(rwallPt, rwallNrm, wallMat);
         myScene.renderables.add(rwall);
@@ -93,21 +94,21 @@ public class Test {
         Material cbMat = new Material(cbCol, cbDif, cbSpc);
 
         // Physical
-        Vector3 cbCen = new Vector3(0,0,-7);
-        double cbRad = 1;
+        Vector3 cbCen = new Vector3(0,0,-6);
+        double cbRad = 1.2;
         Sphere cb = new Sphere(cbCen, cbRad, cbMat);
         myScene.renderables.add(cb);
 
         Sphere cb2 = cb.copy();
-        cb2.translate(new Vector3(-2.25,0,-2));
+        cb2.translate(new Vector3(-4.25,0,-2));
         myScene.renderables.add(cb2);
 
         Sphere cb3 = cb.copy();
-        cb3.translate(new Vector3(2.25,0,2));
+        cb3.translate(new Vector3(4.25,0,2));
         myScene.renderables.add(cb3);
 
         Sphere cb4 = cb.copy();
-        cb4.translate(new Vector3(4.5,0,4));
+        cb4.translate(new Vector3(8.5,0,4));
         myScene.renderables.add(cb4);
 
 
@@ -123,11 +124,11 @@ public class Test {
         Material pyMat = new Material(pyCol, pyDif, pySpc, 2, pyalpha, pyior);
 
         // Physical
-        Vector3 low = new Vector3(0,-3,-6);
-        Vector3 right = new Vector3(1,-3,-7);
-        Vector3 left = new Vector3(-1,-3,-7);
-        Vector3 top = new Vector3(0,-3,-8);
-        Vector3 tip = new Vector3(0,-1,-7);
+        Vector3 low = new Vector3(0,-3.5,-5);
+        Vector3 right = new Vector3(1,-3.5,-6);
+        Vector3 left = new Vector3(-1,-3.5,-6);
+        Vector3 top = new Vector3(0,-3.5,-7);
+        Vector3 tip = new Vector3(0,-1,-6);
         Triangle t1 = new Triangle(low,right,tip,pyMat);
         Triangle t2 = new Triangle(right,top,tip,pyMat);
         Triangle t3 = new Triangle(top,left,tip,pyMat);
