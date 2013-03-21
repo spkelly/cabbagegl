@@ -27,7 +27,8 @@ public class Test {
        options.height = 1080;
        options.max_recurse = 10;
 
-       options.focal_plane_dist = 12;
+       options.focal_plane_dist = 11.75;
+			 options.lens_aperture_radius = .3;
        options.dof_rays = 100;
 
         // Construct the scene

@@ -55,7 +55,7 @@ public class Camera {
         BufferedImage img = new BufferedImage(roptions.width, roptions.height,
             BufferedImage.TYPE_INT_RGB);
         // Generate several threads that render seperate parts of the scene
-        int nthreads = 5;
+        int nthreads = 10;
         Thread threads[] = new Thread[nthreads];
         pixelsRendered = new AtomicInteger(0);
         for (int i = 0; i < nthreads; i++) {
