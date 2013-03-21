@@ -117,10 +117,13 @@ public class Camera {
         Vector3 left = up.normalize().cross(dir).normalize();
         Vector3 y = dir.cross(left).normalize();
 
-        double d = near;
+        // d used to be the near plane
+        // but now we're worried about the focal plane
+        double d = roptions.focal_plane_dist;
         double phi = field_of_view / 2.0;
 
         // Get the physical dimensions of projection plane
+        // These are actually the physical dimensions of the focal plane
         double yhgt = 2 * d * Math.tan(Math.toRadians(phi));
         double xwid = yhgt * aspect_ratio;
         double theta = Math.toDegrees(Math.atan((xwid/2.0)/d));
@@ -130,49 +133,58 @@ public class Camera {
         // positions on projection plane are linear combination of u and v
         Vector3 u = left.scale(d * Math.tan(Math.toRadians(theta)));
         Vector3 v = y.scale(d * Math.tan(Math.toRadians(phi)));
+        // get normalized u and v for eye jitter in depth of field
+        Vector3 nu = u.normalize(); Vector3 nv = v.normalize();
 
         // Alpha and Beta are coefficients
         double alpha = 2.0*(ix+0.5) / roptions.width;
         double beta  = 2.0*(jy+0.5) / roptions.height;
 
+        // Get center of focal plane
+        Vector3 fc = eye.sum(view.diff(eye).normalize().scale(d));
+
         // Get position of pixel in world coords
-        Vector3 P = u.scale(alpha).sum(v.scale(beta)).sum(view);
+        // used to end in .sum(view) should now be .sum(focal center)
+        Vector3 P = u.scale(alpha).sum(v.scale(beta)).sum(fc);
 
         // Now get a vector pointing to the pixel from the cam
-        Vector3 pixelDir = P.diff(eye);
-        double mindist = pixelDir.len();
-        double maxdist = mindist * (far / near);
-        pixelDir = pixelDir.normalize();
+        Vector3 pixelDir = P.diff(eye).normalize();
+        double mindist = near;
+        double maxdist = far;
 
         double pixWid = yhgt / roptions.height;
         double pixHgt = xwid / roptions.width;
 
+        Vector3 nPixelDir = pixelDir;
+        Vector3 neye = eye;
+
         Vector3 toUse = Vector3.ZERO;
+        Vector3 curr = Vector3.ZERO;
         // trace our new ray through the scene to get the color of this pixel
-        if (roptions.AA_samples == 1) {
-           Ray toTrace = new Ray(eye, pixelDir);
-           if (!cel_shaded)
-           toUse = toTrace.trace(s, mindist, maxdist, roptions.max_recurse);
-           else
-           toUse = toTrace.cellShadedTrace(s, mindist, maxdist);
-        } else {
-           for(int itr = 0; itr < roptions.AA_samples; itr++) {
+        for (int dofitr = 0; dofitr < roptions.dof_rays; dofitr++) {
+           for (int aaitr = 0; aaitr < roptions.AA_samples; aaitr++) {
+              Ray toTrace = new Ray(neye, nPixelDir);
+              curr = curr.sum(toTrace.trace(s, mindist, maxdist, roptions.max_recurse));
+
               // Jitter the viewpoint
               double xJit = doubleBetween(-pixWid / 4.0, pixWid / 4.0);
               double yJit = doubleBetween(-pixHgt / 4.0, pixHgt / 4.0);
-              
-              Vector3 nP = u.scale(alpha+xJit).sum(v.scale(beta+yJit))
-                  .sum(view);
-              Vector3 pixDir = nP.diff(eye).normalize();
-              Ray toTrace = new Ray(eye, pixDir);
-              if(!cel_shaded)
-              toUse = toUse.sum(toTrace.trace(s, mindist, maxdist,
-                 roptions.max_recurse));
-              else
-              toUse = toUse.sum(toTrace.cellShadedTrace(s, mindist, maxdist));
+              Vector3 nP = u.scale(alpha+xJit).sum(v.scale(beta+yJit)).sum(fc);
+              nPixelDir = nP.diff(neye).normalize();
            }
-           toUse = toUse.scale(1.0/roptions.AA_samples);
+           toUse = toUse.sum(curr.scale(1.0/roptions.AA_samples));
+           curr = Vector3.ZERO;
+
+           // Jitter the eye point
+           double randAngle = doubleBetween(0,2*Math.PI);
+           double lensDist = doubleBetween(0, roptions.lens_aperture_radius);
+           Vector3 utrans = nu.scale(Math.cos(randAngle));
+           Vector3 vtrans = nv.scale(Math.sin(randAngle));
+           Vector3 eyeJit = nu.sum(nv);
+           neye = eye.sum(eyeJit);
+           
         }
+        toUse = toUse.scale(1.0/roptions.dof_rays);
 
         toUse = toUse.clamp(0.0, 1.0);
         return vectorToColor(toUse);

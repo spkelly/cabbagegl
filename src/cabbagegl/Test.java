@@ -27,6 +27,8 @@ public class Test {
        options.height = 1080;
        options.max_recurse = 10;
 
+       options.dof_rays = 100;
+
         // Construct the scene
         Scene myScene = new Scene();
         Vector3 sceneAmb = new Vector3(2, 2, 2);
@@ -84,7 +86,7 @@ public class Test {
 
         // Chrome balls
         // Material
-        Vector3 cbCol = Vector3.ColorVector(198,199,177);
+        Vector3 cbCol = Vector3.ColorVector(19,59,191);
         Vector3 cbDif = new Vector3(.8,.8,.8);
         Vector3 cbSpc = new Vector3(.8,.8,.8);
         Material cbMat = new Material(cbCol, cbDif, cbSpc);
@@ -96,12 +98,16 @@ public class Test {
         myScene.renderables.add(cb);
 
         Sphere cb2 = cb.copy();
-        cb2.translate(new Vector3(-2.25,0,0));
+        cb2.translate(new Vector3(-2.25,0,-2));
         myScene.renderables.add(cb2);
 
         Sphere cb3 = cb.copy();
-        cb3.translate(new Vector3(2.25,0,0));
+        cb3.translate(new Vector3(2.25,0,2));
         myScene.renderables.add(cb3);
+
+        Sphere cb4 = cb.copy();
+        cb4.translate(new Vector3(4.5,0,4));
+        myScene.renderables.add(cb4);
 
 
         
@@ -176,10 +182,5 @@ public class Test {
 
        int rays = Ray.nrays.get();
        System.out.println("Rays Fired: " + rays);
-
-
-
-
-       
     }
 }
