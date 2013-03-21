@@ -22,11 +22,12 @@ public class Test {
 
        // Render options
        RenderOptions options = new RenderOptions();
-       options.AA_samples = 4;
+       options.AA_samples = 1;
        options.width = 1920;
        options.height = 1080;
        options.max_recurse = 10;
 
+       options.focal_plane_dist = 12;
        options.dof_rays = 100;
 
         // Construct the scene

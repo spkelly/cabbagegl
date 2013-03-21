@@ -7,9 +7,9 @@ public class RenderOptions {
         max_recurse = 10;
 
 
-        dof_rays = 100;
+        dof_rays = 20;
         focal_plane_dist = 10;
-        lens_aperture_radius = .05;
+        lens_aperture_radius = .35;
     }
 
     public int width;

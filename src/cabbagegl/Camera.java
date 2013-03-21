@@ -1,6 +1,7 @@
 package cabbagegl;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Random;
 
 public class Camera {
@@ -26,6 +27,8 @@ public class Camera {
     private static final double DEFAULT_ZFAR = 20.0;
 
     public boolean cel_shaded; // wat
+
+    private AtomicInteger pixelsRendered;
 
     public Camera() {
         lookAt(DEFAULT_EYE, DEFAULT_VIEW, DEFAULT_UP);
@@ -54,6 +57,7 @@ public class Camera {
         // Generate several threads that render seperate parts of the scene
         int nthreads = 5;
         Thread threads[] = new Thread[nthreads];
+        pixelsRendered = new AtomicInteger(0);
         for (int i = 0; i < nthreads; i++) {
            // Calculate the current thread's range to render
            int low = i * (roptions.width / nthreads);
@@ -180,13 +184,15 @@ public class Camera {
            double lensDist = doubleBetween(0, roptions.lens_aperture_radius);
            Vector3 utrans = nu.scale(Math.cos(randAngle));
            Vector3 vtrans = nv.scale(Math.sin(randAngle));
-           Vector3 eyeJit = nu.sum(nv);
+           Vector3 eyeJit = utrans.sum(vtrans).normalize().scale(lensDist);
            neye = eye.sum(eyeJit);
-           
         }
         toUse = toUse.scale(1.0/roptions.dof_rays);
 
         toUse = toUse.clamp(0.0, 1.0);
+        int rendered = pixelsRendered.incrementAndGet();
+        if (rendered % 100 == 0)
+           System.out.println((((double)rendered) / (roptions.width*roptions.height)) + " complete.");
         return vectorToColor(toUse);
     }
 
