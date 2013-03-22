@@ -14,7 +14,7 @@ public class Test {
        myCam.lookAt(eye, view, up);
 
        double fov    = 45.0;
-       double aspect = 5.3333;
+       double aspect = 16.0/9.0;
        double znear  = 8;
        double zfar   = 100.0;
        myCam.perspective(fov, aspect, znear, zfar);
@@ -22,14 +22,14 @@ public class Test {
 
        // Render options
        RenderOptions options = new RenderOptions();
-       options.AA_samples = 1;
-       options.width = 2560;
-       options.height = 480;
+       options.AA_samples = 4;
+       options.width = 1920;
+       options.height = 1080;
        options.max_recurse = 10;
 
        options.focal_plane_dist = 11;
-       options.lens_aperture_radius = .5;
-       options.dof_rays = 10;
+       options.lens_aperture_radius = 1.5;
+       options.dof_rays = 20;
 
         // Construct the scene
         Scene myScene = new Scene();
