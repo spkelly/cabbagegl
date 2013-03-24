@@ -55,7 +55,8 @@ public class Camera {
         BufferedImage img = new BufferedImage(roptions.width, roptions.height,
             BufferedImage.TYPE_INT_RGB);
         // Generate several threads that render seperate parts of the scene
-        int nthreads = 10;
+        // XXX that one is a bit important to be an hardcoded constant
+        int nthreads = 1;
         Thread threads[] = new Thread[nthreads];
         pixelsRendered = new AtomicInteger(0);
         for (int i = 0; i < nthreads; i++) {
@@ -102,7 +103,9 @@ public class Camera {
     private void renderInRange(Scene s, RenderOptions o, int il, int ih,
          BufferedImage img) {
        for (int i = il; i < ih; i++) {
+          System.out.println("i: " + i + " / ih: " + ih);
           for (int j = 0; j < o.height; j++) {
+//;             System.out.println("j: " + j + " / o: " + o.height);
              Color pixCol = renderPixel(i, j, s, o);
              img.setRGB(i, j, pixCol.getRGB());
           }
@@ -193,8 +196,8 @@ public class Camera {
 
         toUse = toUse.clamp(0.0, 1.0);
         int rendered = pixelsRendered.incrementAndGet();
-        if (rendered % 100 == 0)
-           System.out.println((((double)rendered) / (roptions.width*roptions.height)) + " complete.");
+//         if (rendered % 100 == 0)
+  //         System.out.println((((double)rendered) / (roptions.width*roptions.height)) + " complete.");
         return vectorToColor(toUse);
     }
 

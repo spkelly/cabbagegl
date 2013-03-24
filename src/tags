@@ -1,0 +1,322 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AA_samples	cabbagegl/RenderOptions.java	/^    public int AA_samples;$/;"	f	class:RenderOptions
+Axis	cabbagegl/Axis.java	/^public enum Axis {$/;"	g
+BACK	cabbagegl/FaceSide.java	/^   FRONT, BACK;$/;"	e	enum:FaceSide	file:
+CAMERA	cabbagegl/net/CGLNetMessageType.java	/^   SCENE, CAMERA, RENDER_OPTIONS, PIX_RANGE, UPDATE, RENDERED, DEPTH_BUFF;$/;"	e	enum:CGLNetMessageType	file:
+CGLNetMessage	cabbagegl/net/CGLNetMessage.java	/^   public CGLNetMessage(CGLNetMessageType mtype) {$/;"	m	class:CGLNetMessage
+CGLNetMessage	cabbagegl/net/CGLNetMessage.java	/^public abstract class CGLNetMessage {$/;"	c
+CGLNetMessageType	cabbagegl/net/CGLNetMessageType.java	/^public enum CGLNetMessageType {$/;"	g
+Camera	cabbagegl/Camera.java	/^    public Camera() {$/;"	m	class:Camera
+Camera	cabbagegl/Camera.java	/^public class Camera {$/;"	c
+Camera	shaderscripts/cabbagegl_builtins.py	/^import Camera$/;"	i
+CameraMessage	cabbagegl/net/CameraMessage.java	/^   public CameraMessage(Camera cam) {$/;"	m	class:CameraMessage
+CameraMessage	cabbagegl/net/CameraMessage.java	/^public class CameraMessage extends CGLNetMessage {$/;"	c
+ColorVector	cabbagegl/Vector3.java	/^    public static Vector3 ColorVector(int R, int G, int B) {$/;"	m	class:Vector3
+DEFAULT_ASPECT	cabbagegl/Camera.java	/^    private static final double DEFAULT_ASPECT = 1.0;$/;"	f	class:Camera	file:
+DEFAULT_EYE	cabbagegl/Camera.java	/^    private static final Vector3 DEFAULT_EYE = Vector3.UNIT_X;$/;"	f	class:Camera	file:
+DEFAULT_FOV	cabbagegl/Camera.java	/^    private static final double DEFAULT_FOV = 45.0;$/;"	f	class:Camera	file:
+DEFAULT_UP	cabbagegl/Camera.java	/^    private static final Vector3 DEFAULT_UP = Vector3.UNIT_Y;$/;"	f	class:Camera	file:
+DEFAULT_VIEW	cabbagegl/Camera.java	/^    private static final Vector3 DEFAULT_VIEW = Vector3.ZERO;$/;"	f	class:Camera	file:
+DEFAULT_ZFAR	cabbagegl/Camera.java	/^    private static final double DEFAULT_ZFAR = 20.0;$/;"	f	class:Camera	file:
+DEFAULT_ZNEAR	cabbagegl/Camera.java	/^    private static final double DEFAULT_ZNEAR = 0.1;$/;"	f	class:Camera	file:
+DEPTH_BUFF	cabbagegl/net/CGLNetMessageType.java	/^   SCENE, CAMERA, RENDER_OPTIONS, PIX_RANGE, UPDATE, RENDERED, DEPTH_BUFF;$/;"	e	enum:CGLNetMessageType	file:
+DepthBufferMessage	cabbagegl/net/DepthBufferMessage.java	/^   public DepthBufferMessage(double idBuff[], int low, int high) {$/;"	m	class:DepthBufferMessage
+DepthBufferMessage	cabbagegl/net/DepthBufferMessage.java	/^public class DepthBufferMessage extends CGLNetMessage {$/;"	c
+FRONT	cabbagegl/FaceSide.java	/^   FRONT, BACK;$/;"	e	enum:FaceSide	file:
+FaceSide	cabbagegl/FaceSide.java	/^public enum FaceSide {$/;"	g
+HitData	cabbagegl/HitData.java	/^   public HitData() {$/;"	m	class:HitData
+HitData	cabbagegl/HitData.java	/^public class HitData {$/;"	c
+HitPoint	cabbagegl/HitPoint.java	/^   public HitPoint(Vector3 ih, Vector3 in, double dist, Shape iHS,$/;"	m	class:HitPoint
+HitPoint	cabbagegl/HitPoint.java	/^public class HitPoint implements Comparable<HitPoint> {$/;"	c
+Light	cabbagegl/Light.java	/^   public Light(Vector3 iint, Vector3 ispec, Vector3 ipos) {$/;"	m	class:Light
+Light	cabbagegl/Light.java	/^   public Light(Vector3 iint, Vector3 ispec, Vector3 ipos, Vector3 atten) {$/;"	m	class:Light
+Light	cabbagegl/Light.java	/^public class Light {$/;"	c
+Material	cabbagegl/Material.java	/^   public Material(Vector3 icol, Vector3 idiff, Vector3 ispec) {$/;"	m	class:Material
+Material	cabbagegl/Material.java	/^   public Material(Vector3 icol, Vector3 idiff, Vector3 ispec, double ish) {$/;"	m	class:Material
+Material	cabbagegl/Material.java	/^   public Material(Vector3 icol, Vector3 idiff, Vector3 ispec, double ish,$/;"	m	class:Material
+Material	cabbagegl/Material.java	/^public class Material {$/;"	c
+Matrix33	cabbagegl/Matrix33.java	/^   public Matrix33(Vector3 ir1, Vector3 ir2, Vector3 ir3) {$/;"	m	class:Matrix33
+Matrix33	cabbagegl/Matrix33.java	/^public class Matrix33 {$/;"	c
+PIX_RANGE	cabbagegl/net/CGLNetMessageType.java	/^   SCENE, CAMERA, RENDER_OPTIONS, PIX_RANGE, UPDATE, RENDERED, DEPTH_BUFF;$/;"	e	enum:CGLNetMessageType	file:
+PixelRangeMessage	cabbagegl/net/PixelRangeMessage.java	/^   public PixelRangeMessage(int low, int high) {$/;"	m	class:PixelRangeMessage
+PixelRangeMessage	cabbagegl/net/PixelRangeMessage.java	/^public class PixelRangeMessage extends CGLNetMessage {$/;"	c
+Plane	cabbagegl/Plane.java	/^    public Plane(Vector3 pnt, Vector3 norm, Material mat) {$/;"	m	class:Plane
+Plane	cabbagegl/Plane.java	/^class Plane extends Shape {$/;"	c
+Polygon	cabbagegl/Polygon.java	/^   public Polygon(List<Vector3> verts, Material mat) {$/;"	m	class:Polygon
+Polygon	cabbagegl/Polygon.java	/^public class Polygon extends Shape {$/;"	c
+RENDERED	cabbagegl/net/CGLNetMessageType.java	/^   SCENE, CAMERA, RENDER_OPTIONS, PIX_RANGE, UPDATE, RENDERED, DEPTH_BUFF;$/;"	e	enum:CGLNetMessageType	file:
+RENDER_OPTIONS	cabbagegl/net/CGLNetMessageType.java	/^   SCENE, CAMERA, RENDER_OPTIONS, PIX_RANGE, UPDATE, RENDERED, DEPTH_BUFF;$/;"	e	enum:CGLNetMessageType	file:
+Ray	cabbagegl/Ray.java	/^    private Ray(Vector3 ibase, Vector3 idir, Stack<HitPoint> imedia) {$/;"	m	class:Ray	file:
+Ray	cabbagegl/Ray.java	/^    public Ray(Vector3 ibase, Vector3 idir) {$/;"	m	class:Ray
+Ray	cabbagegl/Ray.java	/^public class Ray {$/;"	c
+Ray	shaderscripts/cabbagegl_builtins.py	/^import Ray$/;"	i
+RenderInstance	cabbagegl/net/RenderServer.java	/^      public RenderInstance(Socket isock) {$/;"	m	class:RenderServer.RenderInstance
+RenderInstance	cabbagegl/net/RenderServer.java	/^   private class RenderInstance implements Runnable {$/;"	c	class:RenderServer
+RenderOptions	cabbagegl/RenderOptions.java	/^    public RenderOptions() {$/;"	m	class:RenderOptions
+RenderOptions	cabbagegl/RenderOptions.java	/^public class RenderOptions {$/;"	c
+RenderOptionsMessage	cabbagegl/net/RenderOptionsMessage.java	/^   public RenderOptionsMessage(RenderOptions options) {$/;"	m	class:RenderOptionsMessage
+RenderOptionsMessage	cabbagegl/net/RenderOptionsMessage.java	/^public class RenderOptionsMessage extends CGLNetMessage {$/;"	c
+RenderServer	cabbagegl/net/RenderServer.java	/^   public RenderServer(int port) {$/;"	m	class:RenderServer
+RenderServer	cabbagegl/net/RenderServer.java	/^public class RenderServer implements Runnable {$/;"	c
+RenderThread	cabbagegl/Camera.java	/^       public RenderThread(Scene s, RenderOptions ro, int l, int h,$/;"	m	class:Camera.RenderThread
+RenderThread	cabbagegl/Camera.java	/^    public class RenderThread implements Runnable {$/;"	c	class:Camera
+RenderedMessage	cabbagegl/net/RenderedMessage.java	/^   public RenderedMessage(Color irendered[], int low, int high) {$/;"	m	class:RenderedMessage
+RenderedMessage	cabbagegl/net/RenderedMessage.java	/^public class RenderedMessage extends CGLNetMessage {$/;"	c
+SCENE	cabbagegl/net/CGLNetMessageType.java	/^   SCENE, CAMERA, RENDER_OPTIONS, PIX_RANGE, UPDATE, RENDERED, DEPTH_BUFF;$/;"	e	enum:CGLNetMessageType	file:
+Scene	cabbagegl/Scene.java	/^    public Scene() {$/;"	m	class:Scene
+Scene	cabbagegl/Scene.java	/^public class Scene {$/;"	c
+SceneMessage	cabbagegl/net/SceneMessage.java	/^   public SceneMessage(Scene iscene) {$/;"	m	class:SceneMessage
+SceneMessage	cabbagegl/net/SceneMessage.java	/^public class SceneMessage extends CGLNetMessage {$/;"	c
+ShaderProgram	cabbagegl/ShaderProgram.java	/^   public ShaderProgram() {$/;"	m	class:ShaderProgram
+ShaderProgram	cabbagegl/ShaderProgram.java	/^public class ShaderProgram {$/;"	c
+Shape	cabbagegl/Shape.java	/^    public Shape(Material imat) {$/;"	m	class:Shape
+Shape	cabbagegl/Shape.java	/^public abstract class Shape {$/;"	c
+Sphere	cabbagegl/Sphere.java	/^    public Sphere(Vector3 cen, double rad, Material mat) {$/;"	m	class:Sphere
+Sphere	cabbagegl/Sphere.java	/^public class Sphere extends Shape {$/;"	c
+TIMEOUT_CHECK	cabbagegl/net/RenderServer.java	/^   private static final int TIMEOUT_CHECK = 1000;$/;"	f	class:RenderServer	file:
+Test	cabbagegl/Test.java	/^public class Test {$/;"	c
+Triangle	cabbagegl/Triangle.java	/^   public Triangle(Vector3 v1, Vector3 v2, Vector3 v3, Material mat) {$/;"	m	class:Triangle
+Triangle	cabbagegl/Triangle.java	/^public class Triangle extends Plane {$/;"	c
+UNIT_X	cabbagegl/Vector3.java	/^    public static final Vector3 UNIT_X = new Vector3(1,0,0);$/;"	f	class:Vector3
+UNIT_Y	cabbagegl/Vector3.java	/^    public static final Vector3 UNIT_Y = new Vector3(0,1,0);$/;"	f	class:Vector3
+UNIT_Z	cabbagegl/Vector3.java	/^    public static final Vector3 UNIT_Z = new Vector3(0,0,1);$/;"	f	class:Vector3
+UPDATE	cabbagegl/net/CGLNetMessageType.java	/^   SCENE, CAMERA, RENDER_OPTIONS, PIX_RANGE, UPDATE, RENDERED, DEPTH_BUFF;$/;"	e	enum:CGLNetMessageType	file:
+UpdateMessage	cabbagegl/net/UpdateMessage.java	/^   public UpdateMessage(double ipc) {$/;"	m	class:UpdateMessage
+UpdateMessage	cabbagegl/net/UpdateMessage.java	/^public class UpdateMessage extends CGLNetMessage {$/;"	c
+VZERO	shaderscripts/vec3.py	/^VZERO = vec3(0,0,0)$/;"	v
+Vector3	cabbagegl/Vector3.java	/^    public Vector3(double x, double y, double z) {$/;"	m	class:Vector3
+Vector3	cabbagegl/Vector3.java	/^public class Vector3 {$/;"	c
+Vector3	shaderscripts/cabbagegl_builtins.py	/^import Vector3$/;"	i
+X	cabbagegl/Vector3.java	/^    public double X() {$/;"	m	class:Vector3
+XAXIS	cabbagegl/Axis.java	/^   XAXIS, YAXIS, ZAXIS;$/;"	e	enum:Axis	file:
+Y	cabbagegl/Vector3.java	/^    public double Y() {$/;"	m	class:Vector3
+YAXIS	cabbagegl/Axis.java	/^   XAXIS, YAXIS, ZAXIS;$/;"	e	enum:Axis	file:
+Z	cabbagegl/Vector3.java	/^    public double Z() {$/;"	m	class:Vector3
+ZAXIS	cabbagegl/Axis.java	/^   XAXIS, YAXIS, ZAXIS;$/;"	e	enum:Axis	file:
+ZERO	cabbagegl/Vector3.java	/^    public static final Vector3 ZERO = new Vector3(0,0,0);$/;"	f	class:Vector3
+__add__	shaderscripts/vec3.py	/^   def __add__(self, ov):$/;"	m	class:vec3	file:
+__init__	shaderscripts/cabbagegl_prims.py	/^   def __init__(self):$/;"	m	class:fragment
+__init__	shaderscripts/cabbagegl_prims.py	/^   def __init__(self):$/;"	m	class:material
+__init__	shaderscripts/cabbagegl_prims.py	/^   def __init__(self):$/;"	m	class:shape
+__init__	shaderscripts/vec3.py	/^   def __init__(self, ix, iy, iz):$/;"	m	class:vec3
+__len__	shaderscripts/vec3.py	/^   def __len__(self):$/;"	m	class:vec3	file:
+__mul__	shaderscripts/vec3.py	/^   def __mul__(self, other):$/;"	m	class:vec3	file:
+__str__	shaderscripts/cabbagegl_prims.py	/^   def __str__(self):$/;"	m	class:fragment	file:
+__str__	shaderscripts/cabbagegl_prims.py	/^   def __str__(self):$/;"	m	class:material	file:
+__str__	shaderscripts/vec3.py	/^   def __str__(self):$/;"	m	class:vec3	file:
+__sub__	shaderscripts/vec3.py	/^   def __sub__(self, ov):$/;"	m	class:vec3	file:
+addHitpoint	cabbagegl/HitData.java	/^   public void addHitpoint(HitPoint toAdd) {$/;"	m	class:HitData
+alpha	cabbagegl/Material.java	/^   private double alpha;$/;"	f	class:Material	file:
+ambient	cabbagegl/Scene.java	/^    public Vector3 ambient;$/;"	f	class:Scene
+aspect_ratio	cabbagegl/Camera.java	/^    private double aspect_ratio;$/;"	f	class:Camera	file:
+base	cabbagegl/Ray.java	/^    private Vector3 base;$/;"	f	class:Ray	file:
+baseFragShader	cabbagegl/ShaderProgram.java	/^   private static String baseFragShader;$/;"	f	class:ShaderProgram	file:
+cabbage_fragment	shaderscripts/basefrag.py	/^cabbage_fragment = fragment()$/;"	v
+cabbage_lights	shaderscripts/basefrag.py	/^cabbage_lights  = list()$/;"	v
+cabbage_objects	shaderscripts/basefrag.py	/^cabbage_objects = list()$/;"	v
+cabbagegl	cabbagegl/Axis.java	/^package cabbagegl;$/;"	p
+cabbagegl	cabbagegl/Camera.java	/^package cabbagegl;$/;"	p
+cabbagegl	cabbagegl/FaceSide.java	/^package cabbagegl;$/;"	p
+cabbagegl	cabbagegl/HitData.java	/^package cabbagegl;$/;"	p
+cabbagegl	cabbagegl/HitPoint.java	/^package cabbagegl;$/;"	p
+cabbagegl	cabbagegl/Light.java	/^package cabbagegl;$/;"	p
+cabbagegl	cabbagegl/Material.java	/^package cabbagegl;$/;"	p
+cabbagegl	cabbagegl/Matrix33.java	/^package cabbagegl;$/;"	p
+cabbagegl	cabbagegl/Plane.java	/^package cabbagegl;$/;"	p
+cabbagegl	cabbagegl/Polygon.java	/^package cabbagegl;$/;"	p
+cabbagegl	cabbagegl/Ray.java	/^package cabbagegl;$/;"	p
+cabbagegl	cabbagegl/RenderOptions.java	/^package cabbagegl;$/;"	p
+cabbagegl	cabbagegl/Scene.java	/^package cabbagegl;$/;"	p
+cabbagegl	cabbagegl/ShaderProgram.java	/^package cabbagegl;$/;"	p
+cabbagegl	cabbagegl/Shape.java	/^package cabbagegl;$/;"	p
+cabbagegl	cabbagegl/Sphere.java	/^package cabbagegl;$/;"	p
+cabbagegl	cabbagegl/Test.java	/^package cabbagegl;$/;"	p
+cabbagegl	cabbagegl/Triangle.java	/^package cabbagegl;$/;"	p
+cabbagegl	cabbagegl/Vector3.java	/^package cabbagegl;$/;"	p
+camera	cabbagegl/net/CameraMessage.java	/^   public Camera camera;$/;"	f	class:CameraMessage
+cel_shaded	cabbagegl/Camera.java	/^    public boolean cel_shaded; \/\/ wat$/;"	f	class:Camera
+cel_shaded	cabbagegl/Scene.java	/^    public boolean cel_shaded;$/;"	f	class:Scene
+cellShadedTrace	cabbagegl/Ray.java	/^    public Vector3 cellShadedTrace(Scene s, double mindist, double maxdist) {$/;"	m	class:Ray
+center	cabbagegl/Sphere.java	/^    private Vector3 center;$/;"	f	class:Sphere	file:
+clSock	cabbagegl/net/RenderServer.java	/^      private Socket clSock;$/;"	f	class:RenderServer.RenderInstance	file:
+clamp	cabbagegl/Vector3.java	/^    public Vector3 clamp(double low, double high) {$/;"	m	class:Vector3
+cmul	cabbagegl/Vector3.java	/^    public Vector3 cmul(Vector3 b) {$/;"	m	class:Vector3
+cmul	shaderscripts/vec3.py	/^   def cmul(self, ov):$/;"	m	class:vec3
+color	cabbagegl/Material.java	/^   private Vector3 color;$/;"	f	class:Material	file:
+compareTo	cabbagegl/HitPoint.java	/^   public int compareTo(HitPoint o) {$/;"	m	class:HitPoint
+computeAttenuation	cabbagegl/Light.java	/^   public double computeAttenuation(Scene s, HitPoint hp) {$/;"	m	class:Light
+computeCellShadedIllum	cabbagegl/Light.java	/^   private Vector3 computeCellShadedIllum(Scene s, HitPoint hp) {$/;"	m	class:Light	file:
+computeDiffuse	cabbagegl/Light.java	/^   public Vector3 computeDiffuse(Scene s, HitPoint hp, double distToLight) {$/;"	m	class:Light
+computeEdges	cabbagegl/Triangle.java	/^   private void computeEdges() {$/;"	m	class:Triangle	file:
+computeIllumination	cabbagegl/Light.java	/^   public Vector3 computeIllumination(Scene s, HitPoint hp) {$/;"	m	class:Light
+computeIllumination	cabbagegl/Ray.java	/^    private Vector3 computeIllumination(Scene s, HitPoint hp) {$/;"	m	class:Ray	file:
+computeSpecular	cabbagegl/Light.java	/^   public Vector3 computeSpecular(Scene s, HitPoint hp) {$/;"	m	class:Light
+constant_attenuation	cabbagegl/Light.java	/^   private double constant_attenuation;$/;"	f	class:Light	file:
+copy	cabbagegl/Sphere.java	/^    public Sphere copy() {$/;"	m	class:Sphere
+copy	cabbagegl/Triangle.java	/^   public Triangle copy() {$/;"	m	class:Triangle
+cross	cabbagegl/Vector3.java	/^    public Vector3 cross(Vector3 b) {$/;"	m	class:Vector3
+ctrace	cabbagegl/Ray.java	/^    private Vector3 ctrace(Scene s, double mindist, double maxdist, double sofar) {$/;"	m	class:Ray	file:
+depthBuffer	cabbagegl/net/DepthBufferMessage.java	/^   public double depthBuffer[];$/;"	f	class:DepthBufferMessage
+diff	cabbagegl/Vector3.java	/^    public Vector3 diff(Vector3 b) {$/;"	m	class:Vector3
+diff	shaderscripts/vec3.py	/^   def diff(self, ov):$/;"	m	class:vec3
+diffScaleAtPoint	cabbagegl/Light.java	/^   public double diffScaleAtPoint(HitPoint hp) {$/;"	m	class:Light
+diffuse	cabbagegl/Material.java	/^   private Vector3 diffuse;$/;"	f	class:Material	file:
+dir	cabbagegl/Ray.java	/^    private Vector3 dir;$/;"	f	class:Ray	file:
+distFromLight	cabbagegl/Light.java	/^   public Double distFromLight(Scene s, HitPoint hp) {$/;"	m	class:Light
+distTo	cabbagegl/HitPoint.java	/^   private double distTo;$/;"	f	class:HitPoint	file:
+dof_rays	cabbagegl/RenderOptions.java	/^    public int dof_rays;$/;"	f	class:RenderOptions
+dot	cabbagegl/Vector3.java	/^    public double dot(Vector3 b) {$/;"	m	class:Vector3
+dot	shaderscripts/vec3.py	/^   def dot(self, ov):$/;"	m	class:vec3
+doubleBetween	cabbagegl/Camera.java	/^    private double doubleBetween(double low, double high) {$/;"	m	class:Camera	file:
+edges	cabbagegl/Triangle.java	/^   private Vector3 edges[]; \/\/ v1->v2, v2->v3, v3->v1$/;"	f	class:Triangle	file:
+equals	cabbagegl/Vector3.java	/^    public boolean equals(Vector3 o) {$/;"	m	class:Vector3
+eye	cabbagegl/Camera.java	/^    private Vector3 eye;$/;"	f	class:Camera	file:
+face	cabbagegl/HitPoint.java	/^   private FaceSide face;$/;"	f	class:HitPoint	file:
+far	cabbagegl/Camera.java	/^    private double far;$/;"	f	class:Camera	file:
+field_of_view	cabbagegl/Camera.java	/^    private double field_of_view;$/;"	f	class:Camera	file:
+findClosestHPointsExclude	cabbagegl/Ray.java	/^    public HitPoint findClosestHPointsExclude(HitData hitpoints, Shape ex) {$/;"	m	class:Ray
+findClosestHPointsExcludeFace	cabbagegl/Ray.java	/^    public HitPoint findClosestHPointsExcludeFace(HitData hitpoints, Shape ex,$/;"	m	class:Ray
+findClosestHitpoint	cabbagegl/Ray.java	/^    public HitPoint findClosestHitpoint(HitData hitpoints) {$/;"	m	class:Ray
+focal_plane_dist	cabbagegl/RenderOptions.java	/^    public double focal_plane_dist;$/;"	f	class:RenderOptions
+fragment	shaderscripts/cabbagegl_prims.py	/^class fragment:$/;"	c
+generateRotationMatrix	cabbagegl/Matrix33.java	/^   public static Matrix33 generateRotationMatrix(Axis a, double angle) {$/;"	m	class:Matrix33
+getAllHitpoints	cabbagegl/Ray.java	/^    public HitData getAllHitpoints(Scene s, double mindist, double maxdist) {$/;"	m	class:Ray
+getAlpha	cabbagegl/Material.java	/^   public double getAlpha() {$/;"	m	class:Material
+getBase	cabbagegl/Ray.java	/^    public Vector3 getBase() {$/;"	m	class:Ray
+getColor	cabbagegl/Material.java	/^   public Vector3 getColor() {$/;"	m	class:Material
+getCurrMediaIOR	cabbagegl/Ray.java	/^    public double getCurrMediaIOR() {$/;"	m	class:Ray
+getDiffuse	cabbagegl/Material.java	/^   public Vector3 getDiffuse() {$/;"	m	class:Material
+getDir	cabbagegl/Ray.java	/^    public Vector3 getDir() {$/;"	m	class:Ray
+getDistTo	cabbagegl/HitPoint.java	/^   public double getDistTo() {$/;"	m	class:HitPoint
+getHitShape	cabbagegl/HitPoint.java	/^   public Shape getHitShape() {$/;"	m	class:HitPoint
+getHitpoint	cabbagegl/HitPoint.java	/^   public Vector3 getHitpoint() {$/;"	m	class:HitPoint
+getHitpoints	cabbagegl/HitData.java	/^   public List<HitPoint> getHitpoints() {$/;"	m	class:HitData
+getIndexOfRefraction	cabbagegl/Material.java	/^   public double getIndexOfRefraction() {$/;"	m	class:Material
+getMaterial	cabbagegl/Shape.java	/^    public Material getMaterial() {$/;"	m	class:Shape
+getNormal	cabbagegl/HitPoint.java	/^   public Vector3 getNormal() {$/;"	m	class:HitPoint
+getShininess	cabbagegl/Material.java	/^   public double getShininess() {$/;"	m	class:Material
+getSideHit	cabbagegl/HitPoint.java	/^   public FaceSide getSideHit() {$/;"	m	class:HitPoint
+getSpecular	cabbagegl/Material.java	/^   public Vector3 getSpecular() {$/;"	m	class:Material
+height	cabbagegl/RenderOptions.java	/^    public int height;$/;"	f	class:RenderOptions
+high	cabbagegl/Camera.java	/^       private int low, high;$/;"	f	class:Camera.RenderThread	file:
+highPixel	cabbagegl/net/DepthBufferMessage.java	/^   public int highPixel;$/;"	f	class:DepthBufferMessage
+highPixel	cabbagegl/net/PixelRangeMessage.java	/^   public int highPixel;$/;"	f	class:PixelRangeMessage
+highPixel	cabbagegl/net/RenderedMessage.java	/^   public int highPixel;$/;"	f	class:RenderedMessage
+hitBy	cabbagegl/Plane.java	/^    public HitData hitBy(Ray r) {$/;"	m	class:Plane
+hitBy	cabbagegl/Polygon.java	/^   public HitData hitBy(Ray r) {$/;"	m	class:Polygon
+hitBy	cabbagegl/Shape.java	/^    public abstract HitData hitBy(Ray r);$/;"	m	class:Shape
+hitBy	cabbagegl/Sphere.java	/^    public HitData hitBy(Ray r) {$/;"	m	class:Sphere
+hitBy	cabbagegl/Triangle.java	/^   public HitData hitBy(Ray r) {$/;"	m	class:Triangle
+hitShape	cabbagegl/HitPoint.java	/^   private Shape hitShape;$/;"	f	class:HitPoint	file:
+hitpoint	cabbagegl/HitPoint.java	/^   private Vector3 hitpoint;$/;"	f	class:HitPoint	file:
+hitpoints	cabbagegl/HitData.java	/^   private List<HitPoint> hitpoints;$/;"	f	class:HitData	file:
+image	cabbagegl/Camera.java	/^       private BufferedImage image;$/;"	f	class:Camera.RenderThread	file:
+indexOfRefraction	cabbagegl/Material.java	/^   private double indexOfRefraction;$/;"	f	class:Material	file:
+intensity	cabbagegl/Light.java	/^   private Vector3 intensity;$/;"	f	class:Light	file:
+invSqrt	cabbagegl/Vector3.java	/^    private static double invSqrt(double x) {$/;"	m	class:Vector3	file:
+isEmpty	cabbagegl/HitData.java	/^   public boolean isEmpty() {$/;"	m	class:HitData
+l	cabbagegl/Vector3.java	/^    private double l;$/;"	f	class:Vector3	file:
+l_calc	cabbagegl/Vector3.java	/^    private boolean l_calc;$/;"	f	class:Vector3	file:
+len	cabbagegl/Vector3.java	/^    public double len() {$/;"	m	class:Vector3
+length	shaderscripts/vec3.py	/^   def length(self):$/;"	m	class:vec3
+lens_aperture_radius	cabbagegl/RenderOptions.java	/^    public double lens_aperture_radius;$/;"	f	class:RenderOptions
+lights	cabbagegl/Scene.java	/^    public List<Light> lights;$/;"	f	class:Scene
+linear_attenuation	cabbagegl/Light.java	/^   private double linear_attenuation;$/;"	f	class:Light	file:
+lookAt	cabbagegl/Camera.java	/^    public void lookAt(Vector3 ieye, Vector3 iview, Vector3 iup) {$/;"	m	class:Camera
+low	cabbagegl/Camera.java	/^       private int low, high;$/;"	f	class:Camera.RenderThread	file:
+lowPixel	cabbagegl/net/DepthBufferMessage.java	/^   public int lowPixel;$/;"	f	class:DepthBufferMessage
+lowPixel	cabbagegl/net/PixelRangeMessage.java	/^   public int lowPixel;$/;"	f	class:PixelRangeMessage
+lowPixel	cabbagegl/net/RenderedMessage.java	/^   public int lowPixel;$/;"	f	class:RenderedMessage
+main	cabbagegl/Test.java	/^    public static void main(String[] args) {$/;"	m	class:Test
+mat	cabbagegl/Shape.java	/^    protected Material mat;$/;"	f	class:Shape
+material	shaderscripts/cabbagegl_prims.py	/^class material:$/;"	c
+materialPropsAt	cabbagegl/Plane.java	/^    public Material materialPropsAt(Vector3 ray, FaceSide fs) {$/;"	m	class:Plane
+materialPropsAt	cabbagegl/Polygon.java	/^   public Material materialPropsAt(Vector3 ray, FaceSide fs) {$/;"	m	class:Polygon
+materialPropsAt	cabbagegl/Shape.java	/^    public abstract Material materialPropsAt(Vector3 ray, FaceSide fs);$/;"	m	class:Shape
+materialPropsAt	cabbagegl/Sphere.java	/^    public Material materialPropsAt(Vector3 ray, FaceSide fs) {$/;"	m	class:Sphere
+materialPropsAt	cabbagegl/Triangle.java	/^    public Material materialPropsAt(Vector3 ray, FaceSide fs) {$/;"	m	class:Triangle
+max_recurse	cabbagegl/RenderOptions.java	/^    public int max_recurse;$/;"	f	class:RenderOptions
+media	cabbagegl/Ray.java	/^    private Stack<HitPoint> media;$/;"	f	class:Ray	file:
+msgType	cabbagegl/net/CGLNetMessage.java	/^   public CGLNetMessageType msgType;$/;"	f	class:CGLNetMessage
+mul	cabbagegl/Matrix33.java	/^   public Vector3 mul(Vector3 right) {$/;"	m	class:Matrix33
+n_calc	cabbagegl/Vector3.java	/^    private boolean n_calc;$/;"	f	class:Vector3	file:
+near	cabbagegl/Camera.java	/^    private double near;$/;"	f	class:Camera	file:
+normal	cabbagegl/HitPoint.java	/^   private Vector3 normal;$/;"	f	class:HitPoint	file:
+normal	cabbagegl/Plane.java	/^    private Vector3 normal;$/;"	f	class:Plane	file:
+normalize	cabbagegl/Vector3.java	/^    public Vector3 normalize() {$/;"	m	class:Vector3
+normalize	shaderscripts/vec3.py	/^   def normalize(self):$/;"	m	class:vec3
+normalized	cabbagegl/Vector3.java	/^    private Vector3 normalized;$/;"	f	class:Vector3	file:
+not	cabbagegl/FaceSide.java	/^   public FaceSide not() {$/;"	m	class:FaceSide
+nrays	cabbagegl/Ray.java	/^   public static AtomicInteger nrays = new AtomicInteger();$/;"	f	class:Ray
+percentComplete	cabbagegl/net/UpdateMessage.java	/^   public double percentComplete;$/;"	f	class:UpdateMessage
+perspective	cabbagegl/Camera.java	/^    public void perspective(double fov, double aspect, double znear,$/;"	m	class:Camera
+pixelsRendered	cabbagegl/Camera.java	/^    private AtomicInteger pixelsRendered;$/;"	f	class:Camera	file:
+point	cabbagegl/Plane.java	/^    private Vector3 point;$/;"	f	class:Plane	file:
+position	cabbagegl/Light.java	/^   private Vector3 position;$/;"	f	class:Light	file:
+quadratric_attenuation	cabbagegl/Light.java	/^   private double quadratric_attenuation;$/;"	f	class:Light	file:
+r1	cabbagegl/Matrix33.java	/^   Vector3 r1, r2, r3;$/;"	f	class:Matrix33
+r2	cabbagegl/Matrix33.java	/^   Vector3 r1, r2, r3;$/;"	f	class:Matrix33
+r3	cabbagegl/Matrix33.java	/^   Vector3 r1, r2, r3;$/;"	f	class:Matrix33
+radius	cabbagegl/Sphere.java	/^    private double radius;$/;"	f	class:Sphere	file:
+randGen	cabbagegl/Camera.java	/^    private static Random randGen = new Random();$/;"	f	class:Camera	file:
+reflect	cabbagegl/Vector3.java	/^    public Vector3 reflect(Vector3 normal) {$/;"	m	class:Vector3
+refract	cabbagegl/Vector3.java	/^    public Vector3 refract(Vector3 normal, double from_ior, double  to_ior) {$/;"	m	class:Vector3
+renderInRange	cabbagegl/Camera.java	/^    private void renderInRange(Scene s, RenderOptions o, int il, int ih,$/;"	m	class:Camera	file:
+renderPixel	cabbagegl/Camera.java	/^    private Color renderPixel(int i, int j, Scene s, RenderOptions roptions) {$/;"	m	class:Camera	file:
+renderScene	cabbagegl/Camera.java	/^    public BufferedImage renderScene(Scene scene, RenderOptions roptions) {$/;"	m	class:Camera
+render_options	cabbagegl/net/RenderOptionsMessage.java	/^   public RenderOptions render_options;$/;"	f	class:RenderOptionsMessage
+renderables	cabbagegl/Scene.java	/^    public List<Shape> renderables;$/;"	f	class:Scene
+rendered	cabbagegl/net/RenderedMessage.java	/^   public Color rendered[];$/;"	f	class:RenderedMessage
+roptions	cabbagegl/Camera.java	/^       private RenderOptions roptions;$/;"	f	class:Camera.RenderThread	file:
+rotate	cabbagegl/Plane.java	/^    public void rotate(Axis axis, double angle) {$/;"	m	class:Plane
+rotate	cabbagegl/Polygon.java	/^   public void rotate(Axis axis, double angle) {$/;"	m	class:Polygon
+rotate	cabbagegl/Shape.java	/^    public abstract void rotate(Axis axis, double angle);$/;"	m	class:Shape
+rotate	cabbagegl/Sphere.java	/^    public void rotate(Axis axis, double angle) {$/;"	m	class:Sphere
+rotate	cabbagegl/Triangle.java	/^    public void rotate(Axis axis, double angle) {$/;"	m	class:Triangle
+rotateAbout	cabbagegl/Vector3.java	/^    public Vector3 rotateAbout(Axis axis, double angle) {$/;"	m	class:Vector3
+run	cabbagegl/Camera.java	/^       public void run() {$/;"	m	class:Camera.RenderThread
+run	cabbagegl/net/RenderServer.java	/^      public void run() {$/;"	m	class:RenderServer.RenderInstance
+run	cabbagegl/net/RenderServer.java	/^   public void run() {$/;"	m	class:RenderServer
+scale	cabbagegl/Vector3.java	/^    public Vector3 scale(double d) {$/;"	m	class:Vector3
+scale	shaderscripts/vec3.py	/^   def scale(self, s):$/;"	m	class:vec3
+scene	cabbagegl/Camera.java	/^       private Scene scene;$/;"	f	class:Camera.RenderThread	file:
+scene	cabbagegl/net/SceneMessage.java	/^   public Scene scene;$/;"	f	class:SceneMessage
+server_running	cabbagegl/net/RenderServer.java	/^   private boolean server_running;$/;"	f	class:RenderServer	file:
+shape	shaderscripts/cabbagegl_prims.py	/^class shape:$/;"	c
+shininess	cabbagegl/Material.java	/^   private double shininess;$/;"	f	class:Material	file:
+size	cabbagegl/HitData.java	/^   public int size() {$/;"	m	class:HitData
+sort	cabbagegl/HitData.java	/^   public void sort() {$/;"	m	class:HitData
+specular	cabbagegl/Light.java	/^   private Vector3 specular;$/;"	f	class:Light	file:
+specular	cabbagegl/Material.java	/^   private Vector3 specular;$/;"	f	class:Material	file:
+sport	cabbagegl/net/RenderServer.java	/^   private int sport;$/;"	f	class:RenderServer	file:
+sqrt	shaderscripts/vec3.py	/^from math import sqrt$/;"	i
+ssock	cabbagegl/net/RenderServer.java	/^   private ServerSocket ssock;$/;"	f	class:RenderServer	file:
+stop_accepting	cabbagegl/net/RenderServer.java	/^   public void stop_accepting() {$/;"	m	class:RenderServer
+sum	cabbagegl/Vector3.java	/^    public Vector3 sum(Vector3 b) {$/;"	m	class:Vector3
+sum	shaderscripts/vec3.py	/^   def sum(self, ov):$/;"	m	class:vec3
+toString	cabbagegl/Vector3.java	/^    public String toString() {$/;"	m	class:Vector3
+totalInternalReflection	cabbagegl/Vector3.java	/^    public boolean totalInternalReflection(Vector3 normal, double from_ior,$/;"	m	class:Vector3
+trace	cabbagegl/Ray.java	/^    private Vector3 trace(Scene s, double mindist, double maxdist, double sofar,$/;"	m	class:Ray	file:
+trace	cabbagegl/Ray.java	/^    public Vector3 trace(Scene s, double mindist, double maxdist, int mxdpth) {$/;"	m	class:Ray
+translate	cabbagegl/Plane.java	/^    public void translate(Vector3 trans) {$/;"	m	class:Plane
+translate	cabbagegl/Polygon.java	/^   public void translate(Vector3 trans) {$/;"	m	class:Polygon
+translate	cabbagegl/Shape.java	/^    public abstract void translate(Vector3 trans);$/;"	m	class:Shape
+translate	cabbagegl/Sphere.java	/^    public void translate(Vector3 trans) {$/;"	m	class:Sphere
+translate	cabbagegl/Triangle.java	/^    public void translate(Vector3 trans) {$/;"	m	class:Triangle
+tris	cabbagegl/Polygon.java	/^   private Triangle tris[];$/;"	f	class:Polygon	file:
+up	cabbagegl/Camera.java	/^    private Vector3 up;$/;"	f	class:Camera	file:
+vec3	shaderscripts/vec3.py	/^class vec3:$/;"	c
+vectorToColor	cabbagegl/Camera.java	/^    private static Color vectorToColor(Vector3 in) {$/;"	m	class:Camera	file:
+verts	cabbagegl/Triangle.java	/^   private Vector3 verts[]; \/\/ v1, v2, v3$/;"	f	class:Triangle	file:
+view	cabbagegl/Camera.java	/^    private Vector3 view;$/;"	f	class:Camera	file:
+vjToVpy	shaderscripts/cabbagegl_builtins.py	/^def vjToVpy(vec):$/;"	f
+vpyToVj	shaderscripts/cabbagegl_builtins.py	/^def vpyToVj(vec):$/;"	f
+width	cabbagegl/RenderOptions.java	/^    public int width;$/;"	f	class:RenderOptions
+x	cabbagegl/Vector3.java	/^    private double x, y, z;$/;"	f	class:Vector3	file:
+y	cabbagegl/Vector3.java	/^    private double x, y, z;$/;"	f	class:Vector3	file:
+z	cabbagegl/Vector3.java	/^    private double x, y, z;$/;"	f	class:Vector3	file:

@@ -1,0 +1,2338 @@
+JAVA PROFILE 1.0.1, created Sat Mar 23 14:19:58 2013
+
+Copyright 2003-2005 Sun Microsystems, Inc.  All Rights Reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+
+  - Neither the name of Sun Microsystems nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+Header for -agentlib:hprof (or -Xrunhprof) ASCII Output (JDK 5.0 JVMTI based)
+
+WARNING!  This file format is under development, and is subject to
+change without notice.
+
+This file contains the following types of records:
+
+THREAD START
+THREAD END      mark the lifetime of Java threads
+
+TRACE           represents a Java stack trace.  Each trace consists
+                of a series of stack frames.  Other records refer to
+                TRACEs to identify (1) where object allocations have
+                taken place, (2) the frames in which GC roots were
+                found, and (3) frequently executed methods.
+
+HEAP DUMP       is a complete snapshot of all live objects in the Java
+                heap.  Following distinctions are made:
+
+                ROOT    root set as determined by GC
+                CLS     classes 
+                OBJ     instances
+                ARR     arrays
+
+SITES           is a sorted list of allocation sites.  This identifies
+                the most heavily allocated object types, and the TRACE
+                at which those allocations occurred.
+
+CPU SAMPLES     is a statistical profile of program execution.  The VM
+                periodically samples all running threads, and assigns
+                a quantum to active TRACEs in those threads.  Entries
+                in this record are TRACEs ranked by the percentage of
+                total quanta they consumed; top-ranked TRACEs are
+                typically hot spots in the program.
+
+CPU TIME        is a profile of program execution obtained by measuring
+                the time spent in individual methods (excluding the time
+                spent in callees), as well as by counting the number of
+                times each method is called. Entries in this record are
+                TRACEs ranked by the percentage of total CPU time. The
+                "count" field indicates the number of times each TRACE 
+                is invoked.
+
+MONITOR TIME    is a profile of monitor contention obtained by measuring
+                the time spent by a thread waiting to enter a monitor.
+                Entries in this record are TRACEs ranked by the percentage
+                of total monitor contention time and a brief description
+                of the monitor.  The "count" field indicates the number of 
+                times the monitor was contended at that TRACE.
+
+MONITOR DUMP    is a complete snapshot of all the monitors and threads in 
+                the System.
+
+HEAP DUMP, SITES, CPU SAMPLES|TIME and MONITOR DUMP|TIME records are generated 
+at program exit.  They can also be obtained during program execution by typing 
+Ctrl-\ (on Solaris) or by typing Ctrl-Break (on Win32).
+
+--------
+
+THREAD START (obj=5000013b, id = 200001, name="main", group="main")
+THREAD START (obj=500002bf, id = 200004, name="Thread-1", group="main")
+THREAD END (id = 200004)
+THREAD START (obj=50000341, id = 200006, name="Java2D Disposer", group="system")
+THREAD END (id = 200001)
+THREAD START (obj=50000344, id = 200007, name="DestroyJavaVM", group="main")
+THREAD START (obj=50000348, id = 200008, name="Thread-0", group="main")
+THREAD END (id = 200008)
+THREAD END (id = 200007)
+THREAD END (id = 200002)
+TRACE 300282: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Triangle.hitBy(Triangle.java:49)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300290: (thread=200004)
+	java.util.ArrayList.<init>(ArrayList.java:139)
+	cabbagegl.HitData.<init>(HitData.java:8)
+	cabbagegl.Plane.hitBy(Plane.java:26)
+	cabbagegl.Triangle.hitBy(Triangle.java:35)
+TRACE 300327: (thread=200004)
+	java.util.ArrayList.<init>(ArrayList.java:139)
+	cabbagegl.HitData.<init>(HitData.java:8)
+	cabbagegl.Plane.hitBy(Plane.java:26)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+TRACE 300279: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Triangle.hitBy(Triangle.java:51)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300305: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300288: (thread=200004)
+	java.lang.Object.clone(Object.java:Unknown line)
+	java.util.Arrays.sort(Arrays.java:1091)
+	java.util.Collections.sort(Collections.java:134)
+	cabbagegl.HitData.sort(HitData.java:20)
+TRACE 300311: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:48)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300325: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Triangle.hitBy(Triangle.java:49)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+TRACE 300368: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Plane.hitBy(Plane.java:37)
+	cabbagegl.Triangle.hitBy(Triangle.java:35)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+TRACE 300321: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:51)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300294: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:49)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300333: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:51)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300285: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:175)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300354: (thread=200004)
+	java.util.Arrays.copyOf(Arrays.java:2746)
+	java.util.ArrayList.toArray(ArrayList.java:296)
+	java.util.Collections.sort(Collections.java:133)
+	cabbagegl.HitData.sort(HitData.java:20)
+TRACE 300338: (thread=200004)
+	java.util.Collections$UnmodifiableList.<init>(Collections.java:1163)
+	java.util.Collections$UnmodifiableRandomAccessList.<init>(Collections.java:1241)
+	java.util.Collections.unmodifiableList(Collections.java:1149)
+	cabbagegl.HitData.getHitpoints(HitData.java:16)
+TRACE 300332: (thread=200004)
+	java.util.ArrayList.add(ArrayList.java:378)
+	cabbagegl.HitData.addHitpoint(HitData.java:12)
+	cabbagegl.Plane.hitBy(Plane.java:38)
+	cabbagegl.Triangle.hitBy(Triangle.java:35)
+TRACE 300289: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Triangle.hitBy(Triangle.java:51)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+TRACE 300319: (thread=200004)
+	cabbagegl.Plane.hitBy(Plane.java:37)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300302: (thread=200004)
+	java.util.ArrayList.add(ArrayList.java:378)
+	cabbagegl.HitData.addHitpoint(HitData.java:12)
+	cabbagegl.Plane.hitBy(Plane.java:38)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+TRACE 300304: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:175)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300275: (thread=200004)
+	cabbagegl.Plane.hitBy(Plane.java:37)
+	cabbagegl.Triangle.hitBy(Triangle.java:35)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300314: (thread=200004)
+	java.util.Vector.<init>(Vector.java:144)
+	java.util.Vector.<init>(Vector.java:153)
+	java.util.Stack.<init>(Stack.java:53)
+	cabbagegl.Ray.<init>(Ray.java:23)
+TRACE 300308: (thread=200004)
+	java.util.Collections$UnmodifiableCollection$1.<init>(Collections.java:1023)
+	java.util.Collections$UnmodifiableCollection.iterator(Collections.java:1022)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:178)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300323: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:50)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300375: (thread=200004)
+	java.util.Arrays.mergeSort(Arrays.java:1157)
+	java.util.Arrays.sort(Arrays.java:1092)
+	java.util.Collections.sort(Collections.java:134)
+	cabbagegl.HitData.sort(HitData.java:20)
+TRACE 300320: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Light.computeSpecular(Light.java:126)
+	cabbagegl.Light.computeIllumination(Light.java:35)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300328: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Light.distFromLight(Light.java:51)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300351: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Light.distFromLight(Light.java:55)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300317: (thread=200004)
+	java.util.Collections.sort(Collections.java:138)
+	cabbagegl.HitData.sort(HitData.java:20)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:195)
+	cabbagegl.Ray.findClosestHitpoint(Ray.java:189)
+TRACE 300358: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Light.computeSpecular(Light.java:112)
+	cabbagegl.Light.computeIllumination(Light.java:35)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300342: (thread=200004)
+	java.util.Collections$UnmodifiableCollection$1.hasNext(Collections.java:1025)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:178)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300377: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300418: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:35)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300402: (thread=200004)
+	cabbagegl.Light.computeAttenuation(Light.java:140)
+	cabbagegl.Light.computeIllumination(Light.java:36)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+TRACE 300280: (thread=200004)
+	java.util.ArrayList.<init>(ArrayList.java:139)
+	cabbagegl.HitData.<init>(HitData.java:8)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:173)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300366: (thread=200004)
+	java.lang.StrictMath.pow(StrictMath.java:Unknown line)
+	java.lang.Math.pow(Math.java:626)
+	cabbagegl.Light.computeSpecular(Light.java:129)
+	cabbagegl.Light.computeIllumination(Light.java:35)
+TRACE 300310: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Vector3.normalize(Vector3.java:48)
+	cabbagegl.Triangle.hitBy(Triangle.java:49)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+TRACE 300326: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Light.computeDiffuse(Light.java:75)
+	cabbagegl.Light.computeIllumination(Light.java:34)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300299: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Light.diffScaleAtPoint(Light.java:95)
+	cabbagegl.Light.computeDiffuse(Light.java:86)
+	cabbagegl.Light.computeIllumination(Light.java:34)
+TRACE 300341: (thread=200004)
+	java.util.Arrays.mergeSort(Arrays.java:1157)
+	java.util.Arrays.sort(Arrays.java:1092)
+	java.util.Collections.sort(Collections.java:134)
+	cabbagegl.HitData.sort(HitData.java:20)
+TRACE 300297: (thread=200004)
+	java.util.LinkedList.listIterator(LinkedList.java:684)
+	java.util.AbstractList.listIterator(AbstractList.java:300)
+	java.util.AbstractSequentialList.iterator(AbstractSequentialList.java:239)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:175)
+TRACE 300300: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:51)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300347: (thread=200004)
+	java.util.Collections$UnmodifiableList.get(Collections.java:1170)
+	cabbagegl.Triangle.hitBy(Triangle.java:38)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300352: (thread=200004)
+	java.util.ArrayList.add(ArrayList.java:378)
+	cabbagegl.HitData.addHitpoint(HitData.java:12)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:182)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300367: (thread=200004)
+	java.util.Arrays.mergeSort(Arrays.java:1155)
+	java.util.Arrays.sort(Arrays.java:1092)
+	java.util.Collections.sort(Collections.java:134)
+	cabbagegl.HitData.sort(HitData.java:20)
+TRACE 300276: (thread=200004)
+	cabbagegl.Vector3.cross(Vector3.java:87)
+	cabbagegl.Triangle.hitBy(Triangle.java:51)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300316: (thread=200004)
+	java.util.Collections$UnmodifiableCollection$1.<init>(Collections.java:1023)
+	java.util.Collections$UnmodifiableCollection.iterator(Collections.java:1022)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:178)
+	cabbagegl.Ray.trace(Ray.java:66)
+TRACE 300340: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:54)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300374: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:48)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300301: (thread=200004)
+	cabbagegl.Vector3.diff(Vector3.java:72)
+	cabbagegl.Triangle.hitBy(Triangle.java:49)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300329: (thread=200004)
+	java.util.Collections$UnmodifiableCollection$1.<init>(Collections.java:1023)
+	java.util.Collections$UnmodifiableCollection.iterator(Collections.java:1022)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:196)
+	cabbagegl.Ray.findClosestHitpoint(Ray.java:189)
+TRACE 300336: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:175)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300378: (thread=200004)
+	java.util.Collections$UnmodifiableCollection$1.next(Collections.java:1026)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:178)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300390: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Vector3.normalize(Vector3.java:48)
+	cabbagegl.Triangle.hitBy(Triangle.java:51)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+TRACE 300346: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:184)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300365: (thread=200004)
+	java.util.Collections.sort(Collections.java:137)
+	cabbagegl.HitData.sort(HitData.java:20)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:195)
+	cabbagegl.Ray.findClosestHitpoint(Ray.java:189)
+TRACE 300331: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:51)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300277: (thread=200004)
+	cabbagegl.HitData.addHitpoint(HitData.java:12)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:182)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300363: (thread=200004)
+	cabbagegl.HitData.addHitpoint(HitData.java:12)
+	cabbagegl.Plane.hitBy(Plane.java:38)
+	cabbagegl.Triangle.hitBy(Triangle.java:35)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+TRACE 300424: (thread=200004)
+	java.util.ArrayList.<init>(ArrayList.java:132)
+	java.util.ArrayList.<init>(ArrayList.java:139)
+	cabbagegl.HitData.<init>(HitData.java:8)
+	cabbagegl.Plane.hitBy(Plane.java:26)
+TRACE 300435: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:49)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300427: (thread=200004)
+	cabbagegl.Light.computeIllumination(Light.java:35)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300278: (thread=200004)
+	java.util.LinkedList.listIterator(LinkedList.java:684)
+	java.util.AbstractList.listIterator(AbstractList.java:300)
+	java.util.AbstractSequentialList.iterator(AbstractSequentialList.java:239)
+	cabbagegl.Ray.computeIllumination(Ray.java:228)
+TRACE 300295: (thread=200004)
+	cabbagegl.HitData.addHitpoint(HitData.java:12)
+	cabbagegl.Plane.hitBy(Plane.java:38)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300306: (thread=200004)
+	cabbagegl.Light.distFromLight(Light.java:51)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+TRACE 300395: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:56)
+	cabbagegl.Camera.renderPixel(Camera.java:174)
+TRACE 300441: (thread=200004)
+	cabbagegl.HitData.<init>(HitData.java:8)
+	cabbagegl.Plane.hitBy(Plane.java:26)
+	cabbagegl.Triangle.hitBy(Triangle.java:35)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+TRACE 300286: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300406: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:50)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300318: (thread=200004)
+	cabbagegl.Light.computeSpecular(Light.java:126)
+	cabbagegl.Light.computeIllumination(Light.java:35)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+TRACE 300348: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:42)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300386: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:48)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300359: (thread=200004)
+	cabbagegl.Plane.hitBy(Plane.java:37)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300380: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:51)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300322: (thread=200004)
+	cabbagegl.Light.computeSpecular(Light.java:112)
+	cabbagegl.Light.computeIllumination(Light.java:35)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+TRACE 300337: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:51)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300350: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Sphere.hitBy(Sphere.java:37)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300409: (thread=200004)
+	cabbagegl.Light.diffScaleAtPoint(Light.java:95)
+	cabbagegl.Light.computeDiffuse(Light.java:86)
+	cabbagegl.Light.computeIllumination(Light.java:34)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300451: (thread=200004)
+	cabbagegl.Plane.hitBy(Plane.java:37)
+	cabbagegl.Triangle.hitBy(Triangle.java:35)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+TRACE 300274: (thread=200004)
+	java.util.Collections$UnmodifiableCollection$1.next(Collections.java:1026)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:196)
+	cabbagegl.Ray.findClosestHitpoint(Ray.java:189)
+	cabbagegl.Light.distFromLight(Light.java:60)
+TRACE 300330: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Vector3.normalize(Vector3.java:48)
+	cabbagegl.Plane.hitBy(Plane.java:37)
+	cabbagegl.Triangle.hitBy(Triangle.java:35)
+TRACE 300343: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Plane.hitBy(Plane.java:30)
+	cabbagegl.Triangle.hitBy(Triangle.java:35)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+TRACE 300349: (thread=200004)
+	java.util.ArrayList.add(ArrayList.java:378)
+	cabbagegl.HitData.addHitpoint(HitData.java:12)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:182)
+	cabbagegl.Ray.trace(Ray.java:66)
+TRACE 300383: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:49)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300400: (thread=200004)
+	cabbagegl.Light.computeSpecular(Light.java:129)
+	cabbagegl.Light.computeIllumination(Light.java:35)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+TRACE 300454: (thread=200004)
+	cabbagegl.Light.diffScaleAtPoint(Light.java:100)
+	cabbagegl.Light.computeDiffuse(Light.java:86)
+	cabbagegl.Light.computeIllumination(Light.java:34)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300307: (thread=200004)
+	cabbagegl.Light.computeIllumination(Light.java:34)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300334: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Camera.renderPixel(Camera.java:190)
+	cabbagegl.Camera.renderInRange(Camera.java:109)
+	cabbagegl.Camera.access$000(Camera.java:7)
+TRACE 300355: (thread=200004)
+	cabbagegl.Light.computeDiffuse(Light.java:75)
+	cabbagegl.Light.computeIllumination(Light.java:34)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+TRACE 300387: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Plane.hitBy(Plane.java:24)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300411: (thread=200004)
+	java.util.Collections$UnmodifiableList.get(Collections.java:1170)
+	cabbagegl.Triangle.hitBy(Triangle.java:38)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+TRACE 300421: (thread=200004)
+	cabbagegl.HitData.isEmpty(HitData.java:28)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:194)
+	cabbagegl.Ray.findClosestHitpoint(Ray.java:189)
+	cabbagegl.Light.distFromLight(Light.java:60)
+TRACE 300434: (thread=200004)
+	java.util.Collections.sort(Collections.java:137)
+	cabbagegl.HitData.sort(HitData.java:20)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:195)
+	cabbagegl.Ray.trace(Ray.java:70)
+TRACE 300442: (thread=200004)
+	java.util.Collections.sort(Collections.java:135)
+	cabbagegl.HitData.sort(HitData.java:20)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:195)
+	cabbagegl.Ray.findClosestHitpoint(Ray.java:189)
+TRACE 300459: (thread=200004)
+	cabbagegl.Light.computeIllumination(Light.java:36)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300283: (thread=200004)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300287: (thread=200004)
+	cabbagegl.Light.computeDiffuse(Light.java:83)
+	cabbagegl.Light.computeIllumination(Light.java:34)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+TRACE 300298: (thread=200004)
+	cabbagegl.Vector3.cross(Vector3.java:87)
+	cabbagegl.Triangle.hitBy(Triangle.java:51)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+TRACE 300345: (thread=200004)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:56)
+	cabbagegl.Camera.renderPixel(Camera.java:174)
+TRACE 300357: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:178)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300371: (thread=200004)
+	java.util.ArrayList.<init>(ArrayList.java:139)
+	cabbagegl.HitData.<init>(HitData.java:8)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:173)
+	cabbagegl.Ray.trace(Ray.java:66)
+TRACE 300401: (thread=200004)
+	java.util.Collections.sort(Collections.java:138)
+	cabbagegl.HitData.sort(HitData.java:20)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:195)
+	cabbagegl.Ray.trace(Ray.java:70)
+TRACE 300429: (thread=200004)
+	cabbagegl.Light.computeIllumination(Light.java:35)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300370: (thread=200004)
+	java.util.Collections$UnmodifiableCollection$1.hasNext(Collections.java:1025)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:178)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300405: (thread=200004)
+	java.util.ArrayList.<init>(ArrayList.java:139)
+	cabbagegl.HitData.<init>(HitData.java:8)
+	cabbagegl.Sphere.hitBy(Sphere.java:32)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+TRACE 300420: (thread=200004)
+	cabbagegl.Vector3.sum(Vector3.java:68)
+	cabbagegl.Plane.hitBy(Plane.java:24)
+	cabbagegl.Triangle.hitBy(Triangle.java:35)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+TRACE 300207: (thread=200001)
+	java.lang.ClassLoader$NativeLibrary.load(ClassLoader.java:Unknown line)
+	java.lang.ClassLoader.loadLibrary0(ClassLoader.java:1750)
+	java.lang.ClassLoader.loadLibrary(ClassLoader.java:1646)
+	java.lang.Runtime.load0(Runtime.java:787)
+TRACE 300313: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:35)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300391: (thread=200004)
+	java.util.Collections$UnmodifiableCollection$1.<init>(Collections.java:1023)
+	java.util.Collections$UnmodifiableCollection.iterator(Collections.java:1022)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:196)
+	cabbagegl.Ray.trace(Ray.java:70)
+TRACE 300407: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:54)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300417: (thread=200004)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300436: (thread=200004)
+	cabbagegl.Light.distFromLight(Light.java:55)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+TRACE 300479: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:175)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:56)
+	cabbagegl.Camera.renderPixel(Camera.java:174)
+TRACE 300491: (thread=200004)
+	cabbagegl.Light.computeSpecular(Light.java:117)
+	cabbagegl.Light.computeIllumination(Light.java:35)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+TRACE 300284: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:50)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300292: (thread=200004)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300309: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:178)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300379: (thread=200004)
+	cabbagegl.Plane.hitBy(Plane.java:38)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300392: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:38)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300437: (thread=200004)
+	cabbagegl.Ray.computeIllumination(Ray.java:228)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300446: (thread=200004)
+	java.util.ArrayList.add(ArrayList.java:378)
+	cabbagegl.HitData.addHitpoint(HitData.java:12)
+	cabbagegl.Sphere.hitBy(Sphere.java:41)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+TRACE 300465: (thread=200004)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300478: (thread=200004)
+	cabbagegl.HitData.addHitpoint(HitData.java:12)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:182)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300009: (thread=200001)
+	java.util.zip.ZipFile.open(ZipFile.java:Unknown line)
+	java.util.zip.ZipFile.<init>(ZipFile.java:131)
+	java.util.jar.JarFile.<init>(JarFile.java:150)
+	java.util.jar.JarFile.<init>(JarFile.java:87)
+TRACE 300196: (thread=200001)
+	java.lang.ClassLoader$NativeLibrary.load(ClassLoader.java:Unknown line)
+	java.lang.ClassLoader.loadLibrary0(ClassLoader.java:1750)
+	java.lang.ClassLoader.loadLibrary(ClassLoader.java:1667)
+	java.lang.Runtime.loadLibrary0(Runtime.java:840)
+TRACE 300353: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Ray.trace(Ray.java:103)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300360: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:175)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300362: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:175)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:56)
+	cabbagegl.Camera.renderPixel(Camera.java:174)
+TRACE 300372: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Plane.hitBy(Plane.java:24)
+	cabbagegl.Triangle.hitBy(Triangle.java:35)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+TRACE 300373: (thread=200004)
+	cabbagegl.Vector3.diff(Vector3.java:72)
+	cabbagegl.Sphere.hitBy(Sphere.java:21)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300399: (thread=200004)
+	cabbagegl.Vector3.sum(Vector3.java:68)
+	cabbagegl.Light.computeIllumination(Light.java:40)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+TRACE 300410: (thread=200004)
+	cabbagegl.Plane.hitBy(Plane.java:38)
+	cabbagegl.Triangle.hitBy(Triangle.java:35)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300423: (thread=200004)
+	java.util.Collections$UnmodifiableCollection$1.next(Collections.java:1026)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:196)
+	cabbagegl.Ray.trace(Ray.java:70)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300425: (thread=200004)
+	java.util.Collections.sort(Collections.java:135)
+	cabbagegl.HitData.sort(HitData.java:20)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:195)
+	cabbagegl.Ray.trace(Ray.java:70)
+TRACE 300440: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:175)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300450: (thread=200004)
+	cabbagegl.Plane.hitBy(Plane.java:37)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300453: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:167)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300469: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:167)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300474: (thread=200004)
+	cabbagegl.HitData.<init>(HitData.java:8)
+	cabbagegl.Plane.hitBy(Plane.java:26)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300480: (thread=200004)
+	java.util.Random.next(Random.java:154)
+	java.util.Random.nextDouble(Random.java:409)
+	cabbagegl.Camera.doubleBetween(Camera.java:206)
+	cabbagegl.Camera.renderPixel(Camera.java:177)
+TRACE 300493: (thread=200004)
+	cabbagegl.Vector3.sum(Vector3.java:68)
+	cabbagegl.Plane.hitBy(Plane.java:24)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300497: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:175)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300501: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Sphere.hitBy(Sphere.java:37)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+TRACE 300511: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Camera.renderPixel(Camera.java:180)
+	cabbagegl.Camera.renderInRange(Camera.java:109)
+	cabbagegl.Camera.access$000(Camera.java:7)
+TRACE 300043: (thread=200001)
+	java.lang.ClassLoader.findBootstrapClass(ClassLoader.java:Unknown line)
+	java.lang.ClassLoader.findBootstrapClass0(ClassLoader.java:900)
+	java.lang.ClassLoader.loadClass(ClassLoader.java:316)
+	java.lang.ClassLoader.loadClass(ClassLoader.java:314)
+TRACE 300137: (thread=200001)
+	com.sun.org.apache.xerces.internal.parsers.AbstractDOMParser.startDocument(AbstractDOMParser.java:809)
+	com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDValidator.startDocument(XMLDTDValidator.java:666)
+	com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.startEntity(XMLDocumentScannerImpl.java:565)
+	com.sun.org.apache.xerces.internal.impl.XMLVersionDetector.startDocumentParsing(XMLVersionDetector.java:175)
+TRACE 300266: (thread=200004)
+	java.util.ArrayList.iterator(ArrayList.java:737)
+	java.util.Collections$UnmodifiableCollection$1.<init>(Collections.java:1023)
+	java.util.Collections$UnmodifiableCollection.iterator(Collections.java:1022)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:178)
+TRACE 300312: (thread=200004)
+	java.util.Collections.unmodifiableList(Collections.java:1149)
+	cabbagegl.HitData.getHitpoints(HitData.java:16)
+	cabbagegl.Triangle.hitBy(Triangle.java:38)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+TRACE 300384: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Plane.hitBy(Plane.java:34)
+	cabbagegl.Triangle.hitBy(Triangle.java:35)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+TRACE 300397: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:54)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300408: (thread=200004)
+	java.util.Collections$UnmodifiableCollection$1.next(Collections.java:1026)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:178)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300419: (thread=200004)
+	cabbagegl.Light.computeIllumination(Light.java:36)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300443: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Plane.hitBy(Plane.java:30)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300460: (thread=200004)
+	java.util.Vector.<init>(Vector.java:131)
+	java.util.Vector.<init>(Vector.java:144)
+	java.util.Vector.<init>(Vector.java:153)
+	java.util.Stack.<init>(Stack.java:53)
+TRACE 300471: (thread=200004)
+	cabbagegl.Vector3.diff(Vector3.java:72)
+	cabbagegl.Light.computeAttenuation(Light.java:138)
+	cabbagegl.Light.computeIllumination(Light.java:36)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300472: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:167)
+	cabbagegl.Ray.trace(Ray.java:56)
+	cabbagegl.Camera.renderPixel(Camera.java:174)
+	cabbagegl.Camera.renderInRange(Camera.java:109)
+TRACE 300483: (thread=200004)
+	cabbagegl.Light.distFromLight(Light.java:56)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+TRACE 300487: (thread=200004)
+	java.util.Collections$UnmodifiableCollection$1.hasNext(Collections.java:1025)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:178)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300488: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:184)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300499: (thread=200004)
+	java.util.Random.next(Random.java:154)
+	java.util.Random.nextDouble(Random.java:409)
+	cabbagegl.Camera.doubleBetween(Camera.java:206)
+	cabbagegl.Camera.renderPixel(Camera.java:178)
+TRACE 300514: (thread=200004)
+	cabbagegl.Camera.renderPixel(Camera.java:180)
+	cabbagegl.Camera.renderInRange(Camera.java:109)
+	cabbagegl.Camera.access$000(Camera.java:7)
+	cabbagegl.Camera$RenderThread.run(Camera.java:99)
+TRACE 300264: (thread=200004)
+	java.util.LinkedList.listIterator(LinkedList.java:684)
+	java.util.AbstractList.listIterator(AbstractList.java:300)
+	java.util.AbstractSequentialList.iterator(AbstractSequentialList.java:239)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:175)
+TRACE 300344: (thread=200004)
+	java.lang.StrictMath.atan(StrictMath.java:Unknown line)
+	java.lang.Math.atan(Math.java:204)
+	cabbagegl.Camera.renderPixel(Camera.java:136)
+	cabbagegl.Camera.renderInRange(Camera.java:109)
+TRACE 300364: (thread=200004)
+	cabbagegl.Vector3.diff(Vector3.java:72)
+	cabbagegl.Light.distFromLight(Light.java:50)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300376: (thread=200004)
+	cabbagegl.Plane.hitBy(Plane.java:26)
+	cabbagegl.Triangle.hitBy(Triangle.java:35)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300381: (thread=200004)
+	cabbagegl.HitData.addHitpoint(HitData.java:12)
+	cabbagegl.Plane.hitBy(Plane.java:38)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+TRACE 300396: (thread=200004)
+	cabbagegl.Vector3.cmul(Vector3.java:80)
+	cabbagegl.Light.computeDiffuse(Light.java:87)
+	cabbagegl.Light.computeIllumination(Light.java:34)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300413: (thread=200004)
+	java.util.Collections$UnmodifiableCollection.iterator(Collections.java:1022)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:178)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300414: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Sphere.hitBy(Sphere.java:39)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+TRACE 300416: (thread=200004)
+	java.util.Arrays.copyOf(Arrays.java:2772)
+	java.util.Arrays.copyOf(Arrays.java:2746)
+	java.util.ArrayList.toArray(ArrayList.java:296)
+	java.util.Collections.sort(Collections.java:133)
+TRACE 300426: (thread=200004)
+	cabbagegl.Ray.<init>(Ray.java:23)
+	cabbagegl.Light.distFromLight(Light.java:56)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300439: (thread=200004)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300452: (thread=200004)
+	java.util.Collections$UnmodifiableCollection$1.hasNext(Collections.java:1025)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:196)
+	cabbagegl.Ray.findClosestHitpoint(Ray.java:189)
+	cabbagegl.Light.distFromLight(Light.java:60)
+TRACE 300458: (thread=200004)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300464: (thread=200004)
+	cabbagegl.Vector3.diff(Vector3.java:72)
+	cabbagegl.Light.computeDiffuse(Light.java:74)
+	cabbagegl.Light.computeIllumination(Light.java:34)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300486: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Plane.hitBy(Plane.java:24)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+TRACE 300492: (thread=200004)
+	cabbagegl.HitData.isEmpty(HitData.java:28)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:194)
+	cabbagegl.Ray.trace(Ray.java:70)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300494: (thread=200004)
+	cabbagegl.Vector3.diff(Vector3.java:72)
+	cabbagegl.Triangle.hitBy(Triangle.java:49)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+TRACE 300500: (thread=200004)
+	java.awt.Color.getRGB(Color.java:606)
+	cabbagegl.Camera.renderInRange(Camera.java:110)
+	cabbagegl.Camera.access$000(Camera.java:7)
+	cabbagegl.Camera$RenderThread.run(Camera.java:99)
+TRACE 300505: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:184)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300507: (thread=200004)
+	cabbagegl.Vector3.diff(Vector3.java:72)
+	cabbagegl.Sphere.hitBy(Sphere.java:21)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+TRACE 300524: (thread=200004)
+	cabbagegl.Vector3.sum(Vector3.java:68)
+	cabbagegl.Plane.hitBy(Plane.java:24)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+TRACE 300544: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:42)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300547: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Vector3.reflect(Vector3.java:105)
+	cabbagegl.Ray.trace(Ray.java:105)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300562: (thread=200004)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+TRACE 300047: (thread=200001)
+	javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:120)
+	cabbagegl.ReadConfig.readFile(ReadConfig.java:15)
+	cabbagegl.Test.main(Test.java:40)
+TRACE 300126: (thread=200001)
+	sun.net.www.protocol.file.FileURLConnection.connect(FileURLConnection.java:90)
+	sun.net.www.protocol.file.FileURLConnection.getInputStream(FileURLConnection.java:178)
+	com.sun.org.apache.xerces.internal.impl.XMLEntityManager.setupCurrentEntity(XMLEntityManager.java:630)
+	com.sun.org.apache.xerces.internal.impl.XMLVersionDetector.determineDocVersion(XMLVersionDetector.java:189)
+TRACE 300223: (thread=200001)
+	java.awt.image.Raster.createPackedRaster(Raster.java:772)
+	java.awt.image.Raster.createPackedRaster(Raster.java:478)
+	java.awt.image.DirectColorModel.createCompatibleWritableRaster(DirectColorModel.java:1032)
+	java.awt.image.BufferedImage.<init>(BufferedImage.java:329)
+TRACE 300267: (thread=200004)
+	java.util.ArrayList.listIterator(ArrayList.java:726)
+	java.util.Collections.sort(Collections.java:135)
+	cabbagegl.HitData.sort(HitData.java:20)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:195)
+TRACE 300291: (thread=200004)
+	java.util.Collections.sort(Collections.java:136)
+	cabbagegl.HitData.sort(HitData.java:20)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:195)
+	cabbagegl.Ray.findClosestHitpoint(Ray.java:189)
+TRACE 300315: (thread=200004)
+	cabbagegl.HitData.sort(HitData.java:20)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:195)
+	cabbagegl.Ray.findClosestHitpoint(Ray.java:189)
+	cabbagegl.Light.distFromLight(Light.java:60)
+TRACE 300335: (thread=200004)
+	java.util.Collections.unmodifiableList(Collections.java:1149)
+	cabbagegl.HitData.getHitpoints(HitData.java:16)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:178)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300356: (thread=200004)
+	java.util.ArrayList.<init>(ArrayList.java:132)
+	java.util.ArrayList.<init>(ArrayList.java:139)
+	cabbagegl.HitData.<init>(HitData.java:8)
+	cabbagegl.Sphere.hitBy(Sphere.java:32)
+TRACE 300369: (thread=200004)
+	cabbagegl.Vector3.reflect(Vector3.java:106)
+	cabbagegl.Ray.trace(Ray.java:105)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300382: (thread=200004)
+	java.util.Collections.unmodifiableList(Collections.java:1149)
+	cabbagegl.HitData.getHitpoints(HitData.java:16)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:196)
+	cabbagegl.Ray.findClosestHitpoint(Ray.java:189)
+TRACE 300385: (thread=200004)
+	cabbagegl.Ray.computeIllumination(Ray.java:228)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300394: (thread=200004)
+	cabbagegl.Ray.computeIllumination(Ray.java:228)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:56)
+	cabbagegl.Camera.renderPixel(Camera.java:174)
+TRACE 300412: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:38)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300415: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300428: (thread=200004)
+	cabbagegl.Ray.computeIllumination(Ray.java:228)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300430: (thread=200004)
+	cabbagegl.Ray.findClosestHitpoint(Ray.java:189)
+	cabbagegl.Light.distFromLight(Light.java:60)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300431: (thread=200004)
+	cabbagegl.Vector3.cmul(Vector3.java:80)
+	cabbagegl.Light.computeSpecular(Light.java:128)
+	cabbagegl.Light.computeIllumination(Light.java:35)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300432: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:183)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300461: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:56)
+	cabbagegl.Camera.renderPixel(Camera.java:174)
+	cabbagegl.Camera.renderInRange(Camera.java:109)
+TRACE 300462: (thread=200004)
+	cabbagegl.HitData.<init>(HitData.java:8)
+	cabbagegl.Plane.hitBy(Plane.java:26)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+TRACE 300463: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:42)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300466: (thread=200004)
+	java.util.Collections$UnmodifiableCollection$1.hasNext(Collections.java:1025)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:196)
+	cabbagegl.Ray.trace(Ray.java:70)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300468: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Plane.hitBy(Plane.java:30)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+TRACE 300470: (thread=200004)
+	cabbagegl.HitData.isEmpty(HitData.java:28)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:194)
+	cabbagegl.Ray.trace(Ray.java:70)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300476: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Light.computeSpecular(Light.java:132)
+	cabbagegl.Light.computeIllumination(Light.java:35)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300477: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Light.computeIllumination(Light.java:40)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+TRACE 300484: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Sphere.hitBy(Sphere.java:39)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300489: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:104)
+	cabbagegl.Ray.trace(Ray.java:56)
+	cabbagegl.Camera.renderPixel(Camera.java:174)
+	cabbagegl.Camera.renderInRange(Camera.java:109)
+TRACE 300490: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Light.computeDiffuse(Light.java:87)
+	cabbagegl.Light.computeIllumination(Light.java:34)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300495: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Camera.renderPixel(Camera.java:144)
+	cabbagegl.Camera.renderInRange(Camera.java:109)
+	cabbagegl.Camera.access$000(Camera.java:7)
+TRACE 300496: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:178)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300502: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:99)
+	cabbagegl.Ray.trace(Ray.java:56)
+	cabbagegl.Camera.renderPixel(Camera.java:174)
+	cabbagegl.Camera.renderInRange(Camera.java:109)
+TRACE 300503: (thread=200004)
+	cabbagegl.Vector3.reflect(Vector3.java:106)
+	cabbagegl.Ray.trace(Ray.java:105)
+	cabbagegl.Ray.trace(Ray.java:56)
+	cabbagegl.Camera.renderPixel(Camera.java:174)
+TRACE 300504: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:178)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300506: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:178)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300526: (thread=200004)
+	java.util.AbstractList.listIterator(AbstractList.java:300)
+	java.util.AbstractSequentialList.iterator(AbstractSequentialList.java:239)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:175)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300528: (thread=200004)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:196)
+	cabbagegl.Ray.findClosestHitpoint(Ray.java:189)
+	cabbagegl.Light.distFromLight(Light.java:60)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300539: (thread=200004)
+	cabbagegl.Vector3.sum(Vector3.java:68)
+	cabbagegl.Light.computeSpecular(Light.java:126)
+	cabbagegl.Light.computeIllumination(Light.java:35)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300546: (thread=200004)
+	cabbagegl.Ray.computeIllumination(Ray.java:228)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300549: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:108)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300557: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Ray.trace(Ray.java:95)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300559: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Light.computeSpecular(Light.java:125)
+	cabbagegl.Light.computeIllumination(Light.java:35)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300572: (thread=200004)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:56)
+	cabbagegl.Camera.renderPixel(Camera.java:174)
+TRACE 300628: (thread=200001)
+	sun.net.www.protocol.jar.Handler.openConnection(Handler.java:42)
+	java.net.URL.openConnection(URL.java:963)
+	java.net.URL.openStream(URL.java:1029)
+	java.util.ServiceLoader.parse(ServiceLoader.java:296)
+TRACE 300647: (thread=200001)
+	java.lang.Class.getDeclaredMethods0(Class.java:Unknown line)
+	java.lang.Class.privateGetDeclaredMethods(Class.java:2444)
+	java.lang.Class.getMethod0(Class.java:2687)
+	java.lang.Class.getMethod(Class.java:1620)
+TRACE 300656: (thread=200001)
+	java.lang.StrictMath.pow(StrictMath.java:Unknown line)
+	java.lang.Math.pow(Math.java:626)
+	java.awt.image.ColorModel.getLinearRGB16TosRGB8LUT(ColorModel.java:1763)
+	java.awt.image.ColorModel.getGray16TosRGB8LUT(ColorModel.java:1884)
+TRACE 300008: (thread=200001)
+	java.util.zip.ZipFile.<init>(ZipFile.java:123)
+	java.util.jar.JarFile.<init>(JarFile.java:150)
+	java.util.jar.JarFile.<init>(JarFile.java:87)
+	sun.misc.URLClassPath$JarLoader.getJarFile(URLClassPath.java:660)
+TRACE 300014: (thread=200001)
+	java.util.jar.JarFile.hasClassPathAttribute(JarFile.java:480)
+	java.util.jar.JavaUtilJarAccessImpl.jarFileHasClassPathAttribute(JavaUtilJarAccessImpl.java:33)
+	sun.misc.URLClassPath$JarLoader.getClassPath(URLClassPath.java:915)
+	sun.misc.URLClassPath.getLoader(URLClassPath.java:317)
+TRACE 300019: (thread=200001)
+	sun.nio.cs.UTF_8$Encoder.encodeArrayLoop(UTF_8.java:360)
+	sun.nio.cs.UTF_8$Encoder.encodeLoop(UTF_8.java:466)
+	java.nio.charset.CharsetEncoder.encode(CharsetEncoder.java:561)
+	java.lang.StringCoding$StringEncoder.encode(StringCoding.java:258)
+TRACE 300027: (thread=200001)
+	sun.net.www.protocol.file.Handler.createFileURLConnection(Handler.java:112)
+	sun.net.www.protocol.file.Handler.openConnection(Handler.java:81)
+	sun.net.www.protocol.file.Handler.openConnection(Handler.java:72)
+	java.net.URL.openConnection(URL.java:963)
+TRACE 300044: (thread=200001)
+	java.io.FileInputStream.readBytes(FileInputStream.java:Unknown line)
+	java.io.FileInputStream.read(FileInputStream.java:236)
+	sun.misc.Resource.getBytes(Resource.java:124)
+	java.net.URLClassLoader.defineClass(URLClassLoader.java:273)
+TRACE 300046: (thread=200001)
+	java.util.Random.<init>(Random.java:93)
+	java.util.Random.<init>(Random.java:77)
+	cabbagegl.Camera.<clinit>(Camera.java:204)
+	cabbagegl.Test.main(Test.java:10)
+TRACE 300054: (thread=200001)
+	java.lang.String.indexOf(String.java:1765)
+	java.lang.String.indexOf(String.java:1745)
+	sun.misc.Launcher.getClassPath(Launcher.java:403)
+	sun.misc.Launcher.access$200(Launcher.java:57)
+TRACE 300056: (thread=200001)
+	sun.misc.URLClassPath$JarLoader.getJarFile(URLClassPath.java:658)
+	sun.misc.URLClassPath$JarLoader.access$600(URLClassPath.java:555)
+	sun.misc.URLClassPath$JarLoader$1.run(URLClassPath.java:622)
+	java.security.AccessController.doPrivileged(AccessController.java:Unknown line)
+TRACE 300058: (thread=200001)
+	com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl.newDocumentBuilder(DocumentBuilderFactoryImpl.java:76)
+	cabbagegl.ReadConfig.readFile(ReadConfig.java:16)
+	cabbagegl.Test.main(Test.java:40)
+TRACE 300059: (thread=200001)
+	com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.<init>(DocumentBuilderImpl.java:119)
+	com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl.newDocumentBuilder(DocumentBuilderFactoryImpl.java:76)
+	cabbagegl.ReadConfig.readFile(ReadConfig.java:16)
+	cabbagegl.Test.main(Test.java:40)
+TRACE 300066: (thread=200001)
+	java.lang.Class.getDeclaredConstructors0(Class.java:Unknown line)
+	java.lang.Class.privateGetDeclaredConstructors(Class.java:2406)
+	java.lang.Class.getConstructor0(Class.java:2716)
+	java.lang.Class.newInstance0(Class.java:343)
+TRACE 300074: (thread=200001)
+	com.sun.org.apache.xerces.internal.impl.XMLEntityManager.<init>(XMLEntityManager.java:388)
+	com.sun.org.apache.xerces.internal.parsers.XML11Configuration.<init>(XML11Configuration.java:517)
+	com.sun.org.apache.xerces.internal.parsers.XIncludeAwareParserConfiguration.<init>(XIncludeAwareParserConfiguration.java:128)
+	com.sun.org.apache.xerces.internal.parsers.XIncludeAwareParserConfiguration.<init>(XIncludeAwareParserConfiguration.java:89)
+TRACE 300075: (thread=200001)
+	com.sun.org.apache.xerces.internal.impl.XMLEntityManager.<init>(XMLEntityManager.java:398)
+	com.sun.org.apache.xerces.internal.parsers.XML11Configuration.<init>(XML11Configuration.java:517)
+	com.sun.org.apache.xerces.internal.parsers.XIncludeAwareParserConfiguration.<init>(XIncludeAwareParserConfiguration.java:128)
+	com.sun.org.apache.xerces.internal.parsers.XIncludeAwareParserConfiguration.<init>(XIncludeAwareParserConfiguration.java:89)
+TRACE 300078: (thread=200001)
+	com.sun.org.apache.xerces.internal.parsers.XML11Configuration.<init>(XML11Configuration.java:526)
+	com.sun.org.apache.xerces.internal.parsers.XIncludeAwareParserConfiguration.<init>(XIncludeAwareParserConfiguration.java:128)
+	com.sun.org.apache.xerces.internal.parsers.XIncludeAwareParserConfiguration.<init>(XIncludeAwareParserConfiguration.java:89)
+	sun.reflect.NativeConstructorAccessorImpl.newInstance0(NativeConstructorAccessorImpl.java:Unknown line)
+TRACE 300088: (thread=200001)
+	com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.<init>(XMLDocumentScannerImpl.java:205)
+	com.sun.org.apache.xerces.internal.impl.XMLNSDocumentScannerImpl.<init>(XMLNSDocumentScannerImpl.java:62)
+	com.sun.org.apache.xerces.internal.parsers.XML11Configuration.<init>(XML11Configuration.java:526)
+	com.sun.org.apache.xerces.internal.parsers.XIncludeAwareParserConfiguration.<init>(XIncludeAwareParserConfiguration.java:128)
+TRACE 300095: (thread=200001)
+	com.sun.org.apache.xerces.internal.parsers.XML11Configuration.<init>(XML11Configuration.java:538)
+	com.sun.org.apache.xerces.internal.parsers.XIncludeAwareParserConfiguration.<init>(XIncludeAwareParserConfiguration.java:128)
+	com.sun.org.apache.xerces.internal.parsers.XIncludeAwareParserConfiguration.<init>(XIncludeAwareParserConfiguration.java:89)
+	sun.reflect.NativeConstructorAccessorImpl.newInstance0(NativeConstructorAccessorImpl.java:Unknown line)
+TRACE 300117: (thread=200001)
+	com.sun.org.apache.xerces.internal.parsers.XML11Configuration.checkFeature(XML11Configuration.java:1261)
+	com.sun.org.apache.xerces.internal.util.ParserConfigurationSettings.setFeature(ParserConfigurationSettings.java:140)
+	com.sun.org.apache.xerces.internal.parsers.XML11Configuration.setFeature(XML11Configuration.java:896)
+	com.sun.org.apache.xerces.internal.parsers.XIncludeAwareParserConfiguration.setFeature(XIncludeAwareParserConfiguration.java:292)
+TRACE 300120: (thread=200001)
+	java.io.File.toURI(File.java:681)
+	javax.xml.parsers.DocumentBuilder.parse(DocumentBuilder.java:204)
+	cabbagegl.ReadConfig.readFile(ReadConfig.java:17)
+	cabbagegl.Test.main(Test.java:40)
+TRACE 300129: (thread=200001)
+	java.io.FileInputStream.readBytes(FileInputStream.java:Unknown line)
+	java.io.FileInputStream.read(FileInputStream.java:236)
+	java.io.BufferedInputStream.fill(BufferedInputStream.java:235)
+	java.io.BufferedInputStream.read(BufferedInputStream.java:254)
+TRACE 300135: (thread=200001)
+	com.sun.org.apache.xerces.internal.util.XMLChar.<clinit>(XMLChar.java:55)
+	com.sun.org.apache.xerces.internal.impl.XMLEntityScanner.skipDeclSpaces(XMLEntityScanner.java:2082)
+	com.sun.org.apache.xerces.internal.impl.XMLVersionDetector.determineDocVersion(XMLVersionDetector.java:200)
+	com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:776)
+TRACE 300143: (thread=200001)
+	com.sun.org.apache.xerces.internal.dom.DeferredDocumentImpl.getNodeObject(DeferredDocumentImpl.java:1004)
+	com.sun.org.apache.xerces.internal.dom.DeferredDocumentImpl.synchronizeChildren(DeferredDocumentImpl.java:1631)
+	com.sun.org.apache.xerces.internal.dom.CoreDocumentImpl.getDocumentElement(CoreDocumentImpl.java:710)
+	cabbagegl.ReadConfig.readFile(ReadConfig.java:19)
+TRACE 300182: (thread=200001)
+	java.util.regex.Pattern.closure(Pattern.java:2754)
+	java.util.regex.Pattern.sequence(Pattern.java:1906)
+	java.util.regex.Pattern.expr(Pattern.java:1769)
+	java.util.regex.Pattern.group0(Pattern.java:2547)
+TRACE 300190: (thread=200001)
+	sun.misc.Resource.getBytes(Resource.java:139)
+	java.net.URLClassLoader.defineClass(URLClassLoader.java:273)
+	java.net.URLClassLoader.access$000(URLClassLoader.java:73)
+	java.net.URLClassLoader$1.run(URLClassLoader.java:212)
+TRACE 300192: (thread=200001)
+	java.awt.Image.<clinit>(Image.java:344)
+	cabbagegl.Camera.renderScene(Camera.java:55)
+	cabbagegl.Test.main(Test.java:169)
+TRACE 300219: (thread=200001)
+	java.awt.image.DataBuffer.<clinit>(DataBuffer.java:517)
+	java.awt.image.Raster.createPackedRaster(Raster.java:470)
+	java.awt.image.DirectColorModel.createCompatibleWritableRaster(DirectColorModel.java:1032)
+	java.awt.image.BufferedImage.<init>(BufferedImage.java:329)
+TRACE 300230: (thread=200001)
+	java.awt.Toolkit$3.run(Toolkit.java:1625)
+	java.security.AccessController.doPrivileged(AccessController.java:Unknown line)
+	java.awt.Toolkit.<clinit>(Toolkit.java:1621)
+	java.awt.Rectangle.<clinit>(Rectangle.java:173)
+TRACE 300242: (thread=200001)
+	java.awt.Toolkit.<clinit>(Toolkit.java:1929)
+	java.awt.Rectangle.<clinit>(Rectangle.java:173)
+	sun.awt.image.IntegerInterleavedRaster.<init>(IntegerInterleavedRaster.java:95)
+	java.awt.image.Raster.createPackedRaster(Raster.java:788)
+TRACE 300253: (thread=200001)
+	java.lang.Thread.<init>(Thread.java:394)
+	java.util.logging.LogManager$Cleaner.<init>(LogManager.java:217)
+	java.util.logging.LogManager$Cleaner.<init>(LogManager.java:217)
+	java.util.logging.LogManager.<init>(LogManager.java:246)
+TRACE 300256: (thread=200001)
+	java.util.Collections.emptyEnumeration(Collections.java:3035)
+	java.util.Hashtable.getEnumeration(Hashtable.java:559)
+	java.util.Hashtable.keys(Hashtable.java:246)
+	java.util.logging.LogManager.getLoggerNames(LogManager.java:585)
+TRACE 300257: (thread=200001)
+	java.util.Properties$LineReader.readLine(Properties.java:434)
+	java.util.Properties.load0(Properties.java:354)
+	java.util.Properties.load(Properties.java:342)
+	java.util.logging.LogManager.readConfiguration(LogManager.java:752)
+TRACE 300268: (thread=200004)
+	cabbagegl.Vector3.cmul(Vector3.java:80)
+	cabbagegl.Light.computeSpecular(Light.java:128)
+	cabbagegl.Light.computeIllumination(Light.java:35)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300270: (thread=200004)
+	java.util.ArrayList$Itr.checkForComodification(ArrayList.java:781)
+	java.util.ArrayList$Itr.next(ArrayList.java:754)
+	java.util.Collections$UnmodifiableCollection$1.next(Collections.java:1026)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:196)
+TRACE 300271: (thread=200004)
+	java.util.Collections$UnmodifiableCollection$1.<init>(Collections.java:1022)
+	java.util.Collections$UnmodifiableCollection.iterator(Collections.java:1022)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:178)
+	cabbagegl.Ray.trace(Ray.java:66)
+TRACE 300273: (thread=200004)
+	cabbagegl.Sphere.hitBy(Sphere.java:17)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300281: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:63)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300293: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:99)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300296: (thread=200004)
+	cabbagegl.Camera.renderPixel(Camera.java:117)
+	cabbagegl.Camera.renderInRange(Camera.java:109)
+	cabbagegl.Camera.access$000(Camera.java:7)
+	cabbagegl.Camera$RenderThread.run(Camera.java:99)
+TRACE 300303: (thread=200004)
+	cabbagegl.Plane.hitBy(Plane.java:38)
+	cabbagegl.Triangle.hitBy(Triangle.java:35)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+TRACE 300324: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:38)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300339: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:103)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300361: (thread=200004)
+	cabbagegl.Vector3.refract(Vector3.java:127)
+	cabbagegl.Ray.trace(Ray.java:137)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300388: (thread=200004)
+	cabbagegl.Camera.vectorToColor(Camera.java:210)
+	cabbagegl.Camera.renderPixel(Camera.java:201)
+	cabbagegl.Camera.renderInRange(Camera.java:109)
+	cabbagegl.Camera.access$000(Camera.java:7)
+TRACE 300389: (thread=200004)
+	cabbagegl.Sphere.hitBy(Sphere.java:37)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300393: (thread=200004)
+	cabbagegl.Ray.<init>(Ray.java:23)
+	cabbagegl.Ray.trace(Ray.java:108)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300398: (thread=200004)
+	java.awt.image.DirectColorModel.getDataElements(DirectColorModel.java:761)
+	java.awt.image.BufferedImage.setRGB(BufferedImage.java:988)
+	cabbagegl.Camera.renderInRange(Camera.java:110)
+	cabbagegl.Camera.access$000(Camera.java:7)
+TRACE 300403: (thread=200004)
+	cabbagegl.Vector3.reflect(Vector3.java:106)
+	cabbagegl.Ray.trace(Ray.java:105)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300404: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:70)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300422: (thread=200004)
+	cabbagegl.Vector3.clamp(Vector3.java:98)
+	cabbagegl.Ray.trace(Ray.java:167)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300433: (thread=200004)
+	java.lang.Object.clone(Object.java:Unknown line)
+	java.util.Vector.clone(Vector.java:647)
+	cabbagegl.Ray.trace(Ray.java:153)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300438: (thread=200004)
+	java.util.Collections.sort(Collections.java:133)
+	cabbagegl.HitData.sort(HitData.java:20)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:195)
+	cabbagegl.Ray.findClosestHitpoint(Ray.java:189)
+TRACE 300444: (thread=200004)
+	java.util.Vector.ensureCapacityHelper(Vector.java:238)
+	java.util.Vector.addElement(Vector.java:593)
+	java.util.Stack.push(Stack.java:67)
+	cabbagegl.Ray.trace(Ray.java:150)
+TRACE 300445: (thread=200004)
+	cabbagegl.Vector3.diff(Vector3.java:72)
+	cabbagegl.Light.diffScaleAtPoint(Light.java:95)
+	cabbagegl.Light.computeDiffuse(Light.java:86)
+	cabbagegl.Light.computeIllumination(Light.java:34)
+TRACE 300447: (thread=200004)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:196)
+	cabbagegl.Ray.findClosestHitpoint(Ray.java:189)
+	cabbagegl.Light.distFromLight(Light.java:60)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300448: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:56)
+	cabbagegl.Camera.renderPixel(Camera.java:174)
+	cabbagegl.Camera.renderInRange(Camera.java:109)
+	cabbagegl.Camera.access$000(Camera.java:7)
+TRACE 300449: (thread=200004)
+	cabbagegl.Camera.renderPixel(Camera.java:151)
+	cabbagegl.Camera.renderInRange(Camera.java:109)
+	cabbagegl.Camera.access$000(Camera.java:7)
+	cabbagegl.Camera$RenderThread.run(Camera.java:99)
+TRACE 300455: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:173)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300456: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Vector3.normalize(Vector3.java:48)
+	cabbagegl.Light.diffScaleAtPoint(Light.java:95)
+	cabbagegl.Light.computeDiffuse(Light.java:86)
+TRACE 300457: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:104)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300467: (thread=200004)
+	java.util.Collections$UnmodifiableCollection$1.next(Collections.java:1026)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:178)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300473: (thread=200004)
+	java.util.LinkedList.listIterator(LinkedList.java:684)
+	java.util.AbstractList.listIterator(AbstractList.java:300)
+	java.util.AbstractSequentialList.iterator(AbstractSequentialList.java:239)
+	cabbagegl.Ray.computeIllumination(Ray.java:228)
+TRACE 300475: (thread=200004)
+	java.util.Random.next(Random.java:154)
+	java.util.Random.nextDouble(Random.java:409)
+	cabbagegl.Camera.doubleBetween(Camera.java:206)
+	cabbagegl.Camera.renderPixel(Camera.java:187)
+TRACE 300481: (thread=200004)
+	cabbagegl.Plane.hitBy(Plane.java:38)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300482: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Vector3.reflect(Vector3.java:105)
+	cabbagegl.Ray.trace(Ray.java:105)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300485: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:51)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:156)
+TRACE 300498: (thread=200004)
+	cabbagegl.Vector3.clamp(Vector3.java:98)
+	cabbagegl.Ray.trace(Ray.java:167)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300508: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Camera.renderPixel(Camera.java:193)
+	cabbagegl.Camera.renderInRange(Camera.java:109)
+	cabbagegl.Camera.access$000(Camera.java:7)
+TRACE 300509: (thread=200004)
+	cabbagegl.HitData.addHitpoint(HitData.java:12)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:182)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300510: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Camera.renderPixel(Camera.java:182)
+	cabbagegl.Camera.renderInRange(Camera.java:109)
+	cabbagegl.Camera.access$000(Camera.java:7)
+TRACE 300512: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:156)
+	cabbagegl.Ray.trace(Ray.java:156)
+TRACE 300513: (thread=200004)
+	cabbagegl.Ray.computeIllumination(Ray.java:228)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300515: (thread=200004)
+	cabbagegl.Ray.computeIllumination(Ray.java:228)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:156)
+	cabbagegl.Ray.trace(Ray.java:156)
+TRACE 300516: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:49)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:156)
+TRACE 300517: (thread=200004)
+	cabbagegl.Sphere.hitBy(Sphere.java:32)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300518: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:120)
+	cabbagegl.Ray.trace(Ray.java:156)
+	cabbagegl.Ray.trace(Ray.java:56)
+	cabbagegl.Camera.renderPixel(Camera.java:174)
+TRACE 300519: (thread=200004)
+	java.util.Collections$UnmodifiableCollection$1.hasNext(Collections.java:1025)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:178)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:156)
+TRACE 300520: (thread=200004)
+	cabbagegl.Camera.renderPixel(Camera.java:124)
+	cabbagegl.Camera.renderInRange(Camera.java:109)
+	cabbagegl.Camera.access$000(Camera.java:7)
+	cabbagegl.Camera$RenderThread.run(Camera.java:99)
+TRACE 300521: (thread=200004)
+	cabbagegl.Ray.computeIllumination(Ray.java:228)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:56)
+	cabbagegl.Camera.renderPixel(Camera.java:174)
+TRACE 300522: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:35)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:156)
+TRACE 300523: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:51)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:156)
+TRACE 300525: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:156)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300527: (thread=200004)
+	java.util.Collections$UnmodifiableCollection$1.next(Collections.java:1026)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:196)
+	cabbagegl.Ray.trace(Ray.java:70)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300529: (thread=200004)
+	java.lang.Double.valueOf(Double.java:509)
+	cabbagegl.Light.distFromLight(Light.java:62)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300530: (thread=200004)
+	cabbagegl.HitData.isEmpty(HitData.java:28)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:194)
+	cabbagegl.Ray.trace(Ray.java:70)
+	cabbagegl.Ray.trace(Ray.java:156)
+TRACE 300531: (thread=200004)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:156)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300532: (thread=200004)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:156)
+	cabbagegl.Ray.trace(Ray.java:156)
+TRACE 300533: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:103)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+	cabbagegl.Camera.renderPixel(Camera.java:174)
+TRACE 300534: (thread=200004)
+	cabbagegl.Vector3.cmul(Vector3.java:80)
+	cabbagegl.Ray.trace(Ray.java:113)
+	cabbagegl.Ray.trace(Ray.java:156)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300535: (thread=200004)
+	cabbagegl.Sphere.hitBy(Sphere.java:39)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300536: (thread=200004)
+	cabbagegl.HitData.addHitpoint(HitData.java:12)
+	cabbagegl.Sphere.hitBy(Sphere.java:42)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300537: (thread=200004)
+	java.util.Collections$UnmodifiableCollection.iterator(Collections.java:1022)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:196)
+	cabbagegl.Ray.findClosestHitpoint(Ray.java:189)
+	cabbagegl.Light.distFromLight(Light.java:60)
+TRACE 300538: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Camera.renderPixel(Camera.java:123)
+	cabbagegl.Camera.renderInRange(Camera.java:109)
+	cabbagegl.Camera.access$000(Camera.java:7)
+TRACE 300540: (thread=200004)
+	cabbagegl.Camera.renderInRange(Camera.java:109)
+	cabbagegl.Camera.access$000(Camera.java:7)
+	cabbagegl.Camera$RenderThread.run(Camera.java:99)
+	java.lang.Thread.run(Thread.java:636)
+TRACE 300541: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:70)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+	cabbagegl.Camera.renderPixel(Camera.java:174)
+TRACE 300542: (thread=200004)
+	cabbagegl.Light.computeIllumination(Light.java:34)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300543: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:183)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300545: (thread=200004)
+	cabbagegl.Vector3.diff(Vector3.java:72)
+	cabbagegl.Light.distFromLight(Light.java:55)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300548: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:99)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300550: (thread=200004)
+	java.util.ArrayList.<init>(ArrayList.java:132)
+	java.util.ArrayList.<init>(ArrayList.java:139)
+	cabbagegl.HitData.<init>(HitData.java:8)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:173)
+TRACE 300551: (thread=200004)
+	java.util.Random.next(Random.java:154)
+	java.util.Random.nextDouble(Random.java:409)
+	cabbagegl.Camera.doubleBetween(Camera.java:206)
+	cabbagegl.Camera.renderPixel(Camera.java:186)
+TRACE 300552: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Vector3.normalize(Vector3.java:48)
+	cabbagegl.Light.distFromLight(Light.java:55)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300553: (thread=200004)
+	java.util.Arrays.sort(Arrays.java:1092)
+	java.util.Collections.sort(Collections.java:134)
+	cabbagegl.HitData.sort(HitData.java:20)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:195)
+TRACE 300554: (thread=200004)
+	java.lang.Integer.getChars(Integer.java:345)
+	java.lang.AbstractStringBuilder.append(AbstractStringBuilder.java:615)
+	java.lang.StringBuilder.append(StringBuilder.java:229)
+	cabbagegl.Camera.renderInRange(Camera.java:106)
+TRACE 300555: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+	cabbagegl.Camera.renderPixel(Camera.java:174)
+TRACE 300556: (thread=200004)
+	cabbagegl.HitData.addHitpoint(HitData.java:12)
+	cabbagegl.Sphere.hitBy(Sphere.java:42)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+TRACE 300558: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Vector3.normalize(Vector3.java:48)
+	cabbagegl.Light.computeSpecular(Light.java:112)
+	cabbagegl.Light.computeIllumination(Light.java:35)
+TRACE 300560: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:183)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300561: (thread=200004)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:196)
+	cabbagegl.Ray.findClosestHitpoint(Ray.java:189)
+	cabbagegl.Light.distFromLight(Light.java:60)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300563: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Vector3.normalize(Vector3.java:48)
+	cabbagegl.Light.computeDiffuse(Light.java:75)
+	cabbagegl.Light.computeIllumination(Light.java:34)
+TRACE 300564: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:104)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+	cabbagegl.Camera.renderPixel(Camera.java:174)
+TRACE 300565: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Ray.trace(Ray.java:103)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300566: (thread=200004)
+	cabbagegl.Vector3.scale(Vector3.java:42)
+	cabbagegl.Vector3.reflect(Vector3.java:105)
+	cabbagegl.Ray.trace(Ray.java:105)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300567: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+	cabbagegl.Camera.renderPixel(Camera.java:174)
+TRACE 300568: (thread=200004)
+	cabbagegl.Sphere.hitBy(Sphere.java:37)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300569: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:184)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:56)
+	cabbagegl.Camera.renderPixel(Camera.java:174)
+TRACE 300570: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:91)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300571: (thread=200004)
+	cabbagegl.HitData.isEmpty(HitData.java:28)
+	cabbagegl.Ray.trace(Ray.java:68)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300573: (thread=200004)
+	cabbagegl.HitData.<init>(HitData.java:8)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:173)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+TRACE 300574: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:178)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300575: (thread=200004)
+	java.util.ArrayList.iterator(ArrayList.java:737)
+	java.util.Collections$UnmodifiableCollection$1.<init>(Collections.java:1023)
+	java.util.Collections$UnmodifiableCollection.iterator(Collections.java:1022)
+	cabbagegl.Ray.findClosestHPointsExclude(Ray.java:196)
+TRACE 300576: (thread=200004)
+	cabbagegl.Vector3.sum(Vector3.java:68)
+	cabbagegl.Ray.trace(Ray.java:92)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:56)
+TRACE 300577: (thread=200004)
+	cabbagegl.Ray.trace(Ray.java:103)
+	cabbagegl.Ray.trace(Ray.java:56)
+	cabbagegl.Camera.renderPixel(Camera.java:174)
+	cabbagegl.Camera.renderInRange(Camera.java:109)
+TRACE 300578: (thread=200004)
+	cabbagegl.Camera.renderPixel(Camera.java:201)
+	cabbagegl.Camera.renderInRange(Camera.java:109)
+	cabbagegl.Camera.access$000(Camera.java:7)
+	cabbagegl.Camera$RenderThread.run(Camera.java:99)
+TRACE 300579: (thread=200004)
+	java.util.Arrays.mergeSort(Arrays.java:1180)
+	java.util.Arrays.sort(Arrays.java:1092)
+	java.util.Collections.sort(Collections.java:134)
+	cabbagegl.HitData.sort(HitData.java:20)
+TRACE 300580: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:178)
+	cabbagegl.Ray.trace(Ray.java:66)
+	cabbagegl.Ray.trace(Ray.java:109)
+	cabbagegl.Ray.trace(Ray.java:109)
+TRACE 300587: (thread=200001)
+	javax.imageio.spi.IIORegistry.getDefaultInstance(IIORegistry.java:154)
+	javax.imageio.ImageIO.<clinit>(ImageIO.java:64)
+	cabbagegl.Test.main(Test.java:173)
+TRACE 300593: (thread=200001)
+	java.util.Vector.iterator(Vector.java:1077)
+	javax.imageio.spi.IIORegistry.<init>(IIORegistry.java:136)
+	javax.imageio.spi.IIORegistry.getDefaultInstance(IIORegistry.java:159)
+	javax.imageio.ImageIO.<clinit>(ImageIO.java:64)
+TRACE 300597: (thread=200001)
+	javax.imageio.spi.IIORegistry.registerStandardSpis(IIORegistry.java:167)
+	javax.imageio.spi.IIORegistry.<init>(IIORegistry.java:137)
+	javax.imageio.spi.IIORegistry.getDefaultInstance(IIORegistry.java:159)
+	javax.imageio.ImageIO.<clinit>(ImageIO.java:64)
+TRACE 300602: (thread=200001)
+	javax.imageio.spi.ImageWriterSpi.<clinit>(ImageWriterSpi.java:83)
+	javax.imageio.spi.IIORegistry.registerStandardSpis(IIORegistry.java:168)
+	javax.imageio.spi.IIORegistry.<init>(IIORegistry.java:137)
+	javax.imageio.spi.IIORegistry.getDefaultInstance(IIORegistry.java:159)
+TRACE 300605: (thread=200001)
+	javax.imageio.spi.IIORegistry.registerStandardSpis(IIORegistry.java:171)
+	javax.imageio.spi.IIORegistry.<init>(IIORegistry.java:137)
+	javax.imageio.spi.IIORegistry.getDefaultInstance(IIORegistry.java:159)
+	javax.imageio.ImageIO.<clinit>(ImageIO.java:64)
+TRACE 300612: (thread=200001)
+	sun.java2d.cmm.ProfileDeferralMgr.activateProfiles(ProfileDeferralMgr.java:88)
+	java.awt.color.ICC_Profile.getInstance(ICC_Profile.java:774)
+	java.awt.color.ICC_Profile.getInstance(ICC_Profile.java:994)
+	java.awt.color.ICC_Profile.getInstance(ICC_Profile.java:959)
+TRACE 300616: (thread=200001)
+	sun.java2d.cmm.CMSManager.getModule(CMSManager.java:55)
+	java.awt.color.ICC_Profile.activateDeferredProfile(ICC_Profile.java:1100)
+	java.awt.color.ICC_Profile$1.activate(ICC_Profile.java:741)
+	sun.java2d.cmm.ProfileDeferralMgr.activateProfiles(ProfileDeferralMgr.java:93)
+TRACE 300644: (thread=200001)
+	com.sun.imageio.spi.RAFImageInputStreamSpi.<clinit>(RAFImageInputStreamSpi.java:41)
+	javax.imageio.spi.IIORegistry.registerStandardSpis(IIORegistry.java:181)
+	javax.imageio.spi.IIORegistry.<init>(IIORegistry.java:137)
+	javax.imageio.spi.IIORegistry.getDefaultInstance(IIORegistry.java:159)
+TRACE 300655: (thread=200001)
+	java.lang.Math.round(Math.java:652)
+	java.awt.image.ColorModel.getLinearRGB16TosRGB8LUT(ColorModel.java:1766)
+	java.awt.image.ColorModel.getGray16TosRGB8LUT(ColorModel.java:1884)
+	java.awt.image.ComponentColorModel.setupLUTs(ComponentColorModel.java:443)
+TRACE 300657: (thread=200001)
+	java.lang.StrictMath.floor(StrictMath.java:Unknown line)
+	java.lang.Math.floor(Math.java:424)
+	java.lang.Math.round(Math.java:652)
+	java.awt.image.ColorModel.getLinearRGB16TosRGB8LUT(ColorModel.java:1766)
+TRACE 300658: (thread=200001)
+	javax.imageio.ImageTypeSpecifier$Grayscale.<init>(ImageTypeSpecifier.java:762)
+	javax.imageio.ImageTypeSpecifier.createGrayscale(ImageTypeSpecifier.java:798)
+	javax.imageio.ImageTypeSpecifier.<clinit>(ImageTypeSpecifier.java:167)
+	javax.imageio.ImageIO.getWriter(ImageIO.java:1581)
+TRACE 300670: (thread=200001)
+	com.sun.imageio.plugins.png.PNGImageWriter.<init>(PNGImageWriter.java:296)
+	com.sun.imageio.plugins.png.PNGImageWriterSpi.createWriterInstance(PNGImageWriterSpi.java:126)
+	javax.imageio.spi.ImageWriterSpi.createWriterInstance(ImageWriterSpi.java:348)
+	javax.imageio.ImageIO$ImageWriterIterator.next(ImageIO.java:833)
+TRACE 300674: (thread=200001)
+	javax.imageio.stream.FileImageOutputStream.<init>(FileImageOutputStream.java:90)
+	javax.imageio.stream.FileImageOutputStream.<init>(FileImageOutputStream.java:69)
+	com.sun.imageio.spi.FileImageOutputStreamSpi.createOutputStreamInstance(FileImageOutputStreamSpi.java:55)
+	javax.imageio.ImageIO.createImageOutputStream(ImageIO.java:409)
+TRACE 300684: (thread=200001)
+	java.awt.image.SinglePixelPackedSampleModel.getPixels(SinglePixelPackedSampleModel.java:493)
+	java.awt.image.Raster.getPixels(Raster.java:1583)
+	com.sun.imageio.plugins.png.PNGImageWriter.encodePass(PNGImageWriter.java:824)
+	com.sun.imageio.plugins.png.PNGImageWriter.write_IDAT(PNGImageWriter.java:942)
+TRACE 300685: (thread=200001)
+	com.sun.imageio.plugins.png.PNGImageWriter.encodePass(PNGImageWriter.java:824)
+	com.sun.imageio.plugins.png.PNGImageWriter.write_IDAT(PNGImageWriter.java:942)
+	com.sun.imageio.plugins.png.PNGImageWriter.write(PNGImageWriter.java:1158)
+	javax.imageio.ImageWriter.write(ImageWriter.java:615)
+TRACE 300686: (thread=200001)
+	sun.awt.image.IntegerInterleavedRaster.<init>(IntegerInterleavedRaster.java:143)
+	sun.awt.image.IntegerInterleavedRaster.<init>(IntegerInterleavedRaster.java:95)
+	java.awt.image.Raster.createWritableRaster(Raster.java:997)
+	java.awt.image.Raster.createWritableRaster(Raster.java:944)
+TRACE 300687: (thread=200001)
+	java.util.zip.Deflater.deflateBytes(Deflater.java:Unknown line)
+	java.util.zip.Deflater.deflate(Deflater.java:322)
+	com.sun.imageio.plugins.png.IDATOutputStream.deflate(PNGImageWriter.java:221)
+	com.sun.imageio.plugins.png.IDATOutputStream.write(PNGImageWriter.java:215)
+TRACE 300691: (thread=200007)
+	java.lang.ApplicationShutdownHooks.run(ApplicationShutdownHooks.java:93)
+	java.lang.Shutdown.runHooks(Shutdown.java:106)
+	java.lang.Shutdown.sequence(Shutdown.java:150)
+	java.lang.Shutdown.shutdown(Shutdown.java:217)
+CPU SAMPLES BEGIN (total = 5087) Sat Mar 23 14:21:05 2013
+rank   self  accum   count trace method
+   1  5.78%  5.78%     294 300282 cabbagegl.Vector3.normalize
+   2  5.11% 10.89%     260 300290 java.util.ArrayList.<init>
+   3  4.76% 15.65%     242 300327 java.util.ArrayList.<init>
+   4  4.60% 20.25%     234 300279 cabbagegl.Vector3.normalize
+   5  3.79% 24.04%     193 300305 cabbagegl.Ray.getAllHitpoints
+   6  3.52% 27.56%     179 300288 java.lang.Object.clone
+   7  2.54% 30.10%     129 300311 cabbagegl.Triangle.hitBy
+   8  2.54% 32.63%     129 300325 cabbagegl.Vector3.normalize
+   9  2.46% 35.09%     125 300368 cabbagegl.Vector3.normalize
+  10  2.34% 37.43%     119 300321 cabbagegl.Triangle.hitBy
+  11  2.12% 39.55%     108 300294 cabbagegl.Triangle.hitBy
+  12  2.12% 41.67%     108 300333 cabbagegl.Triangle.hitBy
+  13  1.89% 43.56%      96 300285 cabbagegl.Ray.getAllHitpoints
+  14  1.73% 45.29%      88 300354 java.util.Arrays.copyOf
+  15  1.51% 46.81%      77 300338 java.util.Collections$UnmodifiableList.<init>
+  16  1.49% 48.30%      76 300332 java.util.ArrayList.add
+  17  1.45% 49.75%      74 300289 cabbagegl.Vector3.normalize
+  18  1.22% 50.97%      62 300319 cabbagegl.Plane.hitBy
+  19  1.14% 52.11%      58 300302 java.util.ArrayList.add
+  20  1.04% 53.16%      53 300304 cabbagegl.Ray.getAllHitpoints
+  21  0.96% 54.12%      49 300275 cabbagegl.Plane.hitBy
+  22  0.94% 55.06%      48 300314 java.util.Vector.<init>
+  23  0.92% 55.99%      47 300308 java.util.Collections$UnmodifiableCollection$1.<init>
+  24  0.90% 56.89%      46 300323 cabbagegl.Triangle.hitBy
+  25  0.88% 57.77%      45 300375 java.util.Arrays.mergeSort
+  26  0.85% 58.62%      43 300320 cabbagegl.Vector3.normalize
+  27  0.85% 59.47%      43 300328 cabbagegl.Vector3.normalize
+  28  0.81% 60.27%      41 300351 cabbagegl.Vector3.normalize
+  29  0.79% 61.06%      40 300317 java.util.Collections.sort
+  30  0.79% 61.84%      40 300358 cabbagegl.Vector3.normalize
+  31  0.73% 62.57%      37 300342 java.util.Collections$UnmodifiableCollection$1.hasNext
+  32  0.73% 63.30%      37 300377 cabbagegl.Ray.getAllHitpoints
+  33  0.73% 64.03%      37 300418 cabbagegl.Triangle.hitBy
+  34  0.71% 64.73%      36 300402 cabbagegl.Light.computeAttenuation
+  35  0.69% 65.42%      35 300280 java.util.ArrayList.<init>
+  36  0.67% 66.09%      34 300366 java.lang.StrictMath.pow
+  37  0.65% 66.74%      33 300310 cabbagegl.Vector3.scale
+  38  0.63% 67.37%      32 300326 cabbagegl.Vector3.normalize
+  39  0.61% 67.98%      31 300299 cabbagegl.Vector3.normalize
+  40  0.61% 68.59%      31 300341 java.util.Arrays.mergeSort
+  41  0.59% 69.18%      30 300297 java.util.LinkedList.listIterator
+  42  0.57% 69.75%      29 300300 cabbagegl.Triangle.hitBy
+  43  0.57% 70.32%      29 300347 java.util.Collections$UnmodifiableList.get
+  44  0.57% 70.89%      29 300352 java.util.ArrayList.add
+  45  0.55% 71.44%      28 300367 java.util.Arrays.mergeSort
+  46  0.53% 71.97%      27 300276 cabbagegl.Vector3.cross
+  47  0.53% 72.50%      27 300316 java.util.Collections$UnmodifiableCollection$1.<init>
+  48  0.53% 73.03%      27 300340 cabbagegl.Triangle.hitBy
+  49  0.47% 73.50%      24 300374 cabbagegl.Triangle.hitBy
+  50  0.43% 73.93%      22 300301 cabbagegl.Vector3.diff
+  51  0.43% 74.37%      22 300329 java.util.Collections$UnmodifiableCollection$1.<init>
+  52  0.43% 74.80%      22 300336 cabbagegl.Ray.getAllHitpoints
+  53  0.43% 75.23%      22 300378 java.util.Collections$UnmodifiableCollection$1.next
+  54  0.43% 75.66%      22 300390 cabbagegl.Vector3.scale
+  55  0.39% 76.06%      20 300346 cabbagegl.Ray.getAllHitpoints
+  56  0.39% 76.45%      20 300365 java.util.Collections.sort
+  57  0.37% 76.82%      19 300331 cabbagegl.Triangle.hitBy
+  58  0.35% 77.18%      18 300277 cabbagegl.HitData.addHitpoint
+  59  0.35% 77.53%      18 300363 cabbagegl.HitData.addHitpoint
+  60  0.35% 77.88%      18 300424 java.util.ArrayList.<init>
+  61  0.35% 78.24%      18 300435 cabbagegl.Triangle.hitBy
+  62  0.33% 78.57%      17 300427 cabbagegl.Light.computeIllumination
+  63  0.31% 78.89%      16 300278 java.util.LinkedList.listIterator
+  64  0.31% 79.20%      16 300295 cabbagegl.HitData.addHitpoint
+  65  0.31% 79.52%      16 300306 cabbagegl.Light.distFromLight
+  66  0.31% 79.83%      16 300395 cabbagegl.Ray.getAllHitpoints
+  67  0.31% 80.15%      16 300441 cabbagegl.HitData.<init>
+  68  0.29% 80.44%      15 300286 cabbagegl.Ray.getAllHitpoints
+  69  0.29% 80.74%      15 300406 cabbagegl.Triangle.hitBy
+  70  0.28% 81.01%      14 300318 cabbagegl.Light.computeSpecular
+  71  0.28% 81.29%      14 300348 cabbagegl.Triangle.hitBy
+  72  0.28% 81.56%      14 300386 cabbagegl.Triangle.hitBy
+  73  0.26% 81.82%      13 300359 cabbagegl.Plane.hitBy
+  74  0.26% 82.07%      13 300380 cabbagegl.Triangle.hitBy
+  75  0.24% 82.31%      12 300322 cabbagegl.Light.computeSpecular
+  76  0.24% 82.54%      12 300337 cabbagegl.Triangle.hitBy
+  77  0.24% 82.78%      12 300350 cabbagegl.Vector3.normalize
+  78  0.24% 83.02%      12 300409 cabbagegl.Light.diffScaleAtPoint
+  79  0.24% 83.25%      12 300451 cabbagegl.Plane.hitBy
+  80  0.22% 83.47%      11 300274 java.util.Collections$UnmodifiableCollection$1.next
+  81  0.22% 83.68%      11 300330 cabbagegl.Vector3.scale
+  82  0.22% 83.90%      11 300343 cabbagegl.Vector3.scale
+  83  0.22% 84.12%      11 300349 java.util.ArrayList.add
+  84  0.22% 84.33%      11 300383 cabbagegl.Triangle.hitBy
+  85  0.22% 84.55%      11 300400 cabbagegl.Light.computeSpecular
+  86  0.22% 84.77%      11 300454 cabbagegl.Light.diffScaleAtPoint
+  87  0.20% 84.96%      10 300307 cabbagegl.Light.computeIllumination
+  88  0.20% 85.16%      10 300334 cabbagegl.Vector3.normalize
+  89  0.20% 85.35%      10 300355 cabbagegl.Light.computeDiffuse
+  90  0.20% 85.55%      10 300387 cabbagegl.Vector3.scale
+  91  0.20% 85.75%      10 300411 java.util.Collections$UnmodifiableList.get
+  92  0.20% 85.94%      10 300421 cabbagegl.HitData.isEmpty
+  93  0.20% 86.14%      10 300434 java.util.Collections.sort
+  94  0.20% 86.34%      10 300442 java.util.Collections.sort
+  95  0.20% 86.53%      10 300459 cabbagegl.Light.computeIllumination
+  96  0.18% 86.71%       9 300283 cabbagegl.Ray.computeIllumination
+  97  0.18% 86.89%       9 300287 cabbagegl.Light.computeDiffuse
+  98  0.18% 87.07%       9 300298 cabbagegl.Vector3.cross
+  99  0.18% 87.24%       9 300345 cabbagegl.Ray.computeIllumination
+ 100  0.18% 87.42%       9 300357 cabbagegl.Ray.getAllHitpoints
+ 101  0.18% 87.60%       9 300371 java.util.ArrayList.<init>
+ 102  0.18% 87.77%       9 300401 java.util.Collections.sort
+ 103  0.18% 87.95%       9 300429 cabbagegl.Light.computeIllumination
+ 104  0.16% 88.11%       8 300370 java.util.Collections$UnmodifiableCollection$1.hasNext
+ 105  0.16% 88.26%       8 300405 java.util.ArrayList.<init>
+ 106  0.16% 88.42%       8 300420 cabbagegl.Vector3.sum
+ 107  0.14% 88.56%       7 300207 java.lang.ClassLoader$NativeLibrary.load
+ 108  0.14% 88.70%       7 300313 cabbagegl.Triangle.hitBy
+ 109  0.14% 88.83%       7 300391 java.util.Collections$UnmodifiableCollection$1.<init>
+ 110  0.14% 88.97%       7 300407 cabbagegl.Triangle.hitBy
+ 111  0.14% 89.11%       7 300417 cabbagegl.Ray.computeIllumination
+ 112  0.14% 89.25%       7 300436 cabbagegl.Light.distFromLight
+ 113  0.14% 89.38%       7 300479 cabbagegl.Ray.getAllHitpoints
+ 114  0.14% 89.52%       7 300491 cabbagegl.Light.computeSpecular
+ 115  0.12% 89.64%       6 300284 cabbagegl.Triangle.hitBy
+ 116  0.12% 89.76%       6 300292 cabbagegl.Ray.computeIllumination
+ 117  0.12% 89.88%       6 300309 cabbagegl.Ray.getAllHitpoints
+ 118  0.12% 89.99%       6 300379 cabbagegl.Plane.hitBy
+ 119  0.12% 90.11%       6 300392 cabbagegl.Triangle.hitBy
+ 120  0.12% 90.23%       6 300437 cabbagegl.Ray.computeIllumination
+ 121  0.12% 90.35%       6 300446 java.util.ArrayList.add
+ 122  0.12% 90.47%       6 300465 cabbagegl.Light.computeIllumination
+ 123  0.12% 90.58%       6 300478 cabbagegl.HitData.addHitpoint
+ 124  0.10% 90.68%       5 300009 java.util.zip.ZipFile.open
+ 125  0.10% 90.78%       5 300196 java.lang.ClassLoader$NativeLibrary.load
+ 126  0.10% 90.88%       5 300353 cabbagegl.Vector3.normalize
+ 127  0.10% 90.98%       5 300360 cabbagegl.Ray.getAllHitpoints
+ 128  0.10% 91.08%       5 300362 cabbagegl.Ray.getAllHitpoints
+ 129  0.10% 91.17%       5 300372 cabbagegl.Vector3.scale
+ 130  0.10% 91.27%       5 300373 cabbagegl.Vector3.diff
+ 131  0.10% 91.37%       5 300399 cabbagegl.Vector3.sum
+ 132  0.10% 91.47%       5 300410 cabbagegl.Plane.hitBy
+ 133  0.10% 91.57%       5 300423 java.util.Collections$UnmodifiableCollection$1.next
+ 134  0.10% 91.67%       5 300425 java.util.Collections.sort
+ 135  0.10% 91.76%       5 300440 cabbagegl.Ray.getAllHitpoints
+ 136  0.10% 91.86%       5 300450 cabbagegl.Plane.hitBy
+ 137  0.10% 91.96%       5 300453 cabbagegl.Ray.trace
+ 138  0.10% 92.06%       5 300469 cabbagegl.Ray.trace
+ 139  0.10% 92.16%       5 300474 cabbagegl.HitData.<init>
+ 140  0.10% 92.25%       5 300480 java.util.Random.next
+ 141  0.10% 92.35%       5 300493 cabbagegl.Vector3.sum
+ 142  0.10% 92.45%       5 300497 cabbagegl.Ray.getAllHitpoints
+ 143  0.10% 92.55%       5 300501 cabbagegl.Vector3.normalize
+ 144  0.10% 92.65%       5 300511 cabbagegl.Vector3.normalize
+ 145  0.08% 92.73%       4 300043 java.lang.ClassLoader.findBootstrapClass
+ 146  0.08% 92.81%       4 300137 com.sun.org.apache.xerces.internal.parsers.AbstractDOMParser.startDocument
+ 147  0.08% 92.88%       4 300266 java.util.ArrayList.iterator
+ 148  0.08% 92.96%       4 300312 java.util.Collections.unmodifiableList
+ 149  0.08% 93.04%       4 300384 cabbagegl.Vector3.scale
+ 150  0.08% 93.12%       4 300397 cabbagegl.Triangle.hitBy
+ 151  0.08% 93.20%       4 300408 java.util.Collections$UnmodifiableCollection$1.next
+ 152  0.08% 93.28%       4 300419 cabbagegl.Light.computeIllumination
+ 153  0.08% 93.36%       4 300443 cabbagegl.Vector3.scale
+ 154  0.08% 93.43%       4 300460 java.util.Vector.<init>
+ 155  0.08% 93.51%       4 300471 cabbagegl.Vector3.diff
+ 156  0.08% 93.59%       4 300472 cabbagegl.Ray.trace
+ 157  0.08% 93.67%       4 300483 cabbagegl.Light.distFromLight
+ 158  0.08% 93.75%       4 300487 java.util.Collections$UnmodifiableCollection$1.hasNext
+ 159  0.08% 93.83%       4 300488 cabbagegl.Ray.getAllHitpoints
+ 160  0.08% 93.91%       4 300499 java.util.Random.next
+ 161  0.08% 93.98%       4 300514 cabbagegl.Camera.renderPixel
+ 162  0.06% 94.04%       3 300264 java.util.LinkedList.listIterator
+ 163  0.06% 94.10%       3 300344 java.lang.StrictMath.atan
+ 164  0.06% 94.16%       3 300364 cabbagegl.Vector3.diff
+ 165  0.06% 94.22%       3 300376 cabbagegl.Plane.hitBy
+ 166  0.06% 94.28%       3 300381 cabbagegl.HitData.addHitpoint
+ 167  0.06% 94.34%       3 300396 cabbagegl.Vector3.cmul
+ 168  0.06% 94.40%       3 300413 java.util.Collections$UnmodifiableCollection.iterator
+ 169  0.06% 94.46%       3 300414 cabbagegl.Vector3.normalize
+ 170  0.06% 94.52%       3 300416 java.util.Arrays.copyOf
+ 171  0.06% 94.57%       3 300426 cabbagegl.Ray.<init>
+ 172  0.06% 94.63%       3 300439 cabbagegl.Ray.computeIllumination
+ 173  0.06% 94.69%       3 300452 java.util.Collections$UnmodifiableCollection$1.hasNext
+ 174  0.06% 94.75%       3 300458 cabbagegl.Light.computeIllumination
+ 175  0.06% 94.81%       3 300464 cabbagegl.Vector3.diff
+ 176  0.06% 94.87%       3 300486 cabbagegl.Vector3.scale
+ 177  0.06% 94.93%       3 300492 cabbagegl.HitData.isEmpty
+ 178  0.06% 94.99%       3 300494 cabbagegl.Vector3.diff
+ 179  0.06% 95.05%       3 300500 java.awt.Color.getRGB
+ 180  0.06% 95.11%       3 300505 cabbagegl.Ray.getAllHitpoints
+ 181  0.06% 95.16%       3 300507 cabbagegl.Vector3.diff
+ 182  0.06% 95.22%       3 300524 cabbagegl.Vector3.sum
+ 183  0.06% 95.28%       3 300544 cabbagegl.Triangle.hitBy
+ 184  0.06% 95.34%       3 300547 cabbagegl.Vector3.scale
+ 185  0.06% 95.40%       3 300562 cabbagegl.Light.distFromLight
+ 186  0.04% 95.44%       2 300047 javax.xml.parsers.DocumentBuilderFactory.newInstance
+ 187  0.04% 95.48%       2 300126 sun.net.www.protocol.file.FileURLConnection.connect
+ 188  0.04% 95.52%       2 300223 java.awt.image.Raster.createPackedRaster
+ 189  0.04% 95.56%       2 300267 java.util.ArrayList.listIterator
+ 190  0.04% 95.60%       2 300291 java.util.Collections.sort
+ 191  0.04% 95.64%       2 300315 cabbagegl.HitData.sort
+ 192  0.04% 95.68%       2 300335 java.util.Collections.unmodifiableList
+ 193  0.04% 95.71%       2 300356 java.util.ArrayList.<init>
+ 194  0.04% 95.75%       2 300369 cabbagegl.Vector3.reflect
+ 195  0.04% 95.79%       2 300382 java.util.Collections.unmodifiableList
+ 196  0.04% 95.83%       2 300385 cabbagegl.Ray.computeIllumination
+ 197  0.04% 95.87%       2 300394 cabbagegl.Ray.computeIllumination
+ 198  0.04% 95.91%       2 300412 cabbagegl.Triangle.hitBy
+ 199  0.04% 95.95%       2 300415 cabbagegl.Ray.trace
+ 200  0.04% 95.99%       2 300428 cabbagegl.Ray.computeIllumination
+ 201  0.04% 96.03%       2 300430 cabbagegl.Ray.findClosestHitpoint
+ 202  0.04% 96.07%       2 300431 cabbagegl.Vector3.cmul
+ 203  0.04% 96.11%       2 300432 cabbagegl.Ray.getAllHitpoints
+ 204  0.04% 96.15%       2 300461 cabbagegl.Ray.trace
+ 205  0.04% 96.19%       2 300462 cabbagegl.HitData.<init>
+ 206  0.04% 96.23%       2 300463 cabbagegl.Triangle.hitBy
+ 207  0.04% 96.26%       2 300466 java.util.Collections$UnmodifiableCollection$1.hasNext
+ 208  0.04% 96.30%       2 300468 cabbagegl.Vector3.scale
+ 209  0.04% 96.34%       2 300470 cabbagegl.HitData.isEmpty
+ 210  0.04% 96.38%       2 300476 cabbagegl.Vector3.scale
+ 211  0.04% 96.42%       2 300477 cabbagegl.Vector3.scale
+ 212  0.04% 96.46%       2 300484 cabbagegl.Vector3.normalize
+ 213  0.04% 96.50%       2 300489 cabbagegl.Ray.trace
+ 214  0.04% 96.54%       2 300490 cabbagegl.Vector3.scale
+ 215  0.04% 96.58%       2 300495 cabbagegl.Vector3.normalize
+ 216  0.04% 96.62%       2 300496 cabbagegl.Ray.getAllHitpoints
+ 217  0.04% 96.66%       2 300502 cabbagegl.Ray.trace
+ 218  0.04% 96.70%       2 300503 cabbagegl.Vector3.reflect
+ 219  0.04% 96.74%       2 300504 cabbagegl.Ray.getAllHitpoints
+ 220  0.04% 96.78%       2 300506 cabbagegl.Ray.getAllHitpoints
+ 221  0.04% 96.82%       2 300526 java.util.AbstractList.listIterator
+ 222  0.04% 96.85%       2 300528 cabbagegl.Ray.findClosestHPointsExclude
+ 223  0.04% 96.89%       2 300539 cabbagegl.Vector3.sum
+ 224  0.04% 96.93%       2 300546 cabbagegl.Ray.computeIllumination
+ 225  0.04% 96.97%       2 300549 cabbagegl.Ray.trace
+ 226  0.04% 97.01%       2 300557 cabbagegl.Vector3.scale
+ 227  0.04% 97.05%       2 300559 cabbagegl.Vector3.scale
+ 228  0.04% 97.09%       2 300572 cabbagegl.Ray.computeIllumination
+ 229  0.04% 97.13%       2 300628 sun.net.www.protocol.jar.Handler.openConnection
+ 230  0.04% 97.17%       2 300647 java.lang.Class.getDeclaredMethods0
+ 231  0.04% 97.21%       2 300656 java.lang.StrictMath.pow
+ 232  0.02% 97.23%       1 300008 java.util.zip.ZipFile.<init>
+ 233  0.02% 97.25%       1 300014 java.util.jar.JarFile.hasClassPathAttribute
+ 234  0.02% 97.27%       1 300019 sun.nio.cs.UTF_8$Encoder.encodeArrayLoop
+ 235  0.02% 97.29%       1 300027 sun.net.www.protocol.file.Handler.createFileURLConnection
+ 236  0.02% 97.31%       1 300044 java.io.FileInputStream.readBytes
+ 237  0.02% 97.33%       1 300046 java.util.Random.<init>
+ 238  0.02% 97.35%       1 300054 java.lang.String.indexOf
+ 239  0.02% 97.37%       1 300056 sun.misc.URLClassPath$JarLoader.getJarFile
+ 240  0.02% 97.39%       1 300058 com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl.newDocumentBuilder
+ 241  0.02% 97.41%       1 300059 com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.<init>
+ 242  0.02% 97.42%       1 300066 java.lang.Class.getDeclaredConstructors0
+ 243  0.02% 97.44%       1 300074 com.sun.org.apache.xerces.internal.impl.XMLEntityManager.<init>
+ 244  0.02% 97.46%       1 300075 com.sun.org.apache.xerces.internal.impl.XMLEntityManager.<init>
+ 245  0.02% 97.48%       1 300078 com.sun.org.apache.xerces.internal.parsers.XML11Configuration.<init>
+ 246  0.02% 97.50%       1 300088 com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.<init>
+ 247  0.02% 97.52%       1 300095 com.sun.org.apache.xerces.internal.parsers.XML11Configuration.<init>
+ 248  0.02% 97.54%       1 300117 com.sun.org.apache.xerces.internal.parsers.XML11Configuration.checkFeature
+ 249  0.02% 97.56%       1 300120 java.io.File.toURI
+ 250  0.02% 97.58%       1 300129 java.io.FileInputStream.readBytes
+ 251  0.02% 97.60%       1 300135 com.sun.org.apache.xerces.internal.util.XMLChar.<clinit>
+ 252  0.02% 97.62%       1 300143 com.sun.org.apache.xerces.internal.dom.DeferredDocumentImpl.getNodeObject
+ 253  0.02% 97.64%       1 300182 java.util.regex.Pattern.closure
+ 254  0.02% 97.66%       1 300190 sun.misc.Resource.getBytes
+ 255  0.02% 97.68%       1 300192 java.awt.Image.<clinit>
+ 256  0.02% 97.70%       1 300219 java.awt.image.DataBuffer.<clinit>
+ 257  0.02% 97.72%       1 300230 java.awt.Toolkit$3.run
+ 258  0.02% 97.74%       1 300242 java.awt.Toolkit.<clinit>
+ 259  0.02% 97.76%       1 300253 java.lang.Thread.<init>
+ 260  0.02% 97.78%       1 300256 java.util.Collections.emptyEnumeration
+ 261  0.02% 97.80%       1 300257 java.util.Properties$LineReader.readLine
+ 262  0.02% 97.82%       1 300268 cabbagegl.Vector3.cmul
+ 263  0.02% 97.84%       1 300270 java.util.ArrayList$Itr.checkForComodification
+ 264  0.02% 97.86%       1 300271 java.util.Collections$UnmodifiableCollection$1.<init>
+ 265  0.02% 97.88%       1 300273 cabbagegl.Sphere.hitBy
+ 266  0.02% 97.90%       1 300281 cabbagegl.Ray.trace
+ 267  0.02% 97.92%       1 300293 cabbagegl.Ray.trace
+ 268  0.02% 97.94%       1 300296 cabbagegl.Camera.renderPixel
+ 269  0.02% 97.96%       1 300303 cabbagegl.Plane.hitBy
+ 270  0.02% 97.98%       1 300324 cabbagegl.Triangle.hitBy
+ 271  0.02% 97.99%       1 300339 cabbagegl.Ray.trace
+ 272  0.02% 98.01%       1 300361 cabbagegl.Vector3.refract
+ 273  0.02% 98.03%       1 300388 cabbagegl.Camera.vectorToColor
+ 274  0.02% 98.05%       1 300389 cabbagegl.Sphere.hitBy
+ 275  0.02% 98.07%       1 300393 cabbagegl.Ray.<init>
+ 276  0.02% 98.09%       1 300398 java.awt.image.DirectColorModel.getDataElements
+ 277  0.02% 98.11%       1 300403 cabbagegl.Vector3.reflect
+ 278  0.02% 98.13%       1 300404 cabbagegl.Ray.trace
+ 279  0.02% 98.15%       1 300422 cabbagegl.Vector3.clamp
+ 280  0.02% 98.17%       1 300433 java.lang.Object.clone
+ 281  0.02% 98.19%       1 300438 java.util.Collections.sort
+ 282  0.02% 98.21%       1 300444 java.util.Vector.ensureCapacityHelper
+ 283  0.02% 98.23%       1 300445 cabbagegl.Vector3.diff
+ 284  0.02% 98.25%       1 300447 cabbagegl.Ray.findClosestHPointsExclude
+ 285  0.02% 98.27%       1 300448 cabbagegl.Ray.trace
+ 286  0.02% 98.29%       1 300449 cabbagegl.Camera.renderPixel
+ 287  0.02% 98.31%       1 300455 cabbagegl.Ray.getAllHitpoints
+ 288  0.02% 98.33%       1 300456 cabbagegl.Vector3.scale
+ 289  0.02% 98.35%       1 300457 cabbagegl.Ray.trace
+ 290  0.02% 98.37%       1 300467 java.util.Collections$UnmodifiableCollection$1.next
+ 291  0.02% 98.39%       1 300473 java.util.LinkedList.listIterator
+ 292  0.02% 98.41%       1 300475 java.util.Random.next
+ 293  0.02% 98.43%       1 300481 cabbagegl.Plane.hitBy
+ 294  0.02% 98.45%       1 300482 cabbagegl.Vector3.scale
+ 295  0.02% 98.47%       1 300485 cabbagegl.Triangle.hitBy
+ 296  0.02% 98.49%       1 300498 cabbagegl.Vector3.clamp
+ 297  0.02% 98.51%       1 300508 cabbagegl.Vector3.normalize
+ 298  0.02% 98.53%       1 300509 cabbagegl.HitData.addHitpoint
+ 299  0.02% 98.55%       1 300510 cabbagegl.Vector3.scale
+ 300  0.02% 98.56%       1 300512 cabbagegl.Ray.getAllHitpoints
+ 301  0.02% 98.58%       1 300513 cabbagegl.Ray.computeIllumination
+ 302  0.02% 98.60%       1 300515 cabbagegl.Ray.computeIllumination
+ 303  0.02% 98.62%       1 300516 cabbagegl.Triangle.hitBy
+ 304  0.02% 98.64%       1 300517 cabbagegl.Sphere.hitBy
+ 305  0.02% 98.66%       1 300518 cabbagegl.Ray.trace
+ 306  0.02% 98.68%       1 300519 java.util.Collections$UnmodifiableCollection$1.hasNext
+ 307  0.02% 98.70%       1 300520 cabbagegl.Camera.renderPixel
+ 308  0.02% 98.72%       1 300521 cabbagegl.Ray.computeIllumination
+ 309  0.02% 98.74%       1 300522 cabbagegl.Triangle.hitBy
+ 310  0.02% 98.76%       1 300523 cabbagegl.Triangle.hitBy
+ 311  0.02% 98.78%       1 300525 cabbagegl.Ray.getAllHitpoints
+ 312  0.02% 98.80%       1 300527 java.util.Collections$UnmodifiableCollection$1.next
+ 313  0.02% 98.82%       1 300529 java.lang.Double.valueOf
+ 314  0.02% 98.84%       1 300530 cabbagegl.HitData.isEmpty
+ 315  0.02% 98.86%       1 300531 cabbagegl.Ray.computeIllumination
+ 316  0.02% 98.88%       1 300532 cabbagegl.Ray.computeIllumination
+ 317  0.02% 98.90%       1 300533 cabbagegl.Ray.trace
+ 318  0.02% 98.92%       1 300534 cabbagegl.Vector3.cmul
+ 319  0.02% 98.94%       1 300535 cabbagegl.Sphere.hitBy
+ 320  0.02% 98.96%       1 300536 cabbagegl.HitData.addHitpoint
+ 321  0.02% 98.98%       1 300537 java.util.Collections$UnmodifiableCollection.iterator
+ 322  0.02% 99.00%       1 300538 cabbagegl.Vector3.normalize
+ 323  0.02% 99.02%       1 300540 cabbagegl.Camera.renderInRange
+ 324  0.02% 99.04%       1 300541 cabbagegl.Ray.trace
+ 325  0.02% 99.06%       1 300542 cabbagegl.Light.computeIllumination
+ 326  0.02% 99.08%       1 300543 cabbagegl.Ray.getAllHitpoints
+ 327  0.02% 99.10%       1 300545 cabbagegl.Vector3.diff
+ 328  0.02% 99.12%       1 300548 cabbagegl.Ray.trace
+ 329  0.02% 99.14%       1 300550 java.util.ArrayList.<init>
+ 330  0.02% 99.15%       1 300551 java.util.Random.next
+ 331  0.02% 99.17%       1 300552 cabbagegl.Vector3.scale
+ 332  0.02% 99.19%       1 300553 java.util.Arrays.sort
+ 333  0.02% 99.21%       1 300554 java.lang.Integer.getChars
+ 334  0.02% 99.23%       1 300555 cabbagegl.Ray.trace
+ 335  0.02% 99.25%       1 300556 cabbagegl.HitData.addHitpoint
+ 336  0.02% 99.27%       1 300558 cabbagegl.Vector3.scale
+ 337  0.02% 99.29%       1 300560 cabbagegl.Ray.getAllHitpoints
+ 338  0.02% 99.31%       1 300561 cabbagegl.Ray.findClosestHPointsExclude
+ 339  0.02% 99.33%       1 300563 cabbagegl.Vector3.scale
+ 340  0.02% 99.35%       1 300564 cabbagegl.Ray.trace
+ 341  0.02% 99.37%       1 300565 cabbagegl.Vector3.normalize
+ 342  0.02% 99.39%       1 300566 cabbagegl.Vector3.scale
+ 343  0.02% 99.41%       1 300567 cabbagegl.Ray.trace
+ 344  0.02% 99.43%       1 300568 cabbagegl.Sphere.hitBy
+ 345  0.02% 99.45%       1 300569 cabbagegl.Ray.getAllHitpoints
+ 346  0.02% 99.47%       1 300570 cabbagegl.Ray.trace
+ 347  0.02% 99.49%       1 300571 cabbagegl.HitData.isEmpty
+ 348  0.02% 99.51%       1 300573 cabbagegl.HitData.<init>
+ 349  0.02% 99.53%       1 300574 cabbagegl.Ray.getAllHitpoints
+ 350  0.02% 99.55%       1 300575 java.util.ArrayList.iterator
+ 351  0.02% 99.57%       1 300576 cabbagegl.Vector3.sum
+ 352  0.02% 99.59%       1 300577 cabbagegl.Ray.trace
+ 353  0.02% 99.61%       1 300578 cabbagegl.Camera.renderPixel
+ 354  0.02% 99.63%       1 300579 java.util.Arrays.mergeSort
+ 355  0.02% 99.65%       1 300580 cabbagegl.Ray.getAllHitpoints
+ 356  0.02% 99.67%       1 300587 javax.imageio.spi.IIORegistry.getDefaultInstance
+ 357  0.02% 99.69%       1 300593 java.util.Vector.iterator
+ 358  0.02% 99.71%       1 300597 javax.imageio.spi.IIORegistry.registerStandardSpis
+ 359  0.02% 99.72%       1 300602 javax.imageio.spi.ImageWriterSpi.<clinit>
+ 360  0.02% 99.74%       1 300605 javax.imageio.spi.IIORegistry.registerStandardSpis
+ 361  0.02% 99.76%       1 300612 sun.java2d.cmm.ProfileDeferralMgr.activateProfiles
+ 362  0.02% 99.78%       1 300616 sun.java2d.cmm.CMSManager.getModule
+ 363  0.02% 99.80%       1 300644 com.sun.imageio.spi.RAFImageInputStreamSpi.<clinit>
+ 364  0.02% 99.82%       1 300655 java.lang.Math.round
+ 365  0.02% 99.84%       1 300657 java.lang.StrictMath.floor
+ 366  0.02% 99.86%       1 300658 javax.imageio.ImageTypeSpecifier$Grayscale.<init>
+ 367  0.02% 99.88%       1 300670 com.sun.imageio.plugins.png.PNGImageWriter.<init>
+ 368  0.02% 99.90%       1 300674 javax.imageio.stream.FileImageOutputStream.<init>
+ 369  0.02% 99.92%       1 300684 java.awt.image.SinglePixelPackedSampleModel.getPixels
+ 370  0.02% 99.94%       1 300685 com.sun.imageio.plugins.png.PNGImageWriter.encodePass
+ 371  0.02% 99.96%       1 300686 sun.awt.image.IntegerInterleavedRaster.<init>
+ 372  0.02% 99.98%       1 300687 java.util.zip.Deflater.deflateBytes
+ 373  0.02% 100.00%       1 300691 java.lang.ApplicationShutdownHooks.run
+CPU SAMPLES END

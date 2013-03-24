@@ -37,5 +37,3 @@ Feel free to contact me if you want any info/help building your own/some neat
 sources/anything at all.
 
 email: seanpkelly2992@gmail.com
-
-Edit: just gonna try editing this readme...

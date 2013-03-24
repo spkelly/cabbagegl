@@ -22,5 +22,14 @@ public class RenderOptions {
     public int dof_rays;
     public double focal_plane_dist;
     public double lens_aperture_radius;
+
+    public String toString() {
+        return "width: " + width +
+        " height: " + height +
+        " AA_samples: " + AA_samples +
+        " max_recurse: " + max_recurse +
+        " focal_plane_dist: " + focal_plane_dist +
+        " lens_aperture_radius: " + lens_aperture_radius;
+    }
 }
 

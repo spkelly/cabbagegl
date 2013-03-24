@@ -22,14 +22,22 @@ public class Test {
 
        // Render options
        RenderOptions options = new RenderOptions();
+    /*
        options.AA_samples = 4;
-       options.width = 1920;
-       options.height = 1080;
-       options.max_recurse = 10;
+//     options.width = 1920;
+//     options.height = 1080;
+       options.width = 640;
+       options.height = 340;
+       // XXX je baisse ca 
+       options.max_recurse = 2;
 
        options.focal_plane_dist = 11;
        options.lens_aperture_radius = 1.5;
-       options.dof_rays = 20;
+       // XXX je baisse ca 
+       options.dof_rays = 4;
+       */
+        ReadConfig conf = new ReadConfig();
+        conf.readFile(options);
 
         // Construct the scene
         Scene myScene = new Scene();

@@ -1,0 +1,202 @@
+Messed around with hprof. There are loads of cpu and (especially) memory profilers; hprof seems to be the standard, quick'n dirty one, closer to say gprof for C. In regards to the results, it might be interesting to have a look at the memory profile; I'l check that out soon.   
+
+And so this is the (edited) output of an hprof profile. 
+
+Here's the config file, I'm sure you will understand.
+
+<?xml version="1.0"?>
+<renderOptions id="0">
+    <AA_samples>4</AA_samples>
+    <width>200</width>
+    <height>100</height>
+    <max_recurse>5</max_recurse>
+    <focal_plane_dist>11</focal_plane_dist>
+    <lens_aperture_radius>1.5</lens_aperture_radius>
+    <dof_rays>5</dof_rays>
+</renderOptions>
+
+As you can see, that's a really tiny rendering; it allowed me to have a few of 'em to experiment with the profiler. 
+
+Ran the thing with 
+
+$java -agentlib=hprof=cpu=samples cabbagebot.Test
+
+And here's the output. (my rantings preceded by //)
+
+// ... random legal boilerplate snipped off ... 
+
+Header for -agentlib:hprof (or -Xrunhprof) ASCII Output (JDK 5.0 JVMTI based)
+
+WARNING!  This file format is under development, and is subject to
+change without notice.
+
+This file contains the following types of records:
+
+THREAD START
+THREAD END      mark the lifetime of Java threads
+
+TRACE           represents a Java stack trace.  Each trace consists
+                of a series of stack frames.  Other records refer to
+                TRACEs to identify (1) where object allocations have
+                taken place, (2) the frames in which GC roots were
+                found, and (3) frequently executed methods.
+
+HEAP DUMP       is a complete snapshot of all live objects in the Java
+                heap.  Following distinctions are made:
+
+                ROOT    root set as determined by GC
+                CLS     classes 
+                OBJ     instances
+                ARR     arrays
+
+SITES           is a sorted list of allocation sites.  This identifies
+                the most heavily allocated object types, and the TRACE
+                at which those allocations occurred.
+
+CPU SAMPLES     is a statistical profile of program execution.  The VM
+                periodically samples all running threads, and assigns
+                a quantum to active TRACEs in those threads.  Entries
+                in this record are TRACEs ranked by the percentage of
+                total quanta they consumed; top-ranked TRACEs are
+                typically hot spots in the program.
+
+CPU TIME        is a profile of program execution obtained by measuring
+                the time spent in individual methods (excluding the time
+                spent in callees), as well as by counting the number of
+                times each method is called. Entries in this record are
+                TRACEs ranked by the percentage of total CPU time. The
+                "count" field indicates the number of times each TRACE 
+                is invoked.
+
+MONITOR TIME    is a profile of monitor contention obtained by measuring
+                the time spent by a thread waiting to enter a monitor.
+                Entries in this record are TRACEs ranked by the percentage
+                of total monitor contention time and a brief description
+                of the monitor.  The "count" field indicates the number of 
+                times the monitor was contended at that TRACE.
+
+MONITOR DUMP    is a complete snapshot of all the monitors and threads in 
+                the System.
+
+HEAP DUMP, SITES, CPU SAMPLES|TIME and MONITOR DUMP|TIME records are generated 
+at program exit.  They can also be obtained during program execution by typing 
+Ctrl-\ (on Solaris) or by typing Ctrl-Break (on Win32).
+
+--------
+
+THREAD START (obj=5000013b, id = 200001, name="main", group="main")
+THREAD START (obj=500002bf, id = 200004, name="Thread-1", group="main")
+THREAD END (id = 200004)
+THREAD START (obj=50000341, id = 200006, name="Java2D Disposer", group="system")
+THREAD END (id = 200001)
+THREAD START (obj=50000344, id = 200007, name="DestroyJavaVM", group="main")
+THREAD START (obj=50000348, id = 200008, name="Thread-0", group="main")
+THREAD END (id = 200008)
+THREAD END (id = 200007)
+THREAD END (id = 200002)
+TRACE 300282: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Triangle.hitBy(Triangle.java:49)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300290: (thread=200004)
+	java.util.ArrayList.<init>(ArrayList.java:139)
+	cabbagegl.HitData.<init>(HitData.java:8)
+	cabbagegl.Plane.hitBy(Plane.java:26)
+	cabbagegl.Triangle.hitBy(Triangle.java:35)
+TRACE 300327: (thread=200004)
+	java.util.ArrayList.<init>(ArrayList.java:139)
+	cabbagegl.HitData.<init>(HitData.java:8)
+	cabbagegl.Plane.hitBy(Plane.java:26)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+TRACE 300279: (thread=200004)
+	cabbagegl.Vector3.normalize(Vector3.java:47)
+	cabbagegl.Triangle.hitBy(Triangle.java:51)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+TRACE 300305: (thread=200004)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+	cabbagegl.Ray.computeIllumination(Ray.java:229)
+TRACE 300288: (thread=200004)
+	java.lang.Object.clone(Object.java:Unknown line)
+	java.util.Arrays.sort(Arrays.java:1091)
+	java.util.Collections.sort(Collections.java:134)
+	cabbagegl.HitData.sort(HitData.java:20)
+TRACE 300311: (thread=200004)
+	cabbagegl.Triangle.hitBy(Triangle.java:48)
+	cabbagegl.Ray.getAllHitpoints(Ray.java:176)
+	cabbagegl.Light.distFromLight(Light.java:57)
+	cabbagegl.Light.computeIllumination(Light.java:32)
+
+// snipped like a a couple of thousands of those... 
+
+// ... then a compilation. 
+
+CPU SAMPLES BEGIN (total = 5087) Sat Mar 23 14:21:05 2013
+rank   self  accum   count trace method
+   1  5.78%  5.78%     294 300282 cabbagegl.Vector3.normalize
+   2  5.11% 10.89%     260 300290 java.util.ArrayList.<init>
+   3  4.76% 15.65%     242 300327 java.util.ArrayList.<init>
+   4  4.60% 20.25%     234 300279 cabbagegl.Vector3.normalize
+   5  3.79% 24.04%     193 300305 cabbagegl.Ray.getAllHitpoints
+   6  3.52% 27.56%     179 300288 java.lang.Object.clone
+   7  2.54% 30.10%     129 300311 cabbagegl.Triangle.hitBy
+   8  2.54% 32.63%     129 300325 cabbagegl.Vector3.normalize
+   9  2.46% 35.09%     125 300368 cabbagegl.Vector3.normalize
+  10  2.34% 37.43%     119 300321 cabbagegl.Triangle.hitBy
+  11  2.12% 39.55%     108 300294 cabbagegl.Triangle.hitBy
+  12  2.12% 41.67%     108 300333 cabbagegl.Triangle.hitBy
+  13  1.89% 43.56%      96 300285 cabbagegl.Ray.getAllHitpoints
+  14  1.73% 45.29%      88 300354 java.util.Arrays.copyOf
+  15  1.51% 46.81%      77 300338 java.util.Collections$UnmodifiableList.<init>
+  16  1.49% 48.30%      76 300332 java.util.ArrayList.add
+  17  1.45% 49.75%      74 300289 cabbagegl.Vector3.normalize
+  18  1.22% 50.97%      62 300319 cabbagegl.Plane.hitBy
+  19  1.14% 52.11%      58 300302 java.util.ArrayList.add
+  20  1.04% 53.16%      53 300304 cabbagegl.Ray.getAllHitpoints
+  21  0.96% 54.12%      49 300275 cabbagegl.Plane.hitBy
+  22  0.94% 55.06%      48 300314 java.util.Vector.<init>
+  23  0.92% 55.99%      47 300308 java.util.Collections$UnmodifiableCollection$1.<init>
+  24  0.90% 56.89%      46 300323 cabbagegl.Triangle.hitBy
+  25  0.88% 57.77%      45 300375 java.util.Arrays.mergeSort
+  26  0.85% 58.62%      43 300320 cabbagegl.Vector3.normalize
+  27  0.85% 59.47%      43 300328 cabbagegl.Vector3.normalize
+  28  0.81% 60.27%      41 300351 cabbagegl.Vector3.normalize
+  29  0.79% 61.06%      40 300317 java.util.Collections.sort
+  30  0.79% 61.84%      40 300358 cabbagegl.Vector3.normalize
+  31  0.73% 62.57%      37 300342 java.util.Collections$UnmodifiableCollection$1.hasNext
+  32  0.73% 63.30%      37 300377 cabbagegl.Ray.getAllHitpoints
+
+// ... and so on and so forth, then eof. 
+
+This is a sampling; every once in a while (10ms default), it makes a stack trace (4 levels deep default. )
+I don't really grasp how exactly is the compilation done; as you can see, some method calls are displayed many times. 
+
+
+Still, one can see that the normalise vector op takes quite a lot of juice, as do the ArrayList add method.
+
+There are a lot of shit I think would be kind of easy to get rid of; ArrayList.<init>, Arrays.copyOf, Vector.<init>, with probably zero effect on the rendering quality, but a source getting progressively more hacky. 
+
+Perhaps there's still some math optimisation left in normalize without squashing the quality too much. I guess we could add some renderingOptions to select among different progressively lossier algos, depending on the context. 
+
+btw, here's a sample of the actual output
+
+Rendering. This will take several minutes.
+i: 0 / ih: 200
+i: 1 / ih: 200
+i: 2 / ih: 200
+i: 3 / ih: 200
+i: 4 / ih: 200
+i: 5 / ih: 200
+// I tweaked it so it outs the progress instead of the color of the pixel just rendered.
+// nifty
+i: 197 / ih: 200
+i: 198 / ih: 200
+i: 199 / ih: 200
+Render completed.
+Render time: 0 min 51 sec 167 millis
+Resolution: 200 by 100
+4x Antialiasing.
+Rays Fired: 5869720
