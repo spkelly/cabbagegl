@@ -11,18 +11,18 @@ CAMERA	net/CGLNetMessageType.java	/^   SCENE, CAMERA, RENDER_OPTIONS, PIX_RANGE,
 CGLNetMessage	net/CGLNetMessage.java	/^   public CGLNetMessage(CGLNetMessageType mtype) {$/;"	m	class:CGLNetMessage
 CGLNetMessage	net/CGLNetMessage.java	/^public abstract class CGLNetMessage {$/;"	c
 CGLNetMessageType	net/CGLNetMessageType.java	/^public enum CGLNetMessageType {$/;"	g
-Camera	Camera.java	/^    public Camera() {$/;"	m	class:Camera
-Camera	Camera.java	/^public class Camera {$/;"	c
+CameraMaster	Camera.java	/^    public CameraMaster() {$/;"	m	class:CameraMaster
+CameraMaster	Camera.java	/^public class CameraMaster {$/;"	c
 CameraMessage	net/CameraMessage.java	/^   public CameraMessage(Camera cam) {$/;"	m	class:CameraMessage
 CameraMessage	net/CameraMessage.java	/^public class CameraMessage extends CGLNetMessage {$/;"	c
 ColorVector	Vector3.java	/^    public static Vector3 ColorVector(int R, int G, int B) {$/;"	m	class:Vector3
-DEFAULT_ASPECT	Camera.java	/^    private static final double DEFAULT_ASPECT = 1.0;$/;"	f	class:Camera	file:
-DEFAULT_EYE	Camera.java	/^    private static final Vector3 DEFAULT_EYE = Vector3.UNIT_X;$/;"	f	class:Camera	file:
-DEFAULT_FOV	Camera.java	/^    private static final double DEFAULT_FOV = 45.0;$/;"	f	class:Camera	file:
-DEFAULT_UP	Camera.java	/^    private static final Vector3 DEFAULT_UP = Vector3.UNIT_Y;$/;"	f	class:Camera	file:
-DEFAULT_VIEW	Camera.java	/^    private static final Vector3 DEFAULT_VIEW = Vector3.ZERO;$/;"	f	class:Camera	file:
-DEFAULT_ZFAR	Camera.java	/^    private static final double DEFAULT_ZFAR = 20.0;$/;"	f	class:Camera	file:
-DEFAULT_ZNEAR	Camera.java	/^    private static final double DEFAULT_ZNEAR = 0.1;$/;"	f	class:Camera	file:
+DEFAULT_ASPECT	Camera.java	/^    private static final double DEFAULT_ASPECT = 1.0;$/;"	f	class:CameraMaster	file:
+DEFAULT_EYE	Camera.java	/^    private static final Vector3 DEFAULT_EYE = Vector3.UNIT_X;$/;"	f	class:CameraMaster	file:
+DEFAULT_FOV	Camera.java	/^    private static final double DEFAULT_FOV = 45.0;$/;"	f	class:CameraMaster	file:
+DEFAULT_UP	Camera.java	/^    private static final Vector3 DEFAULT_UP = Vector3.UNIT_Y;$/;"	f	class:CameraMaster	file:
+DEFAULT_VIEW	Camera.java	/^    private static final Vector3 DEFAULT_VIEW = Vector3.ZERO;$/;"	f	class:CameraMaster	file:
+DEFAULT_ZFAR	Camera.java	/^    private static final double DEFAULT_ZFAR = 20.0;$/;"	f	class:CameraMaster	file:
+DEFAULT_ZNEAR	Camera.java	/^    private static final double DEFAULT_ZNEAR = 0.1;$/;"	f	class:CameraMaster	file:
 DEPTH_BUFF	net/CGLNetMessageType.java	/^   SCENE, CAMERA, RENDER_OPTIONS, PIX_RANGE, UPDATE, RENDERED, DEPTH_BUFF;$/;"	e	enum:CGLNetMessageType	file:
 DepthBufferMessage	net/DepthBufferMessage.java	/^   public DepthBufferMessage(double idBuff[], int low, int high) {$/;"	m	class:DepthBufferMessage
 DepthBufferMessage	net/DepthBufferMessage.java	/^public class DepthBufferMessage extends CGLNetMessage {$/;"	c
@@ -62,8 +62,8 @@ RenderOptionsMessage	net/RenderOptionsMessage.java	/^   public RenderOptionsMess
 RenderOptionsMessage	net/RenderOptionsMessage.java	/^public class RenderOptionsMessage extends CGLNetMessage {$/;"	c
 RenderServer	net/RenderServer.java	/^   public RenderServer(int port) {$/;"	m	class:RenderServer
 RenderServer	net/RenderServer.java	/^public class RenderServer implements Runnable {$/;"	c
-RenderThread	Camera.java	/^       public RenderThread(Scene s, RenderOptions ro, int l, int h,$/;"	m	class:Camera.RenderThread
-RenderThread	Camera.java	/^    public class RenderThread implements Runnable {$/;"	c	class:Camera
+RenderSlave	RenderSlave.java	/^    public RenderSlave(Scene s, RenderOptions ro) {$/;"	m	class:RenderSlave
+RenderSlave	RenderSlave.java	/^public class RenderSlave {$/;"	c
 RenderedMessage	net/RenderedMessage.java	/^   public RenderedMessage(Color irendered[], int low, int high) {$/;"	m	class:RenderedMessage
 RenderedMessage	net/RenderedMessage.java	/^public class RenderedMessage extends CGLNetMessage {$/;"	c
 SCENE	net/CGLNetMessageType.java	/^   SCENE, CAMERA, RENDER_OPTIONS, PIX_RANGE, UPDATE, RENDERED, DEPTH_BUFF;$/;"	e	enum:CGLNetMessageType	file:
@@ -99,7 +99,7 @@ ZERO	Vector3.java	/^    public static final Vector3 ZERO = new Vector3(0,0,0);$/
 addHitpoint	HitData.java	/^   public void addHitpoint(HitPoint toAdd) {$/;"	m	class:HitData
 alpha	Material.java	/^   private double alpha;$/;"	f	class:Material	file:
 ambient	Scene.java	/^    public Vector3 ambient;$/;"	f	class:Scene
-aspect_ratio	Camera.java	/^    private double aspect_ratio;$/;"	f	class:Camera	file:
+aspect_ratio	Camera.java	/^    private double aspect_ratio;$/;"	f	class:CameraMaster	file:
 base	Ray.java	/^    private Vector3 base;$/;"	f	class:Ray	file:
 baseFragShader	ShaderProgram.java	/^   private static String baseFragShader;$/;"	f	class:ShaderProgram	file:
 cabbagegl	Axis.java	/^package cabbagegl;$/;"	p
@@ -123,7 +123,7 @@ cabbagegl	Test.java	/^package cabbagegl;$/;"	p
 cabbagegl	Triangle.java	/^package cabbagegl;$/;"	p
 cabbagegl	Vector3.java	/^package cabbagegl;$/;"	p
 camera	net/CameraMessage.java	/^   public Camera camera;$/;"	f	class:CameraMessage
-cel_shaded	Camera.java	/^    public boolean cel_shaded; \/\/ wat$/;"	f	class:Camera
+cel_shaded	Camera.java	/^    public boolean cel_shaded; \/\/ wat$/;"	f	class:CameraMaster
 cel_shaded	Scene.java	/^    public boolean cel_shaded;$/;"	f	class:Scene
 cellShadedTrace	Ray.java	/^    public Vector3 cellShadedTrace(Scene s, double mindist, double maxdist) {$/;"	m	class:Ray
 center	Sphere.java	/^    private Vector3 center;$/;"	f	class:Sphere	file:
@@ -153,13 +153,12 @@ distFromLight	Light.java	/^   public Double distFromLight(Scene s, HitPoint hp) 
 distTo	HitPoint.java	/^   private double distTo;$/;"	f	class:HitPoint	file:
 dof_rays	RenderOptions.java	/^    public int dof_rays;$/;"	f	class:RenderOptions
 dot	Vector3.java	/^    public double dot(Vector3 b) {$/;"	m	class:Vector3
-doubleBetween	Camera.java	/^    private double doubleBetween(double low, double high) {$/;"	m	class:Camera	file:
 edges	Triangle.java	/^   private Vector3 edges[]; \/\/ v1->v2, v2->v3, v3->v1$/;"	f	class:Triangle	file:
 equals	Vector3.java	/^    public boolean equals(Vector3 o) {$/;"	m	class:Vector3
-eye	Camera.java	/^    private Vector3 eye;$/;"	f	class:Camera	file:
+eye	Camera.java	/^    private Vector3 eye;$/;"	f	class:CameraMaster	file:
 face	HitPoint.java	/^   private FaceSide face;$/;"	f	class:HitPoint	file:
-far	Camera.java	/^    private double far;$/;"	f	class:Camera	file:
-field_of_view	Camera.java	/^    private double field_of_view;$/;"	f	class:Camera	file:
+far	Camera.java	/^    private double far;$/;"	f	class:CameraMaster	file:
+field_of_view	Camera.java	/^    private double field_of_view;$/;"	f	class:CameraMaster	file:
 findClosestHPointsExclude	Ray.java	/^    public HitPoint findClosestHPointsExclude(HitData hitpoints, Shape ex) {$/;"	m	class:Ray
 findClosestHPointsExcludeFace	Ray.java	/^    public HitPoint findClosestHPointsExcludeFace(HitData hitpoints, Shape ex,$/;"	m	class:Ray
 findClosestHitpoint	Ray.java	/^    public HitPoint findClosestHitpoint(HitData hitpoints) {$/;"	m	class:Ray
@@ -183,7 +182,6 @@ getShininess	Material.java	/^   public double getShininess() {$/;"	m	class:Mater
 getSideHit	HitPoint.java	/^   public FaceSide getSideHit() {$/;"	m	class:HitPoint
 getSpecular	Material.java	/^   public Vector3 getSpecular() {$/;"	m	class:Material
 height	RenderOptions.java	/^    public int height;$/;"	f	class:RenderOptions
-high	Camera.java	/^       private int low, high;$/;"	f	class:Camera.RenderThread	file:
 highPixel	net/DepthBufferMessage.java	/^   public int highPixel;$/;"	f	class:DepthBufferMessage
 highPixel	net/PixelRangeMessage.java	/^   public int highPixel;$/;"	f	class:PixelRangeMessage
 highPixel	net/RenderedMessage.java	/^   public int highPixel;$/;"	f	class:RenderedMessage
@@ -195,7 +193,6 @@ hitBy	Triangle.java	/^   public HitData hitBy(Ray r) {$/;"	m	class:Triangle
 hitShape	HitPoint.java	/^   private Shape hitShape;$/;"	f	class:HitPoint	file:
 hitpoint	HitPoint.java	/^   private Vector3 hitpoint;$/;"	f	class:HitPoint	file:
 hitpoints	HitData.java	/^   private List<HitPoint> hitpoints;$/;"	f	class:HitData	file:
-image	Camera.java	/^       private BufferedImage image;$/;"	f	class:Camera.RenderThread	file:
 indexOfRefraction	Material.java	/^   private double indexOfRefraction;$/;"	f	class:Material	file:
 intensity	Light.java	/^   private Vector3 intensity;$/;"	f	class:Light	file:
 invSqrt	Vector3.java	/^    private static double invSqrt(double x) {$/;"	m	class:Vector3	file:
@@ -206,8 +203,7 @@ len	Vector3.java	/^    public double len() {$/;"	m	class:Vector3
 lens_aperture_radius	RenderOptions.java	/^    public double lens_aperture_radius;$/;"	f	class:RenderOptions
 lights	Scene.java	/^    public List<Light> lights;$/;"	f	class:Scene
 linear_attenuation	Light.java	/^   private double linear_attenuation;$/;"	f	class:Light	file:
-lookAt	Camera.java	/^    public void lookAt(Vector3 ieye, Vector3 iview, Vector3 iup) {$/;"	m	class:Camera
-low	Camera.java	/^       private int low, high;$/;"	f	class:Camera.RenderThread	file:
+lookAt	Camera.java	/^    public void lookAt(Vector3 ieye, Vector3 iview, Vector3 iup) {$/;"	m	class:CameraMaster
 lowPixel	net/DepthBufferMessage.java	/^   public int lowPixel;$/;"	f	class:DepthBufferMessage
 lowPixel	net/PixelRangeMessage.java	/^   public int lowPixel;$/;"	f	class:PixelRangeMessage
 lowPixel	net/RenderedMessage.java	/^   public int lowPixel;$/;"	f	class:RenderedMessage
@@ -223,7 +219,7 @@ media	Ray.java	/^    private Stack<HitPoint> media;$/;"	f	class:Ray	file:
 msgType	net/CGLNetMessage.java	/^   public CGLNetMessageType msgType;$/;"	f	class:CGLNetMessage
 mul	Matrix33.java	/^   public Vector3 mul(Vector3 right) {$/;"	m	class:Matrix33
 n_calc	Vector3.java	/^    private boolean n_calc;$/;"	f	class:Vector3	file:
-near	Camera.java	/^    private double near;$/;"	f	class:Camera	file:
+near	Camera.java	/^    private double near;$/;"	f	class:CameraMaster	file:
 normal	HitPoint.java	/^   private Vector3 normal;$/;"	f	class:HitPoint	file:
 normal	Plane.java	/^    private Vector3 normal;$/;"	f	class:Plane	file:
 normalize	Vector3.java	/^    public Vector3 normalize() {$/;"	m	class:Vector3
@@ -231,8 +227,8 @@ normalized	Vector3.java	/^    private Vector3 normalized;$/;"	f	class:Vector3	fi
 not	FaceSide.java	/^   public FaceSide not() {$/;"	m	class:FaceSide
 nrays	Ray.java	/^   public static AtomicInteger nrays = new AtomicInteger();$/;"	f	class:Ray
 percentComplete	net/UpdateMessage.java	/^   public double percentComplete;$/;"	f	class:UpdateMessage
-perspective	Camera.java	/^    public void perspective(double fov, double aspect, double znear,$/;"	m	class:Camera
-pixelsRendered	Camera.java	/^    private AtomicInteger pixelsRendered;$/;"	f	class:Camera	file:
+perspective	Camera.java	/^    public void perspective(double fov, double aspect, double znear,$/;"	m	class:CameraMaster
+pixelsRendered	Camera.java	/^    private AtomicInteger pixelsRendered;$/;"	f	class:CameraMaster	file:
 point	Plane.java	/^    private Vector3 point;$/;"	f	class:Plane	file:
 position	Light.java	/^   private Vector3 position;$/;"	f	class:Light	file:
 quadratric_attenuation	Light.java	/^   private double quadratric_attenuation;$/;"	f	class:Light	file:
@@ -240,28 +236,23 @@ r1	Matrix33.java	/^   Vector3 r1, r2, r3;$/;"	f	class:Matrix33
 r2	Matrix33.java	/^   Vector3 r1, r2, r3;$/;"	f	class:Matrix33
 r3	Matrix33.java	/^   Vector3 r1, r2, r3;$/;"	f	class:Matrix33
 radius	Sphere.java	/^    private double radius;$/;"	f	class:Sphere	file:
-randGen	Camera.java	/^    private static Random randGen = new Random();$/;"	f	class:Camera	file:
 readFile	ReadConfig.java	/^   public RenderOptions readFile(RenderOptions options) {$/;"	m	class:ReadConfig
 reflect	Vector3.java	/^    public Vector3 reflect(Vector3 normal) {$/;"	m	class:Vector3
 refract	Vector3.java	/^    public Vector3 refract(Vector3 normal, double from_ior, double  to_ior) {$/;"	m	class:Vector3
-renderInRange	Camera.java	/^    private void renderInRange(Scene s, RenderOptions o, int il, int ih,$/;"	m	class:Camera	file:
-renderPixel	Camera.java	/^    private Color renderPixel(int i, int j, Scene s, RenderOptions roptions) {$/;"	m	class:Camera	file:
-renderScene	Camera.java	/^    public BufferedImage renderScene(Scene scene, RenderOptions roptions) {$/;"	m	class:Camera
 render_options	net/RenderOptionsMessage.java	/^   public RenderOptions render_options;$/;"	f	class:RenderOptionsMessage
 renderables	Scene.java	/^    public List<Shape> renderables;$/;"	f	class:Scene
 rendered	net/RenderedMessage.java	/^   public Color rendered[];$/;"	f	class:RenderedMessage
-roptions	Camera.java	/^       private RenderOptions roptions;$/;"	f	class:Camera.RenderThread	file:
 rotate	Plane.java	/^    public void rotate(Axis axis, double angle) {$/;"	m	class:Plane
 rotate	Polygon.java	/^   public void rotate(Axis axis, double angle) {$/;"	m	class:Polygon
 rotate	Shape.java	/^    public abstract void rotate(Axis axis, double angle);$/;"	m	class:Shape
 rotate	Sphere.java	/^    public void rotate(Axis axis, double angle) {$/;"	m	class:Sphere
 rotate	Triangle.java	/^    public void rotate(Axis axis, double angle) {$/;"	m	class:Triangle
 rotateAbout	Vector3.java	/^    public Vector3 rotateAbout(Axis axis, double angle) {$/;"	m	class:Vector3
-run	Camera.java	/^       public void run() {$/;"	m	class:Camera.RenderThread
 run	net/RenderServer.java	/^      public void run() {$/;"	m	class:RenderServer.RenderInstance
 run	net/RenderServer.java	/^   public void run() {$/;"	m	class:RenderServer
+scala.actors.Actor._	RenderActor.scala	/^import scala.actors.Actor._$/;"	i
+scala.actors._	RenderActor.scala	/^import scala.actors._$/;"	i
 scale	Vector3.java	/^    public Vector3 scale(double d) {$/;"	m	class:Vector3
-scene	Camera.java	/^       private Scene scene;$/;"	f	class:Camera.RenderThread	file:
 scene	net/SceneMessage.java	/^   public Scene scene;$/;"	f	class:SceneMessage
 server_running	net/RenderServer.java	/^   private boolean server_running;$/;"	f	class:RenderServer	file:
 shininess	Material.java	/^   private double shininess;$/;"	f	class:Material	file:
@@ -285,10 +276,9 @@ translate	Shape.java	/^    public abstract void translate(Vector3 trans);$/;"	m	
 translate	Sphere.java	/^    public void translate(Vector3 trans) {$/;"	m	class:Sphere
 translate	Triangle.java	/^    public void translate(Vector3 trans) {$/;"	m	class:Triangle
 tris	Polygon.java	/^   private Triangle tris[];$/;"	f	class:Polygon	file:
-up	Camera.java	/^    private Vector3 up;$/;"	f	class:Camera	file:
-vectorToColor	Camera.java	/^    private static Color vectorToColor(Vector3 in) {$/;"	m	class:Camera	file:
+up	Camera.java	/^    private Vector3 up;$/;"	f	class:CameraMaster	file:
 verts	Triangle.java	/^   private Vector3 verts[]; \/\/ v1, v2, v3$/;"	f	class:Triangle	file:
-view	Camera.java	/^    private Vector3 view;$/;"	f	class:Camera	file:
+view	Camera.java	/^    private Vector3 view;$/;"	f	class:CameraMaster	file:
 width	RenderOptions.java	/^    public int width;$/;"	f	class:RenderOptions
 x	Vector3.java	/^    private double x, y, z;$/;"	f	class:Vector3	file:
 y	Vector3.java	/^    private double x, y, z;$/;"	f	class:Vector3	file:

@@ -5,10 +5,11 @@ import javax.imageio.ImageIO;
 import java.util.*;
 
 public class Test {
+    public Camera myCam;
     public String test() {return "whoa";}
     public static void main(String[] args) {
        // Setup the view volume
-       Camera myCam = new Camera();
+       myCam = new Camera();
        Vector3 eye = new Vector3(0,0, 5);
        Vector3 view = new Vector3(0,0,0);
        Vector3 up = new Vector3(0,1,0);
@@ -161,7 +162,7 @@ public class Test {
             new Vector3(5,4,-9), new Vector3(c_a, l_a, q_a));
         myScene.lights.add(lightc);
 
-
+        myCam.scene = myScene;
 
 /*
        System.out.println("Rendering. This will take several minutes.");

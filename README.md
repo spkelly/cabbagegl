@@ -59,3 +59,12 @@ First, that would be funnier, but harder. I guess I'l have to modify the innards
 Quick comment about state: the scene details would be copied in each actor in a "dumb" implementation; it doesn't really need to be, since the scene is immutable once the render's started. The ideal would be to have a copy of that state on each physical machine; I guess it will mean a bit of messing around to get different actors to share state, and perhaps make my algo a tad less nice-looking because the actors would be, uh, conscious of what machines they're on. Perhaps I could actually treat the data as another "remote" actor, but simply make sure that it's always on the localhost of it's relevant "slave" actor. I'l probably see what fits better once I start coding. 
 
 So, to get back to the network... Of course, we'd have right away way more traffic than on the first idea. Probably someting along the lines of "not even worth multi-threading" on a bad network; that would go down according to 1/x where x is the dof, asserting every reflection of a ray takes the same time to crunch. If it ever becomes apparent that sending single rays at times is inefficient, I guess we could send blocks of n rays at the same time. We'l see. 
+
+// note: RUNTIME.getRuntime().availableProcessors();
+// one problem solved.
+
+Ok. 
+
+I decided to start aiming for 2, and so far, I could easily split your Camera class in a CameraMaster, with all the setup setters, and RenderSlave, which actually crunches pixels and includes obviously the renderPixel method and all it's paraphernalia. The idea is to create a Scala actor to either replace or extend Camera that would do the task repartition, and to make an actor that has an instance of a RenderSlave class; each time the actor receives a pixel to crunch from the master, it just calls his RenderSlave.renderPixel(), then sends back the result. BUT. There's a dumpload of state in Camera that renderPixel needs, and I'm afraid of breaking something. That's kind of weird, but the first idea I have is to remove as much computation from Camera as possible, and put the rendering stuff in RenderSlave as I mentionned and just put the work dispatch apparatus in a Scala actor; whatever state is left will stay in that class (albeit in another name) and will be passed to every RenderSlave as a state container, such that all RenderActor instances have one RenderSlave to do the work and one CameraState (or something) to keep stuff around. 
+
+// Note: I totally fucked up the build. I know. 
