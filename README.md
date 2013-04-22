@@ -7,6 +7,11 @@ More or less, I want the thing to be as OpenGL-like as possible. Perhaps I'll
 expose a way to make the engine as parallel as users would like as well, but
 I'll have to think about how.
 
+Will it
+-------
+
+fucking push to github? Let us see...
+
 
 Compiling
 ---------
