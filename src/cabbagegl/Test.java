@@ -5,6 +5,7 @@ import javax.imageio.ImageIO;
 import java.util.*;
 
 public class Test {
+    public String test() {return "whoa";}
     public static void main(String[] args) {
        // Setup the view volume
        Camera myCam = new Camera();
@@ -162,6 +163,7 @@ public class Test {
 
 
 
+/*
        System.out.println("Rendering. This will take several minutes.");
        // Render the scene
        long startTime = System.currentTimeMillis();
@@ -192,5 +194,7 @@ public class Test {
 
        int rays = Ray.nrays.get();
        System.out.println("Rays Fired: " + rays);
+*/
+       System.out.println("Skipped that shit, anyways");
     }
 }
