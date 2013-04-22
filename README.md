@@ -12,6 +12,11 @@ Will it
 
 fucking push to github? Let us see...
 
+Sorry for
+--------- 
+
+monkeying up your shit, I'm gonna clean this off as soon as I grok 'hub. 
+
 
 Compiling
 ---------
