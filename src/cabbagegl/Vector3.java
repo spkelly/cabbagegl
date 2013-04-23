@@ -26,6 +26,12 @@ public class Vector3 {
         n_calc = false;
     }
 
+    public Vector3(Vector3 arg) {
+        this.y = arg.y;
+        this.x = arg.y;
+        this.z = arg.y;
+    }
+
     public static Vector3 ColorVector(int R, int G, int B) {
        return new Vector3(R / 256.0, G / 256.0, B / 256.0);
     }

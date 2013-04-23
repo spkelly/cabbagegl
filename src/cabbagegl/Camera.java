@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Random;
 
+
 public class Camera {
     // Modelview
     private Vector3 eye;
@@ -32,6 +33,26 @@ public class Camera {
 
     public Scene scene;  // yeah, yeah, I know...
 
+    // copy constructor. 
+    // since Camera is now a state container in every render actor, it needs to
+    // get copied
+    // this OOP stuff I learned at school starts to serve, it seems...
+    //
+    // oooh lord deep clones in Java are *weird*... Lemme just rant about java's
+    // typing for a second...
+
+    public Camera(Camera arg) {
+        this.eye = new Vector3d(arg.eye);
+        this.view = new Vector3d(arg.view);
+        this.up = new Vector3d(arg.up);
+        this.field_of_view = arg.field_of_view;
+        this.aspect_ratio = arg.aspect_ratio;
+        this.near = arg.near;
+        this.far = arg.far;
+        this.cel_shaded = arg.cel_shaded;
+        this.pixelsRendered = arg.pixelsRendered;
+        this.scene = new Scene(arg.scene);
+    }
 
     public Camera() {
         lookAt(DEFAULT_EYE, DEFAULT_VIEW, DEFAULT_UP);

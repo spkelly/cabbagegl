@@ -21,6 +21,15 @@ public class Material {
       indexOfRefraction = iior;
    }
 
+    public Material(Material arg) {
+        this.color = new Vector3(arg.color);
+        this.specular = new Vector3(arg.specular);
+        this.diffuse = new Vector3(arg.diffuse);
+        this.shininess = arg.shininess;
+        this.alpha = arg.alpha;
+        this.indexOfRefraction = arg.indexOfRefraction;
+    }
+
    private Vector3 color;
    private Vector3 specular;
    private Vector3 diffuse;

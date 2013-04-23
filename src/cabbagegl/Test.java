@@ -4,6 +4,8 @@ import java.io.*;
 import javax.imageio.ImageIO;
 import java.util.*;
 
+
+
 public class Test {
     public Camera myCam;
     public String test() {return "whoa";}

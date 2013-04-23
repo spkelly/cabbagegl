@@ -13,15 +13,27 @@ public class Light {
       this(iint, ispec, ipos, new Vector3(2.0, 0, 0));
    }
 
-   public Light(Vector3 iint, Vector3 ispec, Vector3 ipos, Vector3 atten) {
-      intensity = iint;
-      specular = ispec;
-      position = ipos;
+    public Light(Light arg) {
+        this.intensity = arg.intensity;
+        this.specular = arg.specular;
+        this.position = arg.position;
+        this.constant_attenuation = new Vector3(arg.constant_attenuation);
+        this.linear_attenuation = new Vector3(arg.linear_attenuation);
+        this.quadratic_attenuation = new Vector3(arg.quadratic_attenuation);
+    }    
 
-      constant_attenuation = atten.X();
-      linear_attenuation = atten.Y();
-      quadratric_attenuation = atten.Z();
+
+    public Light(Vector3 iint, Vector3 ispec, Vector3 ipos, Vector3 atten) {
+        intensity = iint;
+        specular = ispec;
+        position = ipos;
+
+        constant_attenuation = atten.X();
+        linear_attenuation = atten.Y();
+        quadratric_attenuation = atten.Z();
    }
+
+        
 
    public Vector3 computeIllumination(Scene s, HitPoint hp) {
       Vector3 diffuseIllum = Vector3.ZERO;

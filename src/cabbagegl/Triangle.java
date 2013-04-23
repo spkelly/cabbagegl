@@ -20,6 +20,13 @@ public class Triangle extends Plane {
    public Triangle copy() {
       return new Triangle(verts[0], verts[1], verts[2], mat);
    }
+
+    // copy constructor
+   public Triangle(Triangle arg) {
+        Triangle(arg.verts[0], arg.verts[1], arg.verts[2]);
+    }
+
+
    
    private void computeEdges() {
       Vector3 v1 = verts[0];

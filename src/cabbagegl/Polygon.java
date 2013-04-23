@@ -5,7 +5,16 @@ public class Polygon extends Shape {
    private Triangle tris[];
    
 
+    public Polygon(Polygon arg) {
+        super(arg.mat);
+        this.tris = new Triangle[arg.tris.size()];
+        for (int i = 0; i < tris.length; i++) {
+            tris[i] = args.tris[i];
+        }
+    }
+
    // Verts must be length 3 or greater pls :c
+   // okies
    public Polygon(List<Vector3> verts, Material mat) {
       super(mat);
       // turn the verts into a bunch of tris
@@ -29,6 +38,8 @@ public class Polygon extends Shape {
       Vector3 v3 = center;
       tris[tris.length-1] = new Triangle(v1, v2, v3, mat);
    }
+
+        
 
    public HitData hitBy(Ray r) {
       HitData hd = new HitData();
