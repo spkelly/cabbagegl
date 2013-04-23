@@ -16,7 +16,7 @@ public abstract class Shape {
     public Material getMaterial() {
        return mat;
     }
-    public Shape(Material arg) {
+    public Shape(Shape arg) {
         this.mat = new Material(arg.mat);
     }
 }

@@ -7,8 +7,8 @@ import java.util.*;
 
 
 public class Test {
-    public Camera myCam;
-    public String test() {return "whoa";}
+    public static Camera myCam;
+    public static String test() {return "whoa";}
     public static void main(String[] args) {
        // Setup the view volume
        myCam = new Camera();
@@ -164,7 +164,7 @@ public class Test {
             new Vector3(5,4,-9), new Vector3(c_a, l_a, q_a));
         myScene.lights.add(lightc);
 
-        myCam.scene = myScene;
+        myCam.s = myScene;
 
 /*
        System.out.println("Rendering. This will take several minutes.");

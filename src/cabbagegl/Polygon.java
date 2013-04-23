@@ -7,9 +7,9 @@ public class Polygon extends Shape {
 
     public Polygon(Polygon arg) {
         super(arg.mat);
-        this.tris = new Triangle[arg.tris.size()];
+        this.tris = new Triangle[arg.tris.length];
         for (int i = 0; i < tris.length; i++) {
-            tris[i] = args.tris[i];
+            tris[i] = arg.tris[i];
         }
     }
 

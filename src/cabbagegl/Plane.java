@@ -13,7 +13,7 @@ class Plane extends Shape {
 
     public Plane(Plane arg) {
         // XXX compiler's probably gonna murder me right there
-        super((Shape) arg)
+        super((Shape) arg);
         this.point = new Vector3(arg.point);
         this.normal = new Vector3(arg.normal);
     }

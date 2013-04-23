@@ -14,12 +14,12 @@ public class Light {
    }
 
     public Light(Light arg) {
-        this.intensity = arg.intensity;
-        this.specular = arg.specular;
-        this.position = arg.position;
-        this.constant_attenuation = new Vector3(arg.constant_attenuation);
-        this.linear_attenuation = new Vector3(arg.linear_attenuation);
-        this.quadratic_attenuation = new Vector3(arg.quadratic_attenuation);
+        this.constant_attenuation = arg.constant_attenuation;
+        this.linear_attenuation = arg.linear_attenuation;
+        this.quadratric_attenuation = arg.quadratric_attenuation;
+        this.intensity = new Vector3(arg.intensity);
+        this.specular = new Vector3(arg.specular);
+        this.position = new Vector3(arg.position);
     }    
 
 

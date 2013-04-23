@@ -22,8 +22,15 @@ public class Triangle extends Plane {
    }
 
     // copy constructor
-   public Triangle(Triangle arg) {
-        Triangle(arg.verts[0], arg.verts[1], arg.verts[2]);
+    public Triangle(Triangle arg) {
+      super(arg.verts[0], arg.verts[1].diff(arg.verts[0]).cross(arg.verts[2].diff(arg.verts[0])).normalize(), arg.mat);
+      verts = new Vector3[3];
+      edges = new Vector3[3];
+      // Store verts, Compute edges
+      verts[0] = arg.verts[0]; 
+      verts[1] = arg.verts[1]; 
+      verts[2] = arg.verts[2]; 
+      computeEdges();
     }
 
 
