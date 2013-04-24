@@ -20,6 +20,7 @@ DEFAULT_ZFAR	Camera.java	/^    private final double DEFAULT_ZFAR = 20.0;$/;"	f	c
 DEFAULT_ZNEAR	Camera.java	/^    private final double DEFAULT_ZNEAR = 0.1;$/;"	f	class:Camera	file:
 FRONT	FaceSide.java	/^   FRONT, BACK;$/;"	e	enum:FaceSide	file:
 FaceSide	FaceSide.java	/^public enum FaceSide {$/;"	g
+HelloWorld	HelloWorld.scala	/^object HelloWorld {$/;"	o
 HitData	HitData.java	/^   public HitData() {$/;"	m	class:HitData
 HitData	HitData.java	/^public class HitData {$/;"	c
 HitPoint	HitPoint.java	/^   public HitPoint(Vector3 ih, Vector3 in, double dist, Shape iHS,$/;"	m	class:HitPoint
@@ -46,20 +47,20 @@ Ray	Ray.java	/^    public Ray(Vector3 ibase, Vector3 idir) {$/;"	m	class:Ray
 Ray	Ray.java	/^public class Ray {$/;"	c
 ReadConfig	ReadConfig.java	/^public class ReadConfig {$/;"	c
 RenderOptions	RenderOptions.java	/^    public RenderOptions() {$/;"	m	class:RenderOptions
+RenderOptions	RenderOptions.java	/^    public RenderOptions(RenderOptions arg) {$/;"	m	class:RenderOptions
 RenderOptions	RenderOptions.java	/^public class RenderOptions {$/;"	c
-RenderThread	RenderActor.scala	/^class RenderThread(Scene s, RenderOptions ro) extends Actor {$/;"	c
 Scene	Scene.java	/^    public Scene() {$/;"	m	class:Scene
 Scene	Scene.java	/^    public Scene(Scene arg) {$/;"	m	class:Scene
 Scene	Scene.java	/^public class Scene {$/;"	c
 ShaderProgram	ShaderProgram.java	/^   public ShaderProgram() {$/;"	m	class:ShaderProgram
 ShaderProgram	ShaderProgram.java	/^public class ShaderProgram {$/;"	c
-Shape	Shape.java	/^    public Shape(Material arg) {$/;"	m	class:Shape
 Shape	Shape.java	/^    public Shape(Material imat) {$/;"	m	class:Shape
+Shape	Shape.java	/^    public Shape(Shape arg) {$/;"	m	class:Shape
 Shape	Shape.java	/^public abstract class Shape {$/;"	c
 Sphere	Sphere.java	/^    public Sphere(Vector3 cen, double rad, Material mat) {$/;"	m	class:Sphere
 Sphere	Sphere.java	/^public class Sphere extends Shape {$/;"	c
 Test	Test.java	/^public class Test {$/;"	c
-Triangle	Triangle.java	/^   public Triangle(Triangle arg) {$/;"	m	class:Triangle
+Triangle	Triangle.java	/^    public Triangle(Triangle arg) {$/;"	m	class:Triangle
 Triangle	Triangle.java	/^   public Triangle(Vector3 v1, Vector3 v2, Vector3 v3, Material mat) {$/;"	m	class:Triangle
 Triangle	Triangle.java	/^public class Triangle extends Plane {$/;"	c
 UNIT_X	Vector3.java	/^    public static final Vector3 UNIT_X = new Vector3(1,0,0);$/;"	f	class:Vector3
@@ -84,6 +85,7 @@ baseFragShader	ShaderProgram.java	/^   private static String baseFragShader;$/;"
 cabbagegl	Axis.java	/^package cabbagegl;$/;"	p
 cabbagegl	Camera.java	/^package cabbagegl;$/;"	p
 cabbagegl	FaceSide.java	/^package cabbagegl;$/;"	p
+cabbagegl	HelloWorld.scala	/^package cabbagegl$/;"	p
 cabbagegl	HitData.java	/^package cabbagegl;$/;"	p
 cabbagegl	HitPoint.java	/^package cabbagegl;$/;"	p
 cabbagegl	Light.java	/^package cabbagegl;$/;"	p
@@ -179,7 +181,7 @@ lens_aperture_radius	RenderOptions.java	/^    public double lens_aperture_radius
 lights	Scene.java	/^    public List<Light> lights;$/;"	f	class:Scene
 linear_attenuation	Light.java	/^   private double linear_attenuation;$/;"	f	class:Light	file:
 lookAt	Camera.java	/^    public void lookAt(Vector3 ieye, Vector3 iview, Vector3 iup) {$/;"	m	class:Camera
-main	Test.java	/^    public static void main(String[] args) {$/;"	m	class:Test
+main	HelloWorld.scala	/^  def main(args: Array[String]) = {$/;"	m
 mat	Shape.java	/^    protected Material mat;$/;"	f	class:Shape
 materialPropsAt	Plane.java	/^    public Material materialPropsAt(Vector3 ray, FaceSide fs) {$/;"	m	class:Plane
 materialPropsAt	Polygon.java	/^   public Material materialPropsAt(Vector3 ray, FaceSide fs) {$/;"	m	class:Polygon
@@ -189,7 +191,7 @@ materialPropsAt	Triangle.java	/^    public Material materialPropsAt(Vector3 ray,
 max_recurse	RenderOptions.java	/^    public int max_recurse;$/;"	f	class:RenderOptions
 media	Ray.java	/^    private Stack<HitPoint> media;$/;"	f	class:Ray	file:
 mul	Matrix33.java	/^   public Vector3 mul(Vector3 right) {$/;"	m	class:Matrix33
-myCam	Test.java	/^    public Camera myCam;$/;"	f	class:Test
+myCam	Test.java	/^    public  Camera myCam;$/;"	f	class:Test
 n_calc	Vector3.java	/^    private boolean n_calc;$/;"	f	class:Vector3	file:
 near	Camera.java	/^    private double near;$/;"	f	class:Camera	file:
 normal	HitPoint.java	/^   private Vector3 normal;$/;"	f	class:HitPoint	file:
@@ -213,23 +215,24 @@ reflect	Vector3.java	/^    public Vector3 reflect(Vector3 normal) {$/;"	m	class:
 refract	Vector3.java	/^    public Vector3 refract(Vector3 normal, double from_ior, double  to_ior) {$/;"	m	class:Vector3
 renderPixel	Camera.java	/^    private Color renderPixel(int i, int j) {$/;"	m	class:Camera	file:
 renderables	Scene.java	/^    public List<Shape> renderables;$/;"	f	class:Scene
+roptions	Camera.java	/^    public RenderOptions roptions;$/;"	f	class:Camera
 rotate	Plane.java	/^    public void rotate(Axis axis, double angle) {$/;"	m	class:Plane
 rotate	Polygon.java	/^   public void rotate(Axis axis, double angle) {$/;"	m	class:Polygon
 rotate	Shape.java	/^    public abstract void rotate(Axis axis, double angle);$/;"	m	class:Shape
 rotate	Sphere.java	/^    public void rotate(Axis axis, double angle) {$/;"	m	class:Sphere
 rotate	Triangle.java	/^    public void rotate(Axis axis, double angle) {$/;"	m	class:Triangle
 rotateAbout	Vector3.java	/^    public Vector3 rotateAbout(Axis axis, double angle) {$/;"	m	class:Vector3
-scala.actors.Actor._	RenderActor.scala	/^import scala.actors.Actor._$/;"	i
-scala.actors._	RenderActor.scala	/^import scala.actors._$/;"	i
+runMe	Test.java	/^    public  void runMe() {$/;"	m	class:Test
+s	Camera.java	/^    public Scene s;  \/\/ yeah, yeah, I know...$/;"	f	class:Camera
 scale	Vector3.java	/^    public Vector3 scale(double d) {$/;"	m	class:Vector3
-scene	Camera.java	/^    public Scene scene;  \/\/ yeah, yeah, I know...$/;"	f	class:Camera
 shininess	Material.java	/^   private double shininess;$/;"	f	class:Material	file:
 size	HitData.java	/^   public int size() {$/;"	m	class:HitData
 sort	HitData.java	/^   public void sort() {$/;"	m	class:HitData
 specular	Light.java	/^   private Vector3 specular;$/;"	f	class:Light	file:
 specular	Material.java	/^   private Vector3 specular;$/;"	f	class:Material	file:
 sum	Vector3.java	/^    public Vector3 sum(Vector3 b) {$/;"	m	class:Vector3
-test	Test.java	/^    public String test() {return "whoa";}$/;"	m	class:Test
+test	HelloWorld.scala	/^    val test = new Test()$/;"	V
+test	Test.java	/^    public  String test() {return "whoa";}$/;"	m	class:Test
 toString	RenderOptions.java	/^    public String toString() {$/;"	m	class:RenderOptions
 toString	Vector3.java	/^    public String toString() {$/;"	m	class:Vector3
 totalInternalReflection	Vector3.java	/^    public boolean totalInternalReflection(Vector3 normal, double from_ior,$/;"	m	class:Vector3

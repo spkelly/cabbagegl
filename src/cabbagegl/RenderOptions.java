@@ -3,7 +3,7 @@ public class RenderOptions {
 
     public int width;
     public int height;
-
+    
     public int AA_samples;
 
     public int max_recurse;

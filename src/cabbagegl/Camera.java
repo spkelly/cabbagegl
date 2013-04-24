@@ -31,7 +31,7 @@ public class Camera {
     private final double DEFAULT_ZNEAR = 0.1;
     private final double DEFAULT_ZFAR = 20.0;
 
-    public boolean cel_shaded; // wat
+    public boolean cel_shaded = true; // wat
 
     private AtomicInteger pixelsRendered;
 
@@ -84,7 +84,7 @@ public class Camera {
         far = zfar;
     }
 
-    private Color renderPixel(int i, int j) {
+    public Color renderPixel(int i, int j) {
         // Convert i,j to ix, jy where projection plane center is 0
         double ix = (double) i - roptions.width  / 2.0;
         double jy = (double) -j + roptions.height / 2.0;
