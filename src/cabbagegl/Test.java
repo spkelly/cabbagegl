@@ -7,9 +7,9 @@ import java.util.*;
 
 
 public class Test {
-    public static Camera myCam;
-    public static String test() {return "whoa";}
-    public static void main(String[] args) {
+    public  Camera myCam;
+    public  String test() {return "whoa";}
+    public  void runMe() {
        // Setup the view volume
        myCam = new Camera();
        Vector3 eye = new Vector3(0,0, 5);
