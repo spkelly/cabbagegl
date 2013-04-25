@@ -11,7 +11,10 @@ import java.io.File;
 public class ReadConfig {
    public RenderOptions readFile(RenderOptions options) {
         try {
-            File configFile = new File("../src/cabbagegl/config.xml");
+            // File configFile = new File("../src/cabbagegl/config.xml");
+            File configFile = new File("./config.xml");
+
+
             DocumentBuilderFactory dbFac = DocumentBuilderFactory.newInstance();
             DocumentBuilder dbBuild = dbFac.newDocumentBuilder();
             Document doc = dbBuild.parse(configFile);
