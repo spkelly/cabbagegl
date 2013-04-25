@@ -167,7 +167,6 @@ public class Camera {
         toUse = toUse.scale(1.0/roptions.dof_rays);
 
         toUse = toUse.clamp(0.0, 1.0);
-        int rendered = pixelsRendered.incrementAndGet();
 //         if (rendered % 100 == 0)
   //         System.out.println((((double)rendered) / (roptions.width*roptions.height)) + " complete.");
         return vectorToColor(toUse);
