@@ -39,7 +39,7 @@
     <path id="project.classpath">
       <pathelement location="${scala-library.jar}"/>
       <pathelement location="${build-classes.dir}"/> 
-    </path> -->
+	</path>    -->
     <path id="project.classpath">
 		<pathelement location="${build.dir}"/>
 		<fileset dir="${env.SCALA_HOME}/lib/"> <include name="*.jar"/> </fileset>
@@ -88,11 +88,15 @@
     </scalac>
     <!-- 
       destdir="${build-classes.dir}"
+		classpath="/usr/share/scala/lib/scala-library.jar">
+		classpath="/usr/share/scala/lib/scala-library.jar">
+		classpathref="project.classpath">
       -->
     <javac
 		destdir="${bindir}"
 		classpathref="project.classpath">
 		<include name="**/*.java"/>
+		<include name="**/*.scala"/>
 		<src><pathelement location="${src.dir}"/></src>
 	</javac>
   </target>

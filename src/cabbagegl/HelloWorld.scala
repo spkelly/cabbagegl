@@ -6,50 +6,43 @@ import javax.imageio.ImageIO
 import java.util._
 
 object HelloWorld {
+  var test = new Test
+  var img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB)
   def wot() = {
 
     println("Hello, Scala world!")
     
-    val test = new Test() 
+    test = new Test() 
     val read = new ReadConfig()
     test.runMe()
     test.myCam.roptions = new RenderOptions()
     read.readFile(test.myCam.roptions)
   }
-  def main(args: Array[String]) = {
-/*
-    val test = new Test()
-    test runMe()
-    println(test.myCam.cel_shaded)
-    val read = new ReadConfig()
-    test.myCam.roptions = new RenderOptions()
-    read.readFile(test.myCam.roptions)
-    var img = new BufferedImage(test.myCam.roptions.width, test.myCam.roptions.height, BufferedImage.TYPE_INT_RGB)
-    for (i <- 0 to test.myCam.roptions.width) {
-      for (j <- 0 to test.myCam.roptions.height) {
-        println("attention attention: " + i + ", " + j) 
-        img.setRGB(i, j, test.myCam.renderPixel(i, j).getRGB)
-        println("great success")
-      }
-    }
-*/
-    val test = new Test() 
+  
+  def main(args: Array[String]): Unit = {
+    test = new Test() 
     val read = new ReadConfig()
     test.runMe()
     test.myCam.roptions = new RenderOptions()
     read.readFile(test.myCam.roptions)
-    var img = new BufferedImage(test.myCam.roptions.width, test.myCam.roptions.height, BufferedImage.TYPE_INT_RGB)
-    
-    println(test.myCam.renderPixel(0, 0))
-    for (i <- 0 to test.myCam.roptions.width.intValue - 1) {
-      for (j <- 0 to test.myCam.roptions.height.intValue - 1) {
-      println("attention attention: " + i + ", " + j) 
-      img.setRGB(i, j, test.myCam.renderPixel(i, j).getRGB)
-      println("great success")
-      }
-    }
-  val output = new File("output.png")
-  ImageIO.write(img, "png", output) 
+    img = new BufferedImage(test.myCam.roptions.width, test.myCam.roptions.height, BufferedImage.TYPE_INT_RGB)
+/*
+    val slave = RenderSlave(new Camera(test.myCam))
+    val master = RenderMaster(new Camera(test.myCam), slave, img)
+    slave.start
+    master.start
+*/
+    val slave = new RenderSlave(new Camera(test.myCam))
+    slave.start
+    val master = new RenderMaster(new Camera(test.myCam, slave))
+    master.start
+    master !? ImgWrapper(img) match {
+      case ImgWrapper(img) => 
+      // illegal FUCKING character right fucking there, for the gazilionth time today. I'm going to bed. 
+        file output = new File("output.png")
+        ImageIO.write(img, "png", output)
+      case _ => println("apres render: wtf")
+    } 
   }
 }
 
