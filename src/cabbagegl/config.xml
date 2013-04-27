@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <renderOptions id="0">
     <AA_samples>4</AA_samples>
-    <width>100</width>
-    <height>50</height>
+    <width>300</width>
+    <height>200</height>
     <max_recurse>5</max_recurse>
     <focal_plane_dist>11</focal_plane_dist>
     <lens_aperture_radius>1.5</lens_aperture_radius>

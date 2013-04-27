@@ -32,17 +32,19 @@ object HelloWorld {
     slave.start
     master.start
 */
-    val slave = new RenderSlave(new Camera(test.myCam))
+//    val slave = new RenderSlave(new Camera(test.myCam))
+    val slave = new RenderSlave(test.myCam)
     slave.start
-    val master = new RenderMaster(new Camera(test.myCam, slave))
+//    val master = new RenderMaster(new Camera(test.myCam), slave)
+    val master = new RenderMaster(test.myCam, slave)
     master.start
     master !? ImgWrapper(img) match {
-      case ImgWrapper(img) => 
-      // illegal FUCKING character right fucking there, for the gazilionth time today. I'm going to bed. 
-        file output = new File("output.png")
-        ImageIO.write(img, "png", output)
-      case _ => println("apres render: wtf")
-    } 
+      case ImgWrapper(imgResultat) => {
+        val output = new File("output.png")
+        ImageIO.write(imgResultat, "png", output)
+      }
+      case _ => println("apres-render: wtf")
+    }    
   }
 }
 
