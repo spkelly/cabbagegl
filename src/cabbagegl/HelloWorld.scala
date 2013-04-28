@@ -5,6 +5,8 @@ import java.io._
 import javax.imageio.ImageIO
 import java.util._
 
+// just testing something...
+
 object HelloWorld {
   var test = new Test
   var img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB)
