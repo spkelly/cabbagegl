@@ -63,6 +63,21 @@ public class Camera {
         this.roptions = new RenderOptions(arg.roptions); 
     }
 
+    public String toString() {
+        return "\nCamera:\n" + 
+        "eye: " + eye + "\n" + 
+        "view: " + view + "\n" + 
+        "up: " + up + "\n" + 
+        "field_of_view: " + field_of_view + "\n" + 
+        "aspect_ratio: " + aspect_ratio + "\n" + 
+        "near: " + near + "\n" + 
+        "far: " + far + "\n" + 
+        "cel_shaded: " + cel_shaded + "\n" + 
+        "pixelsRendered: " + pixelsRendered + "\n" + 
+        "s: " + s + "\n" + 
+        "roptions: " + roptions + "\n";
+    }
+
     public Camera() {
         lookAt(DEFAULT_EYE, DEFAULT_VIEW, DEFAULT_UP);
         perspective(DEFAULT_FOV, DEFAULT_ASPECT, DEFAULT_ZNEAR, DEFAULT_ZFAR);

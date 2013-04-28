@@ -8,6 +8,12 @@ public class Scene {
 
     public boolean cel_shaded;
 
+    public String toString() {
+        return "\nScene: \nn renderables: " + renderables.size() + "\n" +
+        "n lights: " + lights.size() + "\n" +
+        "ambient: " + ambient + "\n";
+    }
+
     public Scene(Scene arg) {
         renderables = new LinkedList<Shape>();
         for (Shape toAdd : arg.renderables) {

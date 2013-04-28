@@ -36,12 +36,12 @@ public class RenderOptions {
 
 
     public String toString() {
-        return "width: " + width +
-        " height: " + height +
-        " AA_samples: " + AA_samples +
-        " max_recurse: " + max_recurse +
-        " focal_plane_dist: " + focal_plane_dist +
-        " lens_aperture_radius: " + lens_aperture_radius;
+        return "\nRenderOptions: \nwidth: " + width + "\n" + 
+        "height: " + height + "\n" + 
+        "AA_samples: " + AA_samples + "\n" + 
+        "max_recurse: " + max_recurse + "\n" + 
+        "focal_plane_dist: " + focal_plane_dist + "\n" + 
+        "lens_aperture_radius: " + lens_aperture_radius + "\n";
     }
 }
 

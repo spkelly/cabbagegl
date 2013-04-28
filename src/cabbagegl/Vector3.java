@@ -28,8 +28,8 @@ public class Vector3 {
 
     public Vector3(Vector3 arg) {
         this.y = arg.y;
-        this.x = arg.y;
-        this.z = arg.y;
+        this.x = arg.x;
+        this.z = arg.z;
     }
 
     public static Vector3 ColorVector(int R, int G, int B) {

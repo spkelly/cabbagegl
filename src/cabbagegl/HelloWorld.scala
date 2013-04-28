@@ -32,11 +32,9 @@ object HelloWorld {
     slave.start
     master.start
 */
-//    val slave = new RenderSlave(new Camera(test.myCam))
-    val slave = new RenderSlave(test.myCam)
+    val slave = new RenderSlave(new Camera(test.myCam))
     slave.start
-//    val master = new RenderMaster(new Camera(test.myCam), slave)
-    val master = new RenderMaster(test.myCam, slave)
+    val master = new RenderMaster(new Camera(test.myCam), slave)
     master.start
     master !? ImgWrapper(img) match {
       case ImgWrapper(imgResultat) => {
