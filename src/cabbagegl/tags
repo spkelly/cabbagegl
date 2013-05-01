@@ -8,6 +8,7 @@ AA_samples	RenderOptions.java	/^    public int AA_samples;$/;"	f	class:RenderOpt
 AskPixel	RenderSlave.scala	/^case class AskPixel(i: Int, j: Int) $/;"	r
 Axis	Axis.java	/^public enum Axis {$/;"	g
 BACK	FaceSide.java	/^   FRONT, BACK;$/;"	e	enum:FaceSide	file:
+BuildAskPixel	RenderSlave.scala	/^class BuildAskPixel(var iter: IndexedSeq[(Int, Int)]) {$/;"	c
 Camera	Camera.java	/^    public Camera() {$/;"	m	class:Camera
 Camera	Camera.java	/^    public Camera(Camera arg) {$/;"	m	class:Camera
 Camera	Camera.java	/^public class Camera {$/;"	c
@@ -19,6 +20,7 @@ DEFAULT_UP	Camera.java	/^    private final Vector3 DEFAULT_UP = Vector3.UNIT_Y;$
 DEFAULT_VIEW	Camera.java	/^    private final Vector3 DEFAULT_VIEW = Vector3.ZERO;$/;"	f	class:Camera	file:
 DEFAULT_ZFAR	Camera.java	/^    private final double DEFAULT_ZFAR = 20.0;$/;"	f	class:Camera	file:
 DEFAULT_ZNEAR	Camera.java	/^    private final double DEFAULT_ZNEAR = 0.1;$/;"	f	class:Camera	file:
+End	RenderSlave.scala	/^case class End$/;"	r
 FRONT	FaceSide.java	/^   FRONT, BACK;$/;"	e	enum:FaceSide	file:
 FaceSide	FaceSide.java	/^public enum FaceSide {$/;"	g
 GetPixel	RenderSlave.scala	/^case class GetPixel(i: Int, j: Int, color: Int) {$/;"	r
@@ -49,7 +51,7 @@ Ray	Ray.java	/^    private Ray(Vector3 ibase, Vector3 idir, Stack<HitPoint> imed
 Ray	Ray.java	/^    public Ray(Vector3 ibase, Vector3 idir) {$/;"	m	class:Ray
 Ray	Ray.java	/^public class Ray {$/;"	c
 ReadConfig	ReadConfig.java	/^public class ReadConfig {$/;"	c
-RenderMaster	RenderSlave.scala	/^class RenderMaster(cam: Camera, slave: RenderSlave) extends Actor {$/;"	c
+RenderMaster	RenderSlave.scala	/^class RenderMaster(cam: Camera, slave: List[RenderSlave]) extends Actor {$/;"	c
 RenderOptions	RenderOptions.java	/^    public RenderOptions() {$/;"	m	class:RenderOptions
 RenderOptions	RenderOptions.java	/^    public RenderOptions(RenderOptions arg) {$/;"	m	class:RenderOptions
 RenderOptions	RenderOptions.java	/^public class RenderOptions {$/;"	c
@@ -87,6 +89,7 @@ ambient	Scene.java	/^    public Vector3 ambient;$/;"	f	class:Scene
 aspect_ratio	Camera.java	/^    private double aspect_ratio;$/;"	f	class:Camera	file:
 base	Ray.java	/^    private Vector3 base;$/;"	f	class:Ray	file:
 baseFragShader	ShaderProgram.java	/^   private static String baseFragShader;$/;"	f	class:ShaderProgram	file:
+buffer	RenderSlave.scala	/^    val buffer = Some(AskPixel(iter.head._1, iter.head._2))$/;"	V
 cabbagegl	Axis.java	/^package cabbagegl;$/;"	p
 cabbagegl	Camera.java	/^package cabbagegl;$/;"	p
 cabbagegl	FaceSide.java	/^package cabbagegl;$/;"	p
@@ -181,6 +184,7 @@ indexOfRefraction	Material.java	/^   private double indexOfRefraction;$/;"	f	cla
 intensity	Light.java	/^   private Vector3 intensity;$/;"	f	class:Light	file:
 invSqrt	Vector3.java	/^    private static double invSqrt(double x) {$/;"	m	class:Vector3	file:
 isEmpty	HitData.java	/^   public boolean isEmpty() {$/;"	m	class:HitData
+iter	RenderSlave.scala	/^class BuildAskPixel(var iter: IndexedSeq[(Int, Int)]) {$/;"	v
 java.awt.Color	HelloWorld.scala	/^import java.awt.Color$/;"	i
 java.awt.Color	RenderSlave.scala	/^import java.awt.Color$/;"	i
 java.awt.image.BufferedImage	HelloWorld.scala	/^import java.awt.image.BufferedImage$/;"	i
@@ -197,7 +201,7 @@ linear_attenuation	Light.java	/^   private double linear_attenuation;$/;"	f	clas
 lookAt	Camera.java	/^    public void lookAt(Vector3 ieye, Vector3 iview, Vector3 iup) {$/;"	m	class:Camera
 main	HelloWorld.scala	/^  def main(args: Array[String]): Unit = {$/;"	m
 master	HelloWorld.scala	/^    val master = RenderMaster(new Camera(test.myCam), slave, img)$/;"	V
-master	HelloWorld.scala	/^    val master = new RenderMaster(new Camera(test.myCam, slave))$/;"	V
+master	HelloWorld.scala	/^    val master = new RenderMaster(new Camera(test.myCam), slave)$/;"	V
 mat	Shape.java	/^    protected Material mat;$/;"	f	class:Shape
 materialPropsAt	Plane.java	/^    public Material materialPropsAt(Vector3 ray, FaceSide fs) {$/;"	m	class:Plane
 materialPropsAt	Polygon.java	/^   public Material materialPropsAt(Vector3 ray, FaceSide fs) {$/;"	m	class:Polygon
@@ -208,14 +212,17 @@ max_recurse	RenderOptions.java	/^    public int max_recurse;$/;"	f	class:RenderO
 media	Ray.java	/^    private Stack<HitPoint> media;$/;"	f	class:Ray	file:
 mul	Matrix33.java	/^   public Vector3 mul(Vector3 right) {$/;"	m	class:Matrix33
 myCam	Test.java	/^    public  Camera myCam;$/;"	f	class:Test
+nSlaves	RenderSlave.scala	/^          var nSlaves = slave.size$/;"	v
 n_calc	Vector3.java	/^    private boolean n_calc;$/;"	f	class:Vector3	file:
 near	Camera.java	/^    private double near;$/;"	f	class:Camera	file:
+next	RenderSlave.scala	/^  def next = if (iter.isEmpty) None$/;"	m
 normal	HitPoint.java	/^   private Vector3 normal;$/;"	f	class:HitPoint	file:
 normal	Plane.java	/^    private Vector3 normal;$/;"	f	class:Plane	file:
 normalize	Vector3.java	/^    public Vector3 normalize() {$/;"	m	class:Vector3
 normalized	Vector3.java	/^    private Vector3 normalized;$/;"	f	class:Vector3	file:
 not	FaceSide.java	/^   public FaceSide not() {$/;"	m	class:FaceSide
 nrays	Ray.java	/^   public static AtomicInteger nrays = new AtomicInteger();$/;"	f	class:Ray
+output	HelloWorld.scala	/^        val output = new File("output.png")$/;"	V
 perspective	Camera.java	/^    public void perspective(double fov, double aspect, double znear,$/;"	m	class:Camera
 pixel	RenderSlave.scala	/^          val pixel = GetPixel(i, j, cam.renderPixel(i, j).getRGB())$/;"	V
 pixelsRendered	Camera.java	/^    private AtomicInteger pixelsRendered;$/;"	f	class:Camera	file:
@@ -255,7 +262,11 @@ specular	Material.java	/^   private Vector3 specular;$/;"	f	class:Material	file:
 sum	Vector3.java	/^    public Vector3 sum(Vector3 b) {$/;"	m	class:Vector3
 test	HelloWorld.scala	/^  var test = new Test$/;"	v
 test	Test.java	/^    public  String test() {return "whoa";}$/;"	m	class:Test
+this	RenderSlave.scala	/^  def this(a: Int, b: Int) = this(for (i <- 0 to (a - 1); j <- 0 to (b - 1)) yield (i, j))$/;"	m
+toAsk	RenderSlave.scala	/^          var toAsk = askFactory next$/;"	v
+toString	Camera.java	/^    public String toString() {$/;"	m	class:Camera
 toString	RenderOptions.java	/^    public String toString() {$/;"	m	class:RenderOptions
+toString	Scene.java	/^    public String toString() {$/;"	m	class:Scene
 toString	Vector3.java	/^    public String toString() {$/;"	m	class:Vector3
 totalInternalReflection	Vector3.java	/^    public boolean totalInternalReflection(Vector3 normal, double from_ior,$/;"	m	class:Vector3
 trace	Ray.java	/^    private Vector3 trace(Scene s, double mindist, double maxdist, double sofar,$/;"	m	class:Ray	file:

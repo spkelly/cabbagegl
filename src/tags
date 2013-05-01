@@ -5,37 +5,50 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
 AA_samples	cabbagegl/RenderOptions.java	/^    public int AA_samples;$/;"	f	class:RenderOptions
+AskPixel	cabbagegl/.RenderActor.scala	/^case class AskPixel(i: Int, j: Int) $/;"	r
+AskPixel	cabbagegl/RenderSlave.scala	/^case class AskPixel(i: Int, j: Int) $/;"	r
 Axis	cabbagegl/Axis.java	/^public enum Axis {$/;"	g
 BACK	cabbagegl/FaceSide.java	/^   FRONT, BACK;$/;"	e	enum:FaceSide	file:
+BuildAskPixel	cabbagegl/RenderSlave.scala	/^class BuildAskPixel(var iter: IndexedSeq[(Int, Int)]) {$/;"	c
 CAMERA	cabbagegl/net/CGLNetMessageType.java	/^   SCENE, CAMERA, RENDER_OPTIONS, PIX_RANGE, UPDATE, RENDERED, DEPTH_BUFF;$/;"	e	enum:CGLNetMessageType	file:
 CGLNetMessage	cabbagegl/net/CGLNetMessage.java	/^   public CGLNetMessage(CGLNetMessageType mtype) {$/;"	m	class:CGLNetMessage
 CGLNetMessage	cabbagegl/net/CGLNetMessage.java	/^public abstract class CGLNetMessage {$/;"	c
 CGLNetMessageType	cabbagegl/net/CGLNetMessageType.java	/^public enum CGLNetMessageType {$/;"	g
 Camera	cabbagegl/Camera.java	/^    public Camera() {$/;"	m	class:Camera
+Camera	cabbagegl/Camera.java	/^    public Camera(Camera arg) {$/;"	m	class:Camera
 Camera	cabbagegl/Camera.java	/^public class Camera {$/;"	c
 Camera	shaderscripts/cabbagegl_builtins.py	/^import Camera$/;"	i
 CameraMessage	cabbagegl/net/CameraMessage.java	/^   public CameraMessage(Camera cam) {$/;"	m	class:CameraMessage
 CameraMessage	cabbagegl/net/CameraMessage.java	/^public class CameraMessage extends CGLNetMessage {$/;"	c
 ColorVector	cabbagegl/Vector3.java	/^    public static Vector3 ColorVector(int R, int G, int B) {$/;"	m	class:Vector3
-DEFAULT_ASPECT	cabbagegl/Camera.java	/^    private static final double DEFAULT_ASPECT = 1.0;$/;"	f	class:Camera	file:
-DEFAULT_EYE	cabbagegl/Camera.java	/^    private static final Vector3 DEFAULT_EYE = Vector3.UNIT_X;$/;"	f	class:Camera	file:
-DEFAULT_FOV	cabbagegl/Camera.java	/^    private static final double DEFAULT_FOV = 45.0;$/;"	f	class:Camera	file:
-DEFAULT_UP	cabbagegl/Camera.java	/^    private static final Vector3 DEFAULT_UP = Vector3.UNIT_Y;$/;"	f	class:Camera	file:
-DEFAULT_VIEW	cabbagegl/Camera.java	/^    private static final Vector3 DEFAULT_VIEW = Vector3.ZERO;$/;"	f	class:Camera	file:
-DEFAULT_ZFAR	cabbagegl/Camera.java	/^    private static final double DEFAULT_ZFAR = 20.0;$/;"	f	class:Camera	file:
-DEFAULT_ZNEAR	cabbagegl/Camera.java	/^    private static final double DEFAULT_ZNEAR = 0.1;$/;"	f	class:Camera	file:
+DEFAULT_ASPECT	cabbagegl/Camera.java	/^    private final double DEFAULT_ASPECT = 1.0;$/;"	f	class:Camera	file:
+DEFAULT_EYE	cabbagegl/Camera.java	/^    private final Vector3 DEFAULT_EYE = Vector3.UNIT_X;$/;"	f	class:Camera	file:
+DEFAULT_FOV	cabbagegl/Camera.java	/^    private final double DEFAULT_FOV = 45.0;$/;"	f	class:Camera	file:
+DEFAULT_UP	cabbagegl/Camera.java	/^    private final Vector3 DEFAULT_UP = Vector3.UNIT_Y;$/;"	f	class:Camera	file:
+DEFAULT_VIEW	cabbagegl/Camera.java	/^    private final Vector3 DEFAULT_VIEW = Vector3.ZERO;$/;"	f	class:Camera	file:
+DEFAULT_ZFAR	cabbagegl/Camera.java	/^    private final double DEFAULT_ZFAR = 20.0;$/;"	f	class:Camera	file:
+DEFAULT_ZNEAR	cabbagegl/Camera.java	/^    private final double DEFAULT_ZNEAR = 0.1;$/;"	f	class:Camera	file:
 DEPTH_BUFF	cabbagegl/net/CGLNetMessageType.java	/^   SCENE, CAMERA, RENDER_OPTIONS, PIX_RANGE, UPDATE, RENDERED, DEPTH_BUFF;$/;"	e	enum:CGLNetMessageType	file:
 DepthBufferMessage	cabbagegl/net/DepthBufferMessage.java	/^   public DepthBufferMessage(double idBuff[], int low, int high) {$/;"	m	class:DepthBufferMessage
 DepthBufferMessage	cabbagegl/net/DepthBufferMessage.java	/^public class DepthBufferMessage extends CGLNetMessage {$/;"	c
+End	cabbagegl/.RenderActor.scala	/^case class End $/;"	r
+End	cabbagegl/RenderSlave.scala	/^case class End$/;"	r
 FRONT	cabbagegl/FaceSide.java	/^   FRONT, BACK;$/;"	e	enum:FaceSide	file:
 FaceSide	cabbagegl/FaceSide.java	/^public enum FaceSide {$/;"	g
+GetPixel	cabbagegl/.RenderActor.scala	/^case class GetPixel(i: Int, j: Int, color: Int) $/;"	r
+GetPixel	cabbagegl/RenderSlave.scala	/^case class GetPixel(i: Int, j: Int, color: Int) {$/;"	r
+HelloWorld	cabbagegl/HelloWorld.scala	/^object HelloWorld {$/;"	o
 HitData	cabbagegl/HitData.java	/^   public HitData() {$/;"	m	class:HitData
 HitData	cabbagegl/HitData.java	/^public class HitData {$/;"	c
 HitPoint	cabbagegl/HitPoint.java	/^   public HitPoint(Vector3 ih, Vector3 in, double dist, Shape iHS,$/;"	m	class:HitPoint
 HitPoint	cabbagegl/HitPoint.java	/^public class HitPoint implements Comparable<HitPoint> {$/;"	c
+ImgWrapper	cabbagegl/RenderSlave.scala	/^case class ImgWrapper(img: BufferedImage)$/;"	r
+Light	cabbagegl/Light.java	/^    public Light(Light arg) {$/;"	m	class:Light
+Light	cabbagegl/Light.java	/^    public Light(Vector3 iint, Vector3 ispec, Vector3 ipos, Vector3 atten) {$/;"	m	class:Light
 Light	cabbagegl/Light.java	/^   public Light(Vector3 iint, Vector3 ispec, Vector3 ipos) {$/;"	m	class:Light
-Light	cabbagegl/Light.java	/^   public Light(Vector3 iint, Vector3 ispec, Vector3 ipos, Vector3 atten) {$/;"	m	class:Light
 Light	cabbagegl/Light.java	/^public class Light {$/;"	c
+Master	target/wut.scala	/^class Master(cam: Camera, slave: RenderSlave) extends Actor {$/;"	c
+Material	cabbagegl/Material.java	/^    public Material(Material arg) {$/;"	m	class:Material
 Material	cabbagegl/Material.java	/^   public Material(Vector3 icol, Vector3 idiff, Vector3 ispec) {$/;"	m	class:Material
 Material	cabbagegl/Material.java	/^   public Material(Vector3 icol, Vector3 idiff, Vector3 ispec, double ish) {$/;"	m	class:Material
 Material	cabbagegl/Material.java	/^   public Material(Vector3 icol, Vector3 idiff, Vector3 ispec, double ish,$/;"	m	class:Material
@@ -45,8 +58,10 @@ Matrix33	cabbagegl/Matrix33.java	/^public class Matrix33 {$/;"	c
 PIX_RANGE	cabbagegl/net/CGLNetMessageType.java	/^   SCENE, CAMERA, RENDER_OPTIONS, PIX_RANGE, UPDATE, RENDERED, DEPTH_BUFF;$/;"	e	enum:CGLNetMessageType	file:
 PixelRangeMessage	cabbagegl/net/PixelRangeMessage.java	/^   public PixelRangeMessage(int low, int high) {$/;"	m	class:PixelRangeMessage
 PixelRangeMessage	cabbagegl/net/PixelRangeMessage.java	/^public class PixelRangeMessage extends CGLNetMessage {$/;"	c
+Plane	cabbagegl/Plane.java	/^    public Plane(Plane arg) {$/;"	m	class:Plane
 Plane	cabbagegl/Plane.java	/^    public Plane(Vector3 pnt, Vector3 norm, Material mat) {$/;"	m	class:Plane
 Plane	cabbagegl/Plane.java	/^class Plane extends Shape {$/;"	c
+Polygon	cabbagegl/Polygon.java	/^    public Polygon(Polygon arg) {$/;"	m	class:Polygon
 Polygon	cabbagegl/Polygon.java	/^   public Polygon(List<Vector3> verts, Material mat) {$/;"	m	class:Polygon
 Polygon	cabbagegl/Polygon.java	/^public class Polygon extends Shape {$/;"	c
 RENDERED	cabbagegl/net/CGLNetMessageType.java	/^   SCENE, CAMERA, RENDER_OPTIONS, PIX_RANGE, UPDATE, RENDERED, DEPTH_BUFF;$/;"	e	enum:CGLNetMessageType	file:
@@ -55,31 +70,38 @@ Ray	cabbagegl/Ray.java	/^    private Ray(Vector3 ibase, Vector3 idir, Stack<HitP
 Ray	cabbagegl/Ray.java	/^    public Ray(Vector3 ibase, Vector3 idir) {$/;"	m	class:Ray
 Ray	cabbagegl/Ray.java	/^public class Ray {$/;"	c
 Ray	shaderscripts/cabbagegl_builtins.py	/^import Ray$/;"	i
+ReadConfig	cabbagegl/ReadConfig.java	/^public class ReadConfig {$/;"	c
 RenderInstance	cabbagegl/net/RenderServer.java	/^      public RenderInstance(Socket isock) {$/;"	m	class:RenderServer.RenderInstance
 RenderInstance	cabbagegl/net/RenderServer.java	/^   private class RenderInstance implements Runnable {$/;"	c	class:RenderServer
+RenderMaster	cabbagegl/.RenderActor.scala	/^class RenderMaster(cam: Camera, slave: Actor, var img: BufferedImage) extends Actor {$/;"	c
+RenderMaster	target/wot.scala	/^class RenderMaster(cam: Camera, slave: RenderSlave) extends Actor {$/;"	c
 RenderOptions	cabbagegl/RenderOptions.java	/^    public RenderOptions() {$/;"	m	class:RenderOptions
+RenderOptions	cabbagegl/RenderOptions.java	/^    public RenderOptions(RenderOptions arg) {$/;"	m	class:RenderOptions
 RenderOptions	cabbagegl/RenderOptions.java	/^public class RenderOptions {$/;"	c
 RenderOptionsMessage	cabbagegl/net/RenderOptionsMessage.java	/^   public RenderOptionsMessage(RenderOptions options) {$/;"	m	class:RenderOptionsMessage
 RenderOptionsMessage	cabbagegl/net/RenderOptionsMessage.java	/^public class RenderOptionsMessage extends CGLNetMessage {$/;"	c
 RenderServer	cabbagegl/net/RenderServer.java	/^   public RenderServer(int port) {$/;"	m	class:RenderServer
 RenderServer	cabbagegl/net/RenderServer.java	/^public class RenderServer implements Runnable {$/;"	c
-RenderThread	cabbagegl/Camera.java	/^       public RenderThread(Scene s, RenderOptions ro, int l, int h,$/;"	m	class:Camera.RenderThread
-RenderThread	cabbagegl/Camera.java	/^    public class RenderThread implements Runnable {$/;"	c	class:Camera
+RenderSlave	cabbagegl/.RenderActor.scala	/^class RenderSlave(cam: Camera) extends Actor {$/;"	c
+RenderSlave	target/wot.scala	/^class RenderSlave(cam: Camera) extends Actor {$/;"	c
 RenderedMessage	cabbagegl/net/RenderedMessage.java	/^   public RenderedMessage(Color irendered[], int low, int high) {$/;"	m	class:RenderedMessage
 RenderedMessage	cabbagegl/net/RenderedMessage.java	/^public class RenderedMessage extends CGLNetMessage {$/;"	c
 SCENE	cabbagegl/net/CGLNetMessageType.java	/^   SCENE, CAMERA, RENDER_OPTIONS, PIX_RANGE, UPDATE, RENDERED, DEPTH_BUFF;$/;"	e	enum:CGLNetMessageType	file:
 Scene	cabbagegl/Scene.java	/^    public Scene() {$/;"	m	class:Scene
+Scene	cabbagegl/Scene.java	/^    public Scene(Scene arg) {$/;"	m	class:Scene
 Scene	cabbagegl/Scene.java	/^public class Scene {$/;"	c
 SceneMessage	cabbagegl/net/SceneMessage.java	/^   public SceneMessage(Scene iscene) {$/;"	m	class:SceneMessage
 SceneMessage	cabbagegl/net/SceneMessage.java	/^public class SceneMessage extends CGLNetMessage {$/;"	c
 ShaderProgram	cabbagegl/ShaderProgram.java	/^   public ShaderProgram() {$/;"	m	class:ShaderProgram
 ShaderProgram	cabbagegl/ShaderProgram.java	/^public class ShaderProgram {$/;"	c
 Shape	cabbagegl/Shape.java	/^    public Shape(Material imat) {$/;"	m	class:Shape
+Shape	cabbagegl/Shape.java	/^    public Shape(Shape arg) {$/;"	m	class:Shape
 Shape	cabbagegl/Shape.java	/^public abstract class Shape {$/;"	c
 Sphere	cabbagegl/Sphere.java	/^    public Sphere(Vector3 cen, double rad, Material mat) {$/;"	m	class:Sphere
 Sphere	cabbagegl/Sphere.java	/^public class Sphere extends Shape {$/;"	c
 TIMEOUT_CHECK	cabbagegl/net/RenderServer.java	/^   private static final int TIMEOUT_CHECK = 1000;$/;"	f	class:RenderServer	file:
 Test	cabbagegl/Test.java	/^public class Test {$/;"	c
+Triangle	cabbagegl/Triangle.java	/^    public Triangle(Triangle arg) {$/;"	m	class:Triangle
 Triangle	cabbagegl/Triangle.java	/^   public Triangle(Vector3 v1, Vector3 v2, Vector3 v3, Material mat) {$/;"	m	class:Triangle
 Triangle	cabbagegl/Triangle.java	/^public class Triangle extends Plane {$/;"	c
 UNIT_X	cabbagegl/Vector3.java	/^    public static final Vector3 UNIT_X = new Vector3(1,0,0);$/;"	f	class:Vector3
@@ -89,6 +111,7 @@ UPDATE	cabbagegl/net/CGLNetMessageType.java	/^   SCENE, CAMERA, RENDER_OPTIONS, 
 UpdateMessage	cabbagegl/net/UpdateMessage.java	/^   public UpdateMessage(double ipc) {$/;"	m	class:UpdateMessage
 UpdateMessage	cabbagegl/net/UpdateMessage.java	/^public class UpdateMessage extends CGLNetMessage {$/;"	c
 VZERO	shaderscripts/vec3.py	/^VZERO = vec3(0,0,0)$/;"	v
+Vector3	cabbagegl/Vector3.java	/^    public Vector3(Vector3 arg) {$/;"	m	class:Vector3
 Vector3	cabbagegl/Vector3.java	/^    public Vector3(double x, double y, double z) {$/;"	m	class:Vector3
 Vector3	cabbagegl/Vector3.java	/^public class Vector3 {$/;"	c
 Vector3	shaderscripts/cabbagegl_builtins.py	/^import Vector3$/;"	i
@@ -113,15 +136,21 @@ __sub__	shaderscripts/vec3.py	/^   def __sub__(self, ov):$/;"	m	class:vec3	file:
 addHitpoint	cabbagegl/HitData.java	/^   public void addHitpoint(HitPoint toAdd) {$/;"	m	class:HitData
 alpha	cabbagegl/Material.java	/^   private double alpha;$/;"	f	class:Material	file:
 ambient	cabbagegl/Scene.java	/^    public Vector3 ambient;$/;"	f	class:Scene
+askFactory	target/wot.scala	/^          val askFactory = new BuildAskPixel(for (i <- 0 to cam.roptions.width - 1; j <- 0 to cam.roptions.height - 1) yield (i, j))$/;"	V
+askFactory	target/wot.scala	/^\/\/          val askFactory = new BuildAskPixel(cam.roptions.width, cam.roptions.height)$/;"	V
+askFactory	target/wut.scala	/^  var askFactory: BuildAskPixel = null$/;"	v
 aspect_ratio	cabbagegl/Camera.java	/^    private double aspect_ratio;$/;"	f	class:Camera	file:
 base	cabbagegl/Ray.java	/^    private Vector3 base;$/;"	f	class:Ray	file:
 baseFragShader	cabbagegl/ShaderProgram.java	/^   private static String baseFragShader;$/;"	f	class:ShaderProgram	file:
+buffer	cabbagegl/RenderSlave.scala	/^    val buffer = Some(AskPixel(iter.head._1, iter.head._2))$/;"	V
 cabbage_fragment	shaderscripts/basefrag.py	/^cabbage_fragment = fragment()$/;"	v
 cabbage_lights	shaderscripts/basefrag.py	/^cabbage_lights  = list()$/;"	v
 cabbage_objects	shaderscripts/basefrag.py	/^cabbage_objects = list()$/;"	v
+cabbagegl	cabbagegl/.RenderActor.scala	/^package cabbagegl$/;"	p
 cabbagegl	cabbagegl/Axis.java	/^package cabbagegl;$/;"	p
 cabbagegl	cabbagegl/Camera.java	/^package cabbagegl;$/;"	p
 cabbagegl	cabbagegl/FaceSide.java	/^package cabbagegl;$/;"	p
+cabbagegl	cabbagegl/HelloWorld.scala	/^package cabbagegl$/;"	p
 cabbagegl	cabbagegl/HitData.java	/^package cabbagegl;$/;"	p
 cabbagegl	cabbagegl/HitPoint.java	/^package cabbagegl;$/;"	p
 cabbagegl	cabbagegl/Light.java	/^package cabbagegl;$/;"	p
@@ -130,7 +159,9 @@ cabbagegl	cabbagegl/Matrix33.java	/^package cabbagegl;$/;"	p
 cabbagegl	cabbagegl/Plane.java	/^package cabbagegl;$/;"	p
 cabbagegl	cabbagegl/Polygon.java	/^package cabbagegl;$/;"	p
 cabbagegl	cabbagegl/Ray.java	/^package cabbagegl;$/;"	p
+cabbagegl	cabbagegl/ReadConfig.java	/^package cabbagegl;$/;"	p
 cabbagegl	cabbagegl/RenderOptions.java	/^package cabbagegl;$/;"	p
+cabbagegl	cabbagegl/RenderSlave.scala	/^package cabbagegl$/;"	p
 cabbagegl	cabbagegl/Scene.java	/^package cabbagegl;$/;"	p
 cabbagegl	cabbagegl/ShaderProgram.java	/^package cabbagegl;$/;"	p
 cabbagegl	cabbagegl/Shape.java	/^package cabbagegl;$/;"	p
@@ -138,8 +169,10 @@ cabbagegl	cabbagegl/Sphere.java	/^package cabbagegl;$/;"	p
 cabbagegl	cabbagegl/Test.java	/^package cabbagegl;$/;"	p
 cabbagegl	cabbagegl/Triangle.java	/^package cabbagegl;$/;"	p
 cabbagegl	cabbagegl/Vector3.java	/^package cabbagegl;$/;"	p
+cabbagegl._	target/wot.scala	/^import cabbagegl._$/;"	i
+cabbagegl._	target/wut.scala	/^import cabbagegl._$/;"	i
 camera	cabbagegl/net/CameraMessage.java	/^   public Camera camera;$/;"	f	class:CameraMessage
-cel_shaded	cabbagegl/Camera.java	/^    public boolean cel_shaded; \/\/ wat$/;"	f	class:Camera
+cel_shaded	cabbagegl/Camera.java	/^    public boolean cel_shaded = true; \/\/ wat$/;"	f	class:Camera
 cel_shaded	cabbagegl/Scene.java	/^    public boolean cel_shaded;$/;"	f	class:Scene
 cellShadedTrace	cabbagegl/Ray.java	/^    public Vector3 cellShadedTrace(Scene s, double mindist, double maxdist) {$/;"	m	class:Ray
 center	cabbagegl/Sphere.java	/^    private Vector3 center;$/;"	f	class:Sphere	file:
@@ -193,6 +226,7 @@ getCurrMediaIOR	cabbagegl/Ray.java	/^    public double getCurrMediaIOR() {$/;"	m
 getDiffuse	cabbagegl/Material.java	/^   public Vector3 getDiffuse() {$/;"	m	class:Material
 getDir	cabbagegl/Ray.java	/^    public Vector3 getDir() {$/;"	m	class:Ray
 getDistTo	cabbagegl/HitPoint.java	/^   public double getDistTo() {$/;"	m	class:HitPoint
+getEye	cabbagegl/Camera.java	/^    public Vector3 getEye() {$/;"	m	class:Camera
 getHitShape	cabbagegl/HitPoint.java	/^   public Shape getHitShape() {$/;"	m	class:HitPoint
 getHitpoint	cabbagegl/HitPoint.java	/^   public Vector3 getHitpoint() {$/;"	m	class:HitPoint
 getHitpoints	cabbagegl/HitData.java	/^   public List<HitPoint> getHitpoints() {$/;"	m	class:HitData
@@ -203,7 +237,7 @@ getShininess	cabbagegl/Material.java	/^   public double getShininess() {$/;"	m	c
 getSideHit	cabbagegl/HitPoint.java	/^   public FaceSide getSideHit() {$/;"	m	class:HitPoint
 getSpecular	cabbagegl/Material.java	/^   public Vector3 getSpecular() {$/;"	m	class:Material
 height	cabbagegl/RenderOptions.java	/^    public int height;$/;"	f	class:RenderOptions
-high	cabbagegl/Camera.java	/^       private int low, high;$/;"	f	class:Camera.RenderThread	file:
+hel	target/wut.scala	/^val hel = HelloWorld$/;"	V
 highPixel	cabbagegl/net/DepthBufferMessage.java	/^   public int highPixel;$/;"	f	class:DepthBufferMessage
 highPixel	cabbagegl/net/PixelRangeMessage.java	/^   public int highPixel;$/;"	f	class:PixelRangeMessage
 highPixel	cabbagegl/net/RenderedMessage.java	/^   public int highPixel;$/;"	f	class:RenderedMessage
@@ -215,11 +249,29 @@ hitBy	cabbagegl/Triangle.java	/^   public HitData hitBy(Ray r) {$/;"	m	class:Tri
 hitShape	cabbagegl/HitPoint.java	/^   private Shape hitShape;$/;"	f	class:HitPoint	file:
 hitpoint	cabbagegl/HitPoint.java	/^   private Vector3 hitpoint;$/;"	f	class:HitPoint	file:
 hitpoints	cabbagegl/HitData.java	/^   private List<HitPoint> hitpoints;$/;"	f	class:HitData	file:
-image	cabbagegl/Camera.java	/^       private BufferedImage image;$/;"	f	class:Camera.RenderThread	file:
+img	cabbagegl/.RenderActor.scala	/^class RenderMaster(cam: Camera, slave: Actor, var img: BufferedImage) extends Actor {$/;"	v
+img	cabbagegl/HelloWorld.scala	/^  var img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB)$/;"	v
+img	target/wut.scala	/^  var img: BufferedImage = null$/;"	v
 indexOfRefraction	cabbagegl/Material.java	/^   private double indexOfRefraction;$/;"	f	class:Material	file:
 intensity	cabbagegl/Light.java	/^   private Vector3 intensity;$/;"	f	class:Light	file:
 invSqrt	cabbagegl/Vector3.java	/^    private static double invSqrt(double x) {$/;"	m	class:Vector3	file:
 isEmpty	cabbagegl/HitData.java	/^   public boolean isEmpty() {$/;"	m	class:HitData
+iter	cabbagegl/RenderSlave.scala	/^class BuildAskPixel(var iter: IndexedSeq[(Int, Int)]) {$/;"	v
+java.awt.Color	cabbagegl/.RenderActor.scala	/^import java.awt.Color$/;"	i
+java.awt.Color	cabbagegl/HelloWorld.scala	/^import java.awt.Color$/;"	i
+java.awt.Color	cabbagegl/RenderSlave.scala	/^import java.awt.Color$/;"	i
+java.awt.Color	target/wot.scala	/^import java.awt.Color$/;"	i
+java.awt.Color	target/wut.scala	/^import java.awt.Color$/;"	i
+java.awt.image.BufferedImage	cabbagegl/HelloWorld.scala	/^import java.awt.image.BufferedImage$/;"	i
+java.awt.image.BufferedImage	cabbagegl/RenderSlave.scala	/^import java.awt.image.BufferedImage$/;"	i
+java.awt.image.BufferedImage	target/wot.scala	/^import java.awt.image.BufferedImage$/;"	i
+java.awt.image.BufferedImage	target/wut.scala	/^import java.awt.image.BufferedImage$/;"	i
+java.io._	cabbagegl/HelloWorld.scala	/^import java.io._$/;"	i
+java.io._	target/wut.scala	/^import java.io._$/;"	i
+java.util._	cabbagegl/HelloWorld.scala	/^import java.util._$/;"	i
+java.util._	target/wut.scala	/^import java.util._$/;"	i
+javax.imageio.ImageIO	cabbagegl/HelloWorld.scala	/^import javax.imageio.ImageIO$/;"	i
+javax.imageio.ImageIO	target/wut.scala	/^import javax.imageio.ImageIO$/;"	i
 l	cabbagegl/Vector3.java	/^    private double l;$/;"	f	class:Vector3	file:
 l_calc	cabbagegl/Vector3.java	/^    private boolean l_calc;$/;"	f	class:Vector3	file:
 len	cabbagegl/Vector3.java	/^    public double len() {$/;"	m	class:Vector3
@@ -228,11 +280,14 @@ lens_aperture_radius	cabbagegl/RenderOptions.java	/^    public double lens_apert
 lights	cabbagegl/Scene.java	/^    public List<Light> lights;$/;"	f	class:Scene
 linear_attenuation	cabbagegl/Light.java	/^   private double linear_attenuation;$/;"	f	class:Light	file:
 lookAt	cabbagegl/Camera.java	/^    public void lookAt(Vector3 ieye, Vector3 iview, Vector3 iup) {$/;"	m	class:Camera
-low	cabbagegl/Camera.java	/^       private int low, high;$/;"	f	class:Camera.RenderThread	file:
+loopPixels	target/wut.scala	/^  var loopPixels = true $/;"	v
 lowPixel	cabbagegl/net/DepthBufferMessage.java	/^   public int lowPixel;$/;"	f	class:DepthBufferMessage
 lowPixel	cabbagegl/net/PixelRangeMessage.java	/^   public int lowPixel;$/;"	f	class:PixelRangeMessage
 lowPixel	cabbagegl/net/RenderedMessage.java	/^   public int lowPixel;$/;"	f	class:RenderedMessage
-main	cabbagegl/Test.java	/^    public static void main(String[] args) {$/;"	m	class:Test
+main	cabbagegl/HelloWorld.scala	/^  def main(args: Array[String]): Unit = {$/;"	m
+master	cabbagegl/HelloWorld.scala	/^    val master = RenderMaster(new Camera(test.myCam), slave, img)$/;"	V
+master	cabbagegl/HelloWorld.scala	/^\/\/    val master = new RenderMaster(new Camera(test.myCam), slave)$/;"	V
+master	target/wut.scala	/^val master = new Master(new Camera(hel.test.myCam), slave)$/;"	V
 mat	cabbagegl/Shape.java	/^    protected Material mat;$/;"	f	class:Shape
 material	shaderscripts/cabbagegl_prims.py	/^class material:$/;"	c
 materialPropsAt	cabbagegl/Plane.java	/^    public Material materialPropsAt(Vector3 ray, FaceSide fs) {$/;"	m	class:Plane
@@ -244,8 +299,10 @@ max_recurse	cabbagegl/RenderOptions.java	/^    public int max_recurse;$/;"	f	cla
 media	cabbagegl/Ray.java	/^    private Stack<HitPoint> media;$/;"	f	class:Ray	file:
 msgType	cabbagegl/net/CGLNetMessage.java	/^   public CGLNetMessageType msgType;$/;"	f	class:CGLNetMessage
 mul	cabbagegl/Matrix33.java	/^   public Vector3 mul(Vector3 right) {$/;"	m	class:Matrix33
+myCam	cabbagegl/Test.java	/^    public  Camera myCam;$/;"	f	class:Test
 n_calc	cabbagegl/Vector3.java	/^    private boolean n_calc;$/;"	f	class:Vector3	file:
 near	cabbagegl/Camera.java	/^    private double near;$/;"	f	class:Camera	file:
+next	cabbagegl/RenderSlave.scala	/^  def next = if (iter.isEmpty) None$/;"	m
 normal	cabbagegl/HitPoint.java	/^   private Vector3 normal;$/;"	f	class:HitPoint	file:
 normal	cabbagegl/Plane.java	/^    private Vector3 normal;$/;"	f	class:Plane	file:
 normalize	cabbagegl/Vector3.java	/^    public Vector3 normalize() {$/;"	m	class:Vector3
@@ -253,8 +310,11 @@ normalize	shaderscripts/vec3.py	/^   def normalize(self):$/;"	m	class:vec3
 normalized	cabbagegl/Vector3.java	/^    private Vector3 normalized;$/;"	f	class:Vector3	file:
 not	cabbagegl/FaceSide.java	/^   public FaceSide not() {$/;"	m	class:FaceSide
 nrays	cabbagegl/Ray.java	/^   public static AtomicInteger nrays = new AtomicInteger();$/;"	f	class:Ray
+output	cabbagegl/HelloWorld.scala	/^        val output = new File("output.png")$/;"	V
+output	target/wut.scala	/^    val output = new File("output.png")$/;"	V
 percentComplete	cabbagegl/net/UpdateMessage.java	/^   public double percentComplete;$/;"	f	class:UpdateMessage
 perspective	cabbagegl/Camera.java	/^    public void perspective(double fov, double aspect, double znear,$/;"	m	class:Camera
+pixel	target/wot.scala	/^          val pixel = GetPixel(i, j, cam.renderPixel(i, j).getRGB())$/;"	V
 pixelsRendered	cabbagegl/Camera.java	/^    private AtomicInteger pixelsRendered;$/;"	f	class:Camera	file:
 point	cabbagegl/Plane.java	/^    private Vector3 point;$/;"	f	class:Plane	file:
 position	cabbagegl/Light.java	/^   private Vector3 position;$/;"	f	class:Light	file:
@@ -264,32 +324,45 @@ r2	cabbagegl/Matrix33.java	/^   Vector3 r1, r2, r3;$/;"	f	class:Matrix33
 r3	cabbagegl/Matrix33.java	/^   Vector3 r1, r2, r3;$/;"	f	class:Matrix33
 radius	cabbagegl/Sphere.java	/^    private double radius;$/;"	f	class:Sphere	file:
 randGen	cabbagegl/Camera.java	/^    private static Random randGen = new Random();$/;"	f	class:Camera	file:
+read	cabbagegl/HelloWorld.scala	/^    val read = new ReadConfig()$/;"	V
+readFile	cabbagegl/ReadConfig.java	/^   public RenderOptions readFile(RenderOptions options) {$/;"	m	class:ReadConfig
 reflect	cabbagegl/Vector3.java	/^    public Vector3 reflect(Vector3 normal) {$/;"	m	class:Vector3
 refract	cabbagegl/Vector3.java	/^    public Vector3 refract(Vector3 normal, double from_ior, double  to_ior) {$/;"	m	class:Vector3
-renderInRange	cabbagegl/Camera.java	/^    private void renderInRange(Scene s, RenderOptions o, int il, int ih,$/;"	m	class:Camera	file:
-renderPixel	cabbagegl/Camera.java	/^    private Color renderPixel(int i, int j, Scene s, RenderOptions roptions) {$/;"	m	class:Camera	file:
-renderScene	cabbagegl/Camera.java	/^    public BufferedImage renderScene(Scene scene, RenderOptions roptions) {$/;"	m	class:Camera
+renderPixel	cabbagegl/Camera.java	/^    public Color renderPixel(int i, int j) {$/;"	m	class:Camera
 render_options	cabbagegl/net/RenderOptionsMessage.java	/^   public RenderOptions render_options;$/;"	f	class:RenderOptionsMessage
 renderables	cabbagegl/Scene.java	/^    public List<Shape> renderables;$/;"	f	class:Scene
 rendered	cabbagegl/net/RenderedMessage.java	/^   public Color rendered[];$/;"	f	class:RenderedMessage
-roptions	cabbagegl/Camera.java	/^       private RenderOptions roptions;$/;"	f	class:Camera.RenderThread	file:
+returnTo	target/wut.scala	/^  var returnTo: Option[OutputChannel[Any]] = None \/\/ nulls are bad and wrong I know $/;"	v
+roptions	cabbagegl/Camera.java	/^    public RenderOptions roptions;$/;"	f	class:Camera
 rotate	cabbagegl/Plane.java	/^    public void rotate(Axis axis, double angle) {$/;"	m	class:Plane
 rotate	cabbagegl/Polygon.java	/^   public void rotate(Axis axis, double angle) {$/;"	m	class:Polygon
 rotate	cabbagegl/Shape.java	/^    public abstract void rotate(Axis axis, double angle);$/;"	m	class:Shape
 rotate	cabbagegl/Sphere.java	/^    public void rotate(Axis axis, double angle) {$/;"	m	class:Sphere
 rotate	cabbagegl/Triangle.java	/^    public void rotate(Axis axis, double angle) {$/;"	m	class:Triangle
 rotateAbout	cabbagegl/Vector3.java	/^    public Vector3 rotateAbout(Axis axis, double angle) {$/;"	m	class:Vector3
-run	cabbagegl/Camera.java	/^       public void run() {$/;"	m	class:Camera.RenderThread
 run	cabbagegl/net/RenderServer.java	/^      public void run() {$/;"	m	class:RenderServer.RenderInstance
 run	cabbagegl/net/RenderServer.java	/^   public void run() {$/;"	m	class:RenderServer
+runMe	cabbagegl/Test.java	/^    public  void runMe() {$/;"	m	class:Test
+s	cabbagegl/Camera.java	/^    public Scene s;  \/\/ yeah, yeah, I know...$/;"	f	class:Camera
+scala.actors.Actor	cabbagegl/.RenderActor.scala	/^import scala.actors.Actor$/;"	i
+scala.actors.Actor	cabbagegl/RenderSlave.scala	/^import scala.actors.Actor$/;"	i
+scala.actors.Actor	target/wot.scala	/^import scala.actors.Actor$/;"	i
+scala.actors.Actor	target/wut.scala	/^import scala.actors.Actor$/;"	i
+scala.actors.Actor._	cabbagegl/RenderSlave.scala	/^import scala.actors.Actor._$/;"	i
+scala.actors.Actor._	target/wot.scala	/^import scala.actors.Actor._$/;"	i
+scala.actors.Actor._	target/wut.scala	/^import scala.actors.Actor._$/;"	i
+scala.actors.OutputChannel	cabbagegl/RenderSlave.scala	/^import scala.actors.OutputChannel$/;"	i
+scala.actors.OutputChannel	target/wut.scala	/^import scala.actors.OutputChannel$/;"	i
 scale	cabbagegl/Vector3.java	/^    public Vector3 scale(double d) {$/;"	m	class:Vector3
 scale	shaderscripts/vec3.py	/^   def scale(self, s):$/;"	m	class:vec3
-scene	cabbagegl/Camera.java	/^       private Scene scene;$/;"	f	class:Camera.RenderThread	file:
 scene	cabbagegl/net/SceneMessage.java	/^   public Scene scene;$/;"	f	class:SceneMessage
 server_running	cabbagegl/net/RenderServer.java	/^   private boolean server_running;$/;"	f	class:RenderServer	file:
 shape	shaderscripts/cabbagegl_prims.py	/^class shape:$/;"	c
 shininess	cabbagegl/Material.java	/^   private double shininess;$/;"	f	class:Material	file:
 size	cabbagegl/HitData.java	/^   public int size() {$/;"	m	class:HitData
+slave	cabbagegl/HelloWorld.scala	/^    val slave = RenderSlave(new Camera(test.myCam))$/;"	V
+slave	cabbagegl/HelloWorld.scala	/^    val slave = new RenderSlave(new Camera(test.myCam))$/;"	V
+slave	target/wut.scala	/^val slave = new RenderSlave(new Camera(hel.test.myCam))$/;"	V
 sort	cabbagegl/HitData.java	/^   public void sort() {$/;"	m	class:HitData
 specular	cabbagegl/Light.java	/^   private Vector3 specular;$/;"	f	class:Light	file:
 specular	cabbagegl/Material.java	/^   private Vector3 specular;$/;"	f	class:Material	file:
@@ -299,6 +372,12 @@ ssock	cabbagegl/net/RenderServer.java	/^   private ServerSocket ssock;$/;"	f	cla
 stop_accepting	cabbagegl/net/RenderServer.java	/^   public void stop_accepting() {$/;"	m	class:RenderServer
 sum	cabbagegl/Vector3.java	/^    public Vector3 sum(Vector3 b) {$/;"	m	class:Vector3
 sum	shaderscripts/vec3.py	/^   def sum(self, ov):$/;"	m	class:vec3
+test	cabbagegl/HelloWorld.scala	/^  var test = new Test$/;"	v
+test	cabbagegl/Test.java	/^    public  String test() {return "whoa";}$/;"	m	class:Test
+toAsk	target/wot.scala	/^         \/\/ var toAsk = askFactory next$/;"	v
+toString	cabbagegl/Camera.java	/^    public String toString() {$/;"	m	class:Camera
+toString	cabbagegl/RenderOptions.java	/^    public String toString() {$/;"	m	class:RenderOptions
+toString	cabbagegl/Scene.java	/^    public String toString() {$/;"	m	class:Scene
 toString	cabbagegl/Vector3.java	/^    public String toString() {$/;"	m	class:Vector3
 totalInternalReflection	cabbagegl/Vector3.java	/^    public boolean totalInternalReflection(Vector3 normal, double from_ior,$/;"	m	class:Vector3
 trace	cabbagegl/Ray.java	/^    private Vector3 trace(Scene s, double mindist, double maxdist, double sofar,$/;"	m	class:Ray	file:
@@ -317,6 +396,7 @@ view	cabbagegl/Camera.java	/^    private Vector3 view;$/;"	f	class:Camera	file:
 vjToVpy	shaderscripts/cabbagegl_builtins.py	/^def vjToVpy(vec):$/;"	f
 vpyToVj	shaderscripts/cabbagegl_builtins.py	/^def vpyToVj(vec):$/;"	f
 width	cabbagegl/RenderOptions.java	/^    public int width;$/;"	f	class:RenderOptions
+wot	cabbagegl/HelloWorld.scala	/^  def wot() = {$/;"	m
 x	cabbagegl/Vector3.java	/^    private double x, y, z;$/;"	f	class:Vector3	file:
 y	cabbagegl/Vector3.java	/^    private double x, y, z;$/;"	f	class:Vector3	file:
 z	cabbagegl/Vector3.java	/^    private double x, y, z;$/;"	f	class:Vector3	file:

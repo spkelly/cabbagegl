@@ -28,12 +28,6 @@ object HelloWorld {
     test.myCam.roptions = new RenderOptions()
     read.readFile(test.myCam.roptions)
     img = new BufferedImage(test.myCam.roptions.width, test.myCam.roptions.height, BufferedImage.TYPE_INT_RGB)
-/*
-    val slave = RenderSlave(new Camera(test.myCam))
-    val master = RenderMaster(new Camera(test.myCam), slave, img)
-    slave.start
-    master.start
-*/
     val slave = new RenderSlave(new Camera(test.myCam))
     slave.start
     val master = new RenderMaster(new Camera(test.myCam), slave)

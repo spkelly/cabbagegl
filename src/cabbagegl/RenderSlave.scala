@@ -1,13 +1,14 @@
 package cabbagegl
 import scala.actors.Actor
 import scala.actors.Actor._
+import scala.actors.OutputChannel
 import java.awt.image.BufferedImage
 import java.awt.Color
 
 case class AskPixel(i: Int, j: Int) 
 
 class BuildAskPixel(var iter: IndexedSeq[(Int, Int)]) {
-  def this(a: Int, b: Int) = this(for (i <- 0 to (a - 1); j <- 0 to (b - 1)) yield (i, j))
+  // def this(a: Int, b: Int) = this(for (i <- 0 to (a - 1); j <- 0 to (b - 1)) yield (i, j))
   def next = if (iter.isEmpty) None
     else {
     val buffer = Some(AskPixel(iter.head._1, iter.head._2))
@@ -31,7 +32,6 @@ class RenderSlave(cam: Camera) extends Actor {
       receive {
         case AskPixel(i, j) => 
           val pixel = GetPixel(i, j, cam.renderPixel(i, j).getRGB())
-
           sender ! pixel
           // println("wot: " + pixel)
         case End => exit()
@@ -41,59 +41,34 @@ class RenderSlave(cam: Camera) extends Actor {
   }
 }
 
-
-class RenderMaster(cam: Camera, slave: List[RenderSlave]) extends Actor {
-  def act {
-    loop {
-      react {
-        case ImgWrapper(img) => {
-          println("banane")
-          /*
-          for (i <- 0 to cam.roptions.width - 1) {
-            println("i: " + i)
-            for (j <- 0 to cam.roptions.height - 1) {
-              // println("attention attention: i " + i + ", j: " + j)
-              slave ! AskPixel(i, j)
-              receive {
-                case GetPixel(a, b, color) => {
-                  img.setRGB(i, j, color)
-                  // println("i: " + i + ", j: " + j + ", color: " + color)
-                }
-                case _ => println("master: wtf")
-              } 
+class RenderMaster(cam: Camera, slave: RenderSlave) extends Actor {
+  var returnTo: Option[OutputChannel[Any]] = None // nulls are bad and wrong I know 
+  var loopPixels = true 
+  var askFactory: BuildAskPixel = null
+  var img: BufferedImage = null
+  def act() {
+    while (loopPixels) {
+      receive {
+        case ImgWrapper(image) => {
+          println("master: got ImgWrapper")
+          returnTo = Some(sender)
+          img = image
+          askFactory = new BuildAskPixel(for (i <- 0 to (cam.roptions.width - 1); j <- 0 to (cam.roptions.height - 1)) yield (i, j))
+          slave ! askFactory.next.get // just can't be a none // I should do something anyways
+        }
+        case GetPixel(a, b, color) => {
+          println("master: got GetPixel; i: " + a + " , j: " + b)
+          img.setRGB(a, b, color)
+          askFactory.next match {
+            case Some(toAsk) => sender ! toAsk
+            case None => {  
+              loopPixels = false
+              sender ! End
+              returnTo.get ! ImgWrapper(img)
             }
           }
-          */
-          val askFactory new BuildAskPixel(cam.roptions.width, cam.roptions.height)
-          var toAsk = askFactory next
-          slave map (x => {
-            x ! toAsk next get
-          })
-          var nSlaves = slave.size
-          while (nSlaves > 0)
-            receive {
-              case GetPixel(a, b, color) => {
-                img.setRGB(a, b, color)
-                // println("i: " + i + ", j: " + j + ", color: " + color)
-                toAsk next match {
-                  case Some(ask) => sender ! ask
-                  case None => {
-                    sender ! End
-                    nSlaves = nSlaves - 1
-                  }
-                }
-    
-              }
-              case _ => println("master: wtf")
-            }   
-          }
-          sender ! ImgWrapper(img)
-          // sender ! img
-          // sender ! "banane"
-          exit()
         }
-      case _ => println("wtf")
       }
     }
-  }
+  } 
 }
