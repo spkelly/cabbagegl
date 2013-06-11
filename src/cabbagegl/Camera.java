@@ -3,9 +3,11 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Random;
+import java.io.Serializable;
 
 
-public class Camera {
+
+public class Camera implements Serializable {
     // Modelview
     private Vector3 eye;
     private Vector3 view;
@@ -40,15 +42,8 @@ public class Camera {
     public RenderOptions roptions;
 
 
-
-    // copy constructor. 
-    // since Camera is now a state container in every render actor, it needs to
-    // get copied
-    // this OOP stuff I learned at school starts to serve, it seems...
-    //
-    // oooh lord deep clones in Java are *weird*... Lemme just rant about java's
-    // typing for a second...
-
+    // copy constructor. B
+    // because Cameras are now data containers. 
     public Camera(Camera arg) {
         this.eye = new Vector3(arg.eye);
         this.view = new Vector3(arg.view);

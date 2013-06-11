@@ -1,7 +1,8 @@
 package cabbagegl;
+import java.io.Serializable;
 
 // Defines the various material properties of an object
-public class Material {
+public class Material implements Serializable {
    public Material(Vector3 icol, Vector3 idiff, Vector3 ispec) {
       this(icol, idiff, ispec, 2.0);
    }

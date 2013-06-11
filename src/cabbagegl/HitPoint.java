@@ -1,5 +1,6 @@
 package cabbagegl;
-public class HitPoint implements Comparable<HitPoint> {
+import java.io.Serializable;
+public class HitPoint implements Comparable<HitPoint>, Serializable {
    private Vector3 hitpoint;
    private Vector3 normal;
    private double distTo;

@@ -1,5 +1,6 @@
 package cabbagegl;
-public class Sphere extends Shape {
+import java.io.Serializable;
+public class Sphere extends Shape implements Serializable {
     private Vector3 center;
     private double radius;
 

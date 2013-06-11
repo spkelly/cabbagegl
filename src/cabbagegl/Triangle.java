@@ -1,7 +1,8 @@
 package cabbagegl;
+import java.io.Serializable;
 
 
-public class Triangle extends Plane {
+public class Triangle extends Plane implements Serializable {
    private Vector3 verts[]; // v1, v2, v3
    private Vector3 edges[]; // v1->v2, v2->v3, v3->v1
 

@@ -1,8 +1,9 @@
 package cabbagegl;
+import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-public class Vector3 {
+public class Vector3 implements Serializable {
     private double x, y, z;
 
     private double l;

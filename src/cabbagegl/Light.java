@@ -1,6 +1,7 @@
 package cabbagegl;
+import java.io.Serializable;
 
-public class Light {
+public class Light implements Serializable {
    private Vector3 intensity;
    private Vector3 specular;
    private Vector3 position;

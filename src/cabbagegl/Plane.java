@@ -1,7 +1,8 @@
 package cabbagegl;
 
+import java.io.Serializable;
 
-class Plane extends Shape {
+class Plane extends Shape implements Serializable {
     private Vector3 point;
     private Vector3 normal;
 

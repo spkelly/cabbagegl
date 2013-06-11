@@ -1,6 +1,7 @@
 package cabbagegl;
+import java.io.Serializable;
 
-public abstract class Shape {
+public abstract class Shape implements Serializable {
     protected Material mat;
 
     public Shape(Material imat) {

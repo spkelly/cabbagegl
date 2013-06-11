@@ -1,7 +1,8 @@
 package cabbagegl;
 import java.util.*;
+import java.io.Serializable;
 
-public class HitData {
+public class HitData implements Serializable {
    private List<HitPoint> hitpoints;
 
    public HitData() {

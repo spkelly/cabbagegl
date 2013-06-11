@@ -2,8 +2,10 @@ package cabbagegl;
 import java.awt.Color;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.io.Serializable;
+import java.io.Serializable;
 
-public class Ray {
+public class Ray implements Serializable {
    public static AtomicInteger nrays = new AtomicInteger();
 
     private Vector3 base;

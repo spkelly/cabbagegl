@@ -1,7 +1,8 @@
 package cabbagegl;
 import java.util.List;
+import java.io.Serializable;
 
-public class Polygon extends Shape {
+public class Polygon extends Shape implements Serializable {
    private Triangle tris[];
    
 

@@ -1,5 +1,6 @@
 package cabbagegl;
-public class Matrix33 {
+import java.io.Serializable;
+public class Matrix33 implements Serializable {
    Vector3 r1, r2, r3;
 
    public Matrix33(Vector3 ir1, Vector3 ir2, Vector3 ir3) {

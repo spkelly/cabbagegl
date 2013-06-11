@@ -1,7 +1,8 @@
 package cabbagegl;
 import java.util.*;
+import java.io.Serializable;
 
-public class Scene {
+public class Scene implements Serializable {
     public List<Shape> renderables;
     public List<Light> lights;
     public Vector3 ambient;
