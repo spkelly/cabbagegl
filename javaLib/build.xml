@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!-- Game Build Script -->
+
+<project name="cabbagegl" default="build" basedir=".">
+   <property name="srcdir" value="src"/>
+   <property name="libdir" value="lib"/>
+   <property name="bindir" value="bin"/>
+   <property name="distdir" value="jar"/>
+   <property name="distname" value="cabbagegl"/>
+
+   <property name="main-class" value="cabbagegl.Test"/>
+
+   <target name="init">
+      <mkdir dir="${bindir}"/>
+      <mkdir dir="${distdir}"/>
+   </target>
+
+   <target name="build" depends="init">
+      <javac srcdir="${srcdir}"
+         destdir="${bindir}"
+         includes="**/*.java"
+         classpath="${libdir}"
+         />
+   </target>
+
+   <target name="jar" depends="build">
+      <jar destfile="${distdir}/${distname}.jar" basedir="${bindir}">
+         <manifest>
+            <attribute name="Main-Class" value="${main-class}"/>
+         </manifest>
+      </jar>
+   </target>
+
+   <target name="run" depends="jar">
+      <java jar="${distdir}/${distname}.jar" fork="true"/>
+   </target>
+
+
+   <target name="clean">
+      <delete dir="${bindir}"/>
+      <delete dir="${distdir}"/>
+   </target>
+</project>
