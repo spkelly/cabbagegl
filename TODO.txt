@@ -15,15 +15,16 @@ Added so far:
    Planes
    Triangles
 
-Working fragment shaders in Python (YES PLS PLS DO THIS)
+Working fragment shaders in Python
 
 Bug in Camera where view volume is stuck centered at 0,0,0
 
 Add more flexibility for FRONT/BACK materials for primitives
 
-FINISH ROTATIONS YOU LAZY IDIOT
+FINISH ROTATIONS
+
+Unit testing
 
 
 MORE DISTRIBUTION RAYTRACING
-   Depth of Field
    Soft Shadows

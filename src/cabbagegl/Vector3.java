@@ -162,6 +162,24 @@ public class Vector3 {
        return z;
     }
 
+    public double get(int axis) {
+        double ret = 0;
+        switch (axis) {
+            case 0:
+                ret = X();
+                break;
+            case 1:
+                ret = Y();
+                break;
+            case 2:
+                ret = Z();
+                break;
+            default:
+                ret = 0;
+        }
+        return ret;
+    }
+
     public boolean equals(Vector3 o) {
        return x == o.x && y == o.y && z == o.z;
     }
