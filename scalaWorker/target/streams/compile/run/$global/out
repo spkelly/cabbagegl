@@ -1,0 +1,32 @@
+[0m[[0minfo[0m] [0mRunning scalaActors.Server [0m
+[0m[[0mdebug[0m] [0mStarting sandboxed run...[0m
+[0m[[0mdebug[0m] [0mWaiting for threads to exit or System.exit to be called.[0m
+[0m[[0mdebug[0m] [0m  Classpath:[0m
+[0m[[0mdebug[0m] [0m	/home/usr/Java/cabbagegl/scalaWorker/target/scala-2.9.1/classes[0m
+[0m[[0mdebug[0m] [0m	/home/usr/Java/cabbagegl/scalaWorker/lib/cabbagegl.jar[0m
+[0m[[0mdebug[0m] [0m	/home/usr/Java/cabbagegl/scalaWorker/lib/trivialProject.jar[0m
+[0m[[0mdebug[0m] [0m	/home/usr/.sbt/boot/scala-2.9.1/lib/scala-library.jar[0m
+[0m[[0mdebug[0m] [0m	/home/usr/.ivy2/cache/com.typesafe.akka/akka-actor/jars/akka-actor-2.0.2.jar[0m
+[0m[[0mdebug[0m] [0m	/home/usr/.ivy2/cache/com.typesafe.akka/akka-remote/jars/akka-remote-2.0.2.jar[0m
+[0m[[0mdebug[0m] [0m	/home/usr/.ivy2/cache/io.netty/netty/bundles/netty-3.3.0.Final.jar[0m
+[0m[[0mdebug[0m] [0m	/home/usr/.ivy2/cache/com.google.protobuf/protobuf-java/jars/protobuf-java-2.4.1.jar[0m
+[0m[[0mdebug[0m] [0m	/home/usr/.ivy2/cache/net.debasishg/sjson_2.9.1/jars/sjson_2.9.1-0.15.jar[0m
+[0m[[0mdebug[0m] [0m	/home/usr/.ivy2/cache/net.databinder/dispatch-json_2.9.1/jars/dispatch-json_2.9.1-0.8.5.jar[0m
+[0m[[0mdebug[0m] [0m	/home/usr/.ivy2/cache/org.apache.httpcomponents/httpclient/jars/httpclient-4.1.jar[0m
+[0m[[0mdebug[0m] [0m	/home/usr/.ivy2/cache/org.apache.httpcomponents/httpcore/jars/httpcore-4.1.jar[0m
+[0m[[0mdebug[0m] [0m	/home/usr/.ivy2/cache/commons-logging/commons-logging/jars/commons-logging-1.1.1.jar[0m
+[0m[[0mdebug[0m] [0m	/home/usr/.ivy2/cache/commons-codec/commons-codec/jars/commons-codec-1.4.jar[0m
+[0m[[0mdebug[0m] [0m	/home/usr/.ivy2/cache/org.objenesis/objenesis/jars/objenesis-1.2.jar[0m
+[0m[[0mdebug[0m] [0m	/home/usr/.ivy2/cache/commons-io/commons-io/jars/commons-io-1.4.jar[0m
+[0m[[0mdebug[0m] [0m	/home/usr/.ivy2/cache/voldemort.store.compress/h2-lzf/jars/h2-lzf-1.0.jar[0m
+[0m[[0mdebug[0m] [0mWaiting for thread run-main to exit[0m
+[0m[[0mdebug[0m] [0m	Thread run-main exited.[0m
+[0m[[0mdebug[0m] [0mWaiting for thread workerSystem-scheduler-1 to exit[0m
+[0m[[0mdebug[0m] [0m	Thread workerSystem-scheduler-1 exited.[0m
+[0m[[0mdebug[0m] [0mWaiting for thread New I/O server boss #1 ([id: 0x009ddbde, /127.0.0.1:2553]) to exit[0m
+[0m[[0mdebug[0m] [0m	Thread workerSystem-2 exited.[0m
+[0m[[0mdebug[0m] [0mWaiting for thread workerSystem-akka.actor.default-dispatcher-7 to exit[0m
+[0m[[0mdebug[0m] [0m	Thread workerSystem-akka.actor.default-dispatcher-7 exited.[0m
+[0m[[0mdebug[0m] [0mInterrupting remaining threads (should be all daemons).[0m
+[0m[[0mdebug[0m] [0mSandboxed run complete..[0m
+[0m[[0mdebug[0m] [0mExited with code 0[0m
