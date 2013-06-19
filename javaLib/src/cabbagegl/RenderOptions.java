@@ -1,5 +1,7 @@
 package cabbagegl;
-public class RenderOptions {
+import java.io.Serializable;
+
+public class RenderOptions implements Serializable {
 
     public int width;
     public int height;
