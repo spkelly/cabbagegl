@@ -38,6 +38,10 @@ public class Vector3 {
         return l;
     }
 
+    public double distTo(Vector3 v) {
+        return diff(v).len();
+    }
+
     public Vector3 scale(double d) {
         return new Vector3(x*d, y*d, z*d);
     }
