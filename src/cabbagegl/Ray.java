@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Ray {
-   public static AtomicInteger nrays = new AtomicInteger();
+    public static AtomicInteger nrays = new AtomicInteger();
 
     private Vector3 base;
     private Vector3 dir;

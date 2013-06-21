@@ -168,7 +168,8 @@ public class Camera {
         for (int dofitr = 0; dofitr < roptions.dof_rays; dofitr++) {
            for (int aaitr = 0; aaitr < roptions.AA_samples; aaitr++) {
               Ray toTrace = new Ray(neye, nPixelDir);
-              curr = curr.sum(toTrace.trace(s, mindist, maxdist, roptions.max_recurse));
+              curr = curr.sum(toTrace.trace(s, mindist, maxdist,
+                          roptions.max_recurse));
 
               // Jitter the viewpoint
               double xJit = doubleBetween(-pixWid / 4.0, pixWid / 4.0);

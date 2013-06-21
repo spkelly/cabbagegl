@@ -4,7 +4,7 @@ import java.util.*;
 
 // whoa
 
-class KDTree {
+public class KDTree {
     public static KDTree buildTree(List<Vector3> pts) {
         List<Vector3> ptsCpy = new ArrayList<Vector3>(pts);
         return new KDTree(buildTree(ptsCpy, 0));
